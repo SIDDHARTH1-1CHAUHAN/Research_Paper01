@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "claim": "The Eiffel Tower was completed in 1889 and is located in Paris, France",
+    "ground_truth": "SUPPORTED",
+    "category": "simple",
+    "difficulty": "easy",
+    "hop_level": 1,
+    "description": "Simple historical fact with two verifiable subclaims"
+  },
+  {
+    "id": 2,
+    "claim": "Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921",
+    "ground_truth": "SUPPORTED",
+    "category": "biographical",
+    "difficulty": "easy",
+    "hop_level": 2,
+    "description": "Biographical facts about Einstein"
+  },
+  {
+    "id": 3,
+    "claim": "The Great Wall of China is visible from space and was built in the 5th century BC",
+    "ground_truth": "NOT_SUPPORTED",
+    "category": "mixed",
+    "difficulty": "medium",
+    "hop_level": 2,
+    "description": "Mixed truth - second part is true, first part is a myth"
+  },
+  {
+    "id": 4,
+    "claim": "Water boils at 100 degrees Celsius at sea level",
+    "ground_truth": "SUPPORTED",
+    "category": "scientific",
+    "difficulty": "easy",
+    "hop_level": 1,
+    "description": "Basic scientific fact"
+  },
+  {
+    "id": 5,
+    "claim": "The Python programming language was created by Guido van Rossum and first released in 1991",
+    "ground_truth": "SUPPORTED",
+    "category": "technology",
+    "difficulty": "easy",
+    "hop_level": 2,
+    "description": "Technology history"
+  },
+  {
+    "id": 6,
+    "claim": "Mount Everest is the tallest mountain on Earth and is located in Nepal",
+    "ground_truth": "NOT_SUPPORTED",
+    "category": "geographical",
+    "difficulty": "medium",
+    "hop_level": 2,
+    "description": "Partially correct - Everest is tallest but on Nepal/China border"
+  },
+  {
+    "id": 7,
+    "claim": "The Earth orbits the Sun and completes one orbit every 365.25 days",
+    "ground_truth": "SUPPORTED",
+    "category": "scientific",
+    "difficulty": "easy",
+    "hop_level": 1,
+    "description": "Basic astronomy"
+  },
+  {
+    "id": 8,
+    "claim": "William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564",
+    "ground_truth": "SUPPORTED",
+    "category": "historical",
+    "difficulty": "easy",
+    "hop_level": 2,
+    "description": "Literary and biographical facts"
+  },
+  {
+    "id": 9,
+    "claim": "The COVID-19 pandemic started in 2019 and vaccines were developed within one year",
+    "ground_truth": "SUPPORTED",
+    "category": "contemporary",
+    "difficulty": "medium",
+    "hop_level": 2,
+    "description": "Recent historical event"
+  },
+  {
+    "id": 10,
+    "claim": "The human brain contains approximately 100 billion neurons",
+    "ground_truth": "SUPPORTED",
+    "category": "scientific",
+    "difficulty": "medium",
+    "hop_level": 1,
+    "description": "Neuroscience fact"
+  }
+]
