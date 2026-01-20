@@ -1,0 +1,112 @@
+# Multi-Agent Fact-Checking System - API Configuration
+
+# LLM Configuration (Hybrid Approach)
+llm:
+  # Primary (Free) LLM - Ollama
+  primary_provider: "ollama"
+  ollama:
+    base_url: "http://localhost:11434"
+    model: "llama3.2:3b"  # or "qwen2.5:3b"
+    timeout: 60
+    temperature: 0.3  # Lower for factual tasks
+    max_tokens: 2048
+
+  # Fallback/Optional (Paid) LLM - OpenAI
+  fallback_provider: "openai"  # Set to null to disable
+  openai:
+    api_key: "${OPENAI_API_KEY}"  # Set in environment or .env
+    model: "gpt-4o-mini"
+    timeout: 30
+    temperature: 0.3
+    max_tokens: 2048
+
+  # Content Analysis LLM (Optional)
+  content_analysis_provider: "ollama"  # or "gemini"
+  gemini:
+    api_key: "${GEMINI_API_KEY}"
+    model: "gemini-1.5-flash"
+    timeout: 45
+    temperature: 0.2
+
+# Search API Configuration
+search:
+  # Primary (Free) - DuckDuckGo
+  primary_provider: "duckduckgo"
+  duckduckgo:
+    max_results: 10
+    region: "wt-wt"  # worldwide
+    safesearch: "moderate"
+    time_range: null  # null, "d" (day), "w" (week), "m" (month)
+
+  # Optional (Paid) - SerperAPI
+  fallback_provider: null  # Set to "serper" if you have API key
+  serper:
+    api_key: "${SERPER_API_KEY}"
+    num_results: 10
+    location: "United States"
+    gl: "us"
+    hl: "en"
+
+# Credibility Check Configuration
+credibility:
+  # Primary (Free) - Heuristic-based
+  primary_method: "heuristic"
+  heuristic:
+    domain_whitelist:
+      high_credibility:
+        - ".edu"
+        - ".gov"
+        - ".ac.uk"
+        - ".org"  # Some .org sites
+      medium_credibility:
+        - "wikipedia.org"
+        - "britannica.com"
+        - "reuters.com"
+        - "apnews.com"
+        - "bbc.com"
+        - "nature.com"
+        - "science.org"
+        - "nih.gov"
+        - "cdc.gov"
+      low_credibility:
+        - ".com"  # Default for unknown commercial sites
+
+  # Optional (Paid) - MBFC API
+  fallback_method: null  # Set to "mbfc" if you have API key
+  mbfc:
+    api_key: "${MBFC_API_KEY}"
+    endpoint: "https://api.mediabiasfactcheck.com/v1"
+    allowed_factuality: ["very high", "high", "mostly factual"]
+    allowed_bias: ["least biased", "left-center", "right-center", "pro-science"]
+
+# Web Scraping Configuration
+scraping:
+  method: "requests"  # "requests" (fast, free) or "selenium" (slower, full JS support)
+
+  requests:
+    timeout: 10
+    max_retries: 3
+    user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    headers:
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+      Accept-Language: "en-US,en;q=0.9"
+
+  selenium:
+    headless: true
+    timeout: 15
+    browser: "chrome"  # or "firefox"
+    wait_for_elements: true
+
+# Rate Limiting
+rate_limiting:
+  enable: true
+  search_delay: 1.0  # seconds between search requests
+  scraping_delay: 0.5  # seconds between scraping requests
+  llm_delay: 0.1  # seconds between LLM calls
+
+# Retry Strategy
+retry:
+  max_retries: 3
+  backoff_factor: 2  # exponential backoff: 1s, 2s, 4s
+  retry_on_timeout: true
+  retry_on_rate_limit: true

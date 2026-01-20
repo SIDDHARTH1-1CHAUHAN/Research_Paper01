@@ -1,0 +1,92 @@
+# Multi-Agent Fact-Checking System - Agent Configuration
+
+# Input Ingestion Agent Settings
+input_ingestion:
+  enable_fol_decomposition: true
+  max_subclaims: 10
+  filter_non_verifiable: true
+  verifiability_threshold: 0.7
+
+# Query Generation Agent Settings
+query_generation:
+  queries_per_subclaim: 3  # k value (3-4 is optimal per research)
+  enable_entity_extraction: true
+  enable_paraphrasing: true
+  enable_temporal_variants: true
+  max_query_length: 200
+
+# Evidence Seeking Agent Settings
+evidence_seeking:
+  # Stage 1: Search
+  max_search_results: 10
+  search_timeout: 30  # seconds
+  enable_safe_search: true
+
+  # Stage 2: Credibility Check
+  enable_credibility_filter: true
+  credibility_threshold: "medium"  # low, medium, high
+  fallback_to_heuristics: true
+
+  # Stage 3: Content Extraction
+  max_content_length: 5000  # characters per source
+  extraction_timeout: 15  # seconds
+  enable_full_page_render: false  # Set to true if using Selenium
+  min_passage_length: 50
+  max_passages_per_source: 3
+
+# Verdict Prediction Agent Settings
+verdict_prediction:
+  # Weighted voting
+  weights:
+    high_credibility: 1.0
+    medium_credibility: 0.6
+    low_credibility: 0.3
+
+  # Decision thresholds
+  support_threshold: 0.7  # >70% agreement → SUPPORTED
+  refute_threshold: 0.3   # <30% agreement → NOT_SUPPORTED
+
+  # Explanation generation
+  max_explanation_length: 500
+  include_source_citations: true
+  min_evidence_sources: 2
+
+# Explainable AI Agent Settings
+explainable_ai:
+  enable_feature_importance: true
+  enable_counterfactual: true
+  enable_conflict_resolution: true
+  explanation_detail_level: "medium"  # low, medium, high
+
+  # Metrics
+  calculate_coverage: true
+  calculate_soundness: true
+  calculate_readability: true
+
+# Reinforcement Learning Agent Settings (Heuristic-Based)
+reinforcement_learning:
+  enable_performance_tracking: true
+  enable_pattern_analysis: true
+  enable_suggestions: true
+
+  # Scoring weights
+  accuracy_weight: 1.0
+  evidence_quality_weight: 0.3
+  efficiency_weight: 0.2
+
+  # Analysis windows
+  min_runs_for_analysis: 10
+  pattern_analysis_window: 50  # last N runs
+
+  # Storage
+  store_all_runs: true
+  database_path: "data/cache/performance.db"
+
+# Global Settings
+global:
+  enable_logging: true
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/fact_checker.log"
+  enable_caching: true
+  cache_dir: "data/cache"
+  max_cache_size_mb: 500

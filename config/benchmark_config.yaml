@@ -1,0 +1,198 @@
+# Multi-Agent Fact-Checking System - Benchmark Configuration
+
+# Global Benchmark Settings
+global:
+  sample_strategy: "stratified"  # stratified, random, sequential
+  random_seed: 42  # for reproducibility
+  enable_caching: true  # cache benchmark results
+  cache_dir: "data/cache/benchmarks"
+
+# FEVEROUS Benchmark Configuration
+feverous:
+  name: "FEVEROUS"
+  description: "Fact Extraction and VERification Over Structured and Unstructured Information"
+  dataset_path: "data/benchmarks/feverous"
+
+  # Sampling
+  total_samples: 100  # full evaluation
+  dev_samples: 10     # mini evaluation for development
+  validation_split: "validation"
+
+  # Temporal boundary (prevent data leakage)
+  temporal_cutoff: "2021-10-12"
+
+  # Categories to test
+  categories:
+    - "text_only"
+    - "table_only"
+    - "text_and_table"
+    - "numerical"
+    - "multi_hop"
+
+  # Stratification
+  stratify_by: "category"
+  min_samples_per_category: 2
+
+  # Evaluation metrics
+  metrics:
+    - "accuracy"
+    - "f1_score"
+    - "precision"
+    - "recall"
+    - "f1_by_category"
+
+# HOVER Benchmark Configuration
+hover:
+  name: "HoVer"
+  description: "Multi-hop Fact Verification with Wikipedia"
+  dataset_path: "data/benchmarks/hover"
+
+  # Sampling
+  total_samples: 100
+  dev_samples: 10
+  validation_split: "validation"
+
+  # Temporal boundary
+  temporal_cutoff: "2020-11-16"
+
+  # Hop complexity levels
+  hop_levels:
+    - 2  # 2-hop reasoning
+    - 3  # 3-hop reasoning
+    - 4  # 4-hop reasoning
+
+  # Stratification
+  stratify_by: "hop_level"
+  min_samples_per_level: 3
+
+  # Evaluation metrics
+  metrics:
+    - "accuracy"
+    - "f1_score"
+    - "precision"
+    - "recall"
+    - "f1_by_hop_level"
+
+# SciFact-Open Benchmark Configuration
+scifact:
+  name: "SciFact-Open"
+  description: "Scientific Claim Verification (Open Domain)"
+  dataset_path: "data/benchmarks/scifact"
+
+  # Sampling
+  total_samples: 100
+  dev_samples: 10
+  validation_split: "validation"
+
+  # Temporal boundary
+  temporal_cutoff: "2020-10-03"
+
+  # Claim categories
+  categories:
+    - "biomedical"
+    - "chemistry"
+    - "medicine"
+    - "general_science"
+
+  # Evidence types
+  evidence_types:
+    - "supporting"
+    - "contradicting"
+    - "insufficient"
+
+  # Stratification
+  stratify_by: "evidence_type"
+  min_samples_per_type: 3
+
+  # Evaluation metrics
+  metrics:
+    - "accuracy"
+    - "f1_score"
+    - "precision"
+    - "recall"
+    - "abstract_retrieval_accuracy"
+
+# Evaluation Settings
+evaluation:
+  # Mode
+  mode: "dev"  # "dev" (10 samples) or "full" (100 samples)
+
+  # Parallel processing
+  enable_parallel: false  # Set to true for faster evaluation (uses more resources)
+  max_workers: 4
+
+  # Logging
+  verbose: true
+  save_predictions: true
+  save_explanations: true
+  predictions_dir: "data/cache/predictions"
+
+  # Error handling
+  continue_on_error: true
+  max_consecutive_errors: 5
+
+# Explanation Quality Evaluation
+explanation_quality:
+  enable: true
+
+  # Metrics (based on research paper)
+  metrics:
+    coverage:
+      description: "Percentage of verdict reasoning explained"
+      weight: 0.4
+
+    soundness:
+      description: "Logical consistency of explanation"
+      weight: 0.4
+
+    readability:
+      description: "Human comprehension score"
+      weight: 0.2
+
+  # Human evaluation (optional, for research paper)
+  human_evaluation:
+    enable: false  # Set to true when ready for human annotation
+    annotators: 3
+    agreement_threshold: 0.7  # Inter-annotator agreement
+
+# Performance Benchmarking
+performance:
+  enable: true
+
+  # Metrics to track
+  metrics:
+    - "total_runtime"
+    - "avg_time_per_claim"
+    - "queries_per_claim"
+    - "sources_retrieved"
+    - "credible_sources_ratio"
+    - "avg_evidence_length"
+
+  # Reporting
+  generate_report: true
+  report_format: ["json", "csv", "markdown"]
+  report_dir: "data/cache/reports"
+
+# Comparison with Baselines
+baselines:
+  enable: true
+
+  # Baseline systems from research paper
+  systems:
+    - name: "FOLK"
+      description: "First-Order Logic Knowledge-based fact-checker"
+      # Results from paper (for comparison)
+      results:
+        hover_2hop: 0.501
+        hover_3hop: 0.501
+        hover_4hop: 0.466
+        feverous_text_table: 0.649
+        scifact_open: 0.737
+
+    - name: "AVERITEC"
+      description: "AVeriTeC baseline system"
+      results:
+        # Add baseline results if available
+
+  # Our system target
+  target_improvement: 0.123  # 12.3% improvement over FOLK baseline
