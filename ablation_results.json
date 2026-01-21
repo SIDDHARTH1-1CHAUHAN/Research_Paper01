@@ -1,0 +1,988 @@
+{
+  "dataset": "data/benchmarks/mock_dataset.json",
+  "num_claims": 10,
+  "ablation_results": [
+    {
+      "name": "Full System",
+      "description": "Complete system with all components enabled",
+      "config": {
+        "use_fol_decomposition": true,
+        "query_diversity_k": 3,
+        "use_credibility_weighting": true,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 0.6,
+          "low": 0.3
+        },
+        "use_3stage_pipeline": true,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.7
+      },
+      "metrics": {
+        "accuracy": 0.9,
+        "precision": 1.0,
+        "recall": 0.875,
+        "f1_score": 0.933,
+        "avg_processing_time": 5.75,
+        "total_predictions": 10,
+        "correct_predictions": 9
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Without FOL Decomposition",
+      "description": "Treats entire claim as single unit (no subclaim decomposition)",
+      "config": {
+        "use_fol_decomposition": false,
+        "query_diversity_k": 3,
+        "use_credibility_weighting": true,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 0.6,
+          "low": 0.3
+        },
+        "use_3stage_pipeline": true,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.7
+      },
+      "metrics": {
+        "accuracy": 0.7,
+        "precision": 1.0,
+        "recall": 0.625,
+        "f1_score": 0.769,
+        "avg_processing_time": 5.0,
+        "total_predictions": 10,
+        "correct_predictions": 7
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.0,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Without Query Diversity",
+      "description": "Uses only 1 query per subclaim instead of 3",
+      "config": {
+        "use_fol_decomposition": true,
+        "query_diversity_k": 1,
+        "use_credibility_weighting": true,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 0.6,
+          "low": 0.3
+        },
+        "use_3stage_pipeline": true,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.7
+      },
+      "metrics": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "avg_processing_time": 4.25,
+        "total_predictions": 10,
+        "correct_predictions": 10
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.25,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Without Credibility Weighting",
+      "description": "All sources treated equally regardless of credibility",
+      "config": {
+        "use_fol_decomposition": true,
+        "query_diversity_k": 3,
+        "use_credibility_weighting": false,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 1.0,
+          "low": 1.0
+        },
+        "use_3stage_pipeline": true,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.7
+      },
+      "metrics": {
+        "accuracy": 0.7,
+        "precision": 0.857,
+        "recall": 0.75,
+        "f1_score": 0.8,
+        "avg_processing_time": 5.75,
+        "total_predictions": 10,
+        "correct_predictions": 7
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Without 3-Stage Pipeline",
+      "description": "No credibility checking, direct evidence extraction",
+      "config": {
+        "use_fol_decomposition": true,
+        "query_diversity_k": 3,
+        "use_credibility_weighting": true,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 0.6,
+          "low": 0.3
+        },
+        "use_3stage_pipeline": false,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.7
+      },
+      "metrics": {
+        "accuracy": 0.5,
+        "precision": 0.714,
+        "recall": 0.625,
+        "f1_score": 0.667,
+        "avg_processing_time": 4.75,
+        "total_predictions": 10,
+        "correct_predictions": 5
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": false,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": false,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 4.75,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Binary Credibility",
+      "description": "Only HIGH (1.0) or LOW (0.3) credibility, no MEDIUM",
+      "config": {
+        "use_fol_decomposition": true,
+        "query_diversity_k": 3,
+        "use_credibility_weighting": true,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 1.0,
+          "low": 0.3
+        },
+        "use_3stage_pipeline": true,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.7
+      },
+      "metrics": {
+        "accuracy": 0.6,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1_score": 0.667,
+        "avg_processing_time": 5.75,
+        "total_predictions": 10,
+        "correct_predictions": 6
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Stricter Threshold",
+      "description": "Requires 85% evidence agreement instead of 70%",
+      "config": {
+        "use_fol_decomposition": true,
+        "query_diversity_k": 3,
+        "use_credibility_weighting": true,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 0.6,
+          "low": 0.3
+        },
+        "use_3stage_pipeline": true,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.85
+      },
+      "metrics": {
+        "accuracy": 0.6,
+        "precision": 0.75,
+        "recall": 0.75,
+        "f1_score": 0.75,
+        "avg_processing_time": 5.75,
+        "total_predictions": 10,
+        "correct_predictions": 6
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Lenient Threshold",
+      "description": "Requires only 55% evidence agreement",
+      "config": {
+        "use_fol_decomposition": true,
+        "query_diversity_k": 3,
+        "use_credibility_weighting": true,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 0.6,
+          "low": 0.3
+        },
+        "use_3stage_pipeline": true,
+        "use_xai": true,
+        "use_rl": true,
+        "verdict_threshold": 0.55
+      },
+      "metrics": {
+        "accuracy": 0.8,
+        "precision": 0.875,
+        "recall": 0.875,
+        "f1_score": 0.875,
+        "avg_processing_time": 5.75,
+        "total_predictions": 10,
+        "correct_predictions": 8
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": false,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 5.750000000000001,
+          "config_name": "Unknown"
+        }
+      ]
+    },
+    {
+      "name": "Minimal System",
+      "description": "All enhancements disabled (baseline baseline)",
+      "config": {
+        "use_fol_decomposition": false,
+        "query_diversity_k": 1,
+        "use_credibility_weighting": false,
+        "credibility_weights": {
+          "high": 1.0,
+          "medium": 1.0,
+          "low": 1.0
+        },
+        "use_3stage_pipeline": false,
+        "use_xai": false,
+        "use_rl": false,
+        "verdict_threshold": 0.7
+      },
+      "metrics": {
+        "accuracy": 0.4,
+        "precision": 0.75,
+        "recall": 0.375,
+        "f1_score": 0.5,
+        "avg_processing_time": 2.5,
+        "total_predictions": 10,
+        "correct_predictions": 4
+      },
+      "predictions": [
+        {
+          "claim_id": 1,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 2,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 3,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": true,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 4,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 5,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 6,
+          "predicted": "SUPPORTED",
+          "ground_truth": "NOT_SUPPORTED",
+          "correct": false,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 7,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 8,
+          "predicted": "SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": true,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 9,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        },
+        {
+          "claim_id": 10,
+          "predicted": "NOT_SUPPORTED",
+          "ground_truth": "SUPPORTED",
+          "correct": false,
+          "processing_time": 2.5,
+          "config_name": "Unknown"
+        }
+      ]
+    }
+  ],
+  "comparison_table": "| Configuration | Accuracy | Precision | Recall | F1-Score | Delta F1 | Avg Time |\n|--------------|----------|-----------|--------|----------|------|----------|\n| Full System                  | 90.0% | 100.0% | 87.5% | 0.933 | baseline | 5.75s |\n| Without FOL Decomposition    | 70.0% | 100.0% | 62.5% | 0.769 |   -0.164 | 5.00s |\n| Without Query Diversity      | 100.0% | 100.0% | 100.0% | 1.000 |   +0.067 | 4.25s |\n| Without Credibility Weighting | 70.0% | 85.7% | 75.0% | 0.800 |   -0.133 | 5.75s |\n| Without 3-Stage Pipeline     | 50.0% | 71.4% | 62.5% | 0.667 |   -0.266 | 4.75s |\n| Binary Credibility           | 60.0% | 100.0% | 50.0% | 0.667 |   -0.266 | 5.75s |\n| Stricter Threshold           | 60.0% | 75.0% | 75.0% | 0.750 |   -0.183 | 5.75s |\n| Lenient Threshold            | 80.0% | 87.5% | 87.5% | 0.875 |   -0.058 | 5.75s |\n| Minimal System               | 40.0% | 75.0% | 37.5% | 0.500 |   -0.433 | 2.50s |\n"
+}

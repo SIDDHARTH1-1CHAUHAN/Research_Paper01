@@ -1,0 +1,146 @@
+======================================================================
+ABLATION STUDIES - COMPREHENSIVE ANALYSIS
+======================================================================
+
+============================================================
+ABLATION STUDIES - Multi-Agent Fact-Checking System
+============================================================
+Dataset: data/benchmarks/mock_dataset.json
+Number of claims: 10
+
+
+============================================================
+Running: Full System
+Description: Complete system with all components enabled
+============================================================
+
+Results:
+  Accuracy:     50.0%
+  Precision:    100.0%
+  Recall:       37.5%
+  F1-Score:     0.545
+  Avg Time:     5.75s
+
+============================================================
+Running: Without FOL Decomposition
+Description: Treats entire claim as single unit (no subclaim decomposition)
+============================================================
+
+Results:
+  Accuracy:     70.0%
+  Precision:    100.0%
+  Recall:       62.5%
+  F1-Score:     0.769
+  Avg Time:     5.00s
+
+============================================================
+Running: Without Query Diversity
+Description: Uses only 1 query per subclaim instead of 3
+============================================================
+
+Results:
+  Accuracy:     70.0%
+  Precision:    100.0%
+  Recall:       62.5%
+  F1-Score:     0.769
+  Avg Time:     4.25s
+
+============================================================
+Running: Without Credibility Weighting
+Description: All sources treated equally regardless of credibility
+============================================================
+
+Results:
+  Accuracy:     50.0%
+  Precision:    80.0%
+  Recall:       50.0%
+  F1-Score:     0.615
+  Avg Time:     5.75s
+
+============================================================
+Running: Without 3-Stage Pipeline
+Description: No credibility checking, direct evidence extraction
+============================================================
+
+Results:
+  Accuracy:     70.0%
+  Precision:    85.7%
+  Recall:       75.0%
+  F1-Score:     0.800
+  Avg Time:     4.75s
+
+============================================================
+Running: Binary Credibility
+Description: Only HIGH (1.0) or LOW (0.3) credibility, no MEDIUM
+============================================================
+
+Results:
+  Accuracy:     80.0%
+  Precision:    100.0%
+  Recall:       75.0%
+  F1-Score:     0.857
+  Avg Time:     5.75s
+
+============================================================
+Running: Stricter Threshold
+Description: Requires 85% evidence agreement instead of 70%
+============================================================
+
+Results:
+  Accuracy:     70.0%
+  Precision:    100.0%
+  Recall:       62.5%
+  F1-Score:     0.769
+  Avg Time:     5.75s
+
+============================================================
+Running: Lenient Threshold
+Description: Requires only 55% evidence agreement
+============================================================
+
+Results:
+  Accuracy:     80.0%
+  Precision:    100.0%
+  Recall:       75.0%
+  F1-Score:     0.857
+  Avg Time:     5.75s
+
+============================================================
+Running: Minimal System
+Description: All enhancements disabled (baseline baseline)
+============================================================
+
+Results:
+  Accuracy:     30.0%
+  Precision:    60.0%
+  Recall:       37.5%
+  F1-Score:     0.462
+  Avg Time:     2.50s
+
+======================================================================
+ABLATION STUDY COMPARISON
+======================================================================
+
+| Configuration | Accuracy | Precision | Recall | F1-Score | Delta F1 | Avg Time |
+|--------------|----------|-----------|--------|----------|------|----------|
+| Full System                  | 50.0% | 100.0% | 37.5% | 0.545 | baseline | 5.75s |
+| Without FOL Decomposition    | 70.0% | 100.0% | 62.5% | 0.769 |   +0.224 | 5.00s |
+| Without Query Diversity      | 70.0% | 100.0% | 62.5% | 0.769 |   +0.224 | 4.25s |
+| Without Credibility Weighting | 50.0% | 80.0% | 50.0% | 0.615 |   +0.070 | 5.75s |
+| Without 3-Stage Pipeline     | 70.0% | 85.7% | 75.0% | 0.800 |   +0.255 | 4.75s |
+| Binary Credibility           | 80.0% | 100.0% | 75.0% | 0.857 |   +0.312 | 5.75s |
+| Stricter Threshold           | 70.0% | 100.0% | 62.5% | 0.769 |   +0.224 | 5.75s |
+| Lenient Threshold            | 80.0% | 100.0% | 75.0% | 0.857 |   +0.312 | 5.75s |
+| Minimal System               | 30.0% | 60.0% | 37.5% | 0.462 |   -0.083 | 2.50s |
+
+Traceback (most recent call last):
+  File "C:\Users\Dell\Desktop\2026\Research_Paper_01\multi-agent-fact-checker\scripts\run_ablation_studies.py", line 262, in <module>
+    main()
+  File "C:\Users\Dell\Desktop\2026\Research_Paper_01\multi-agent-fact-checker\scripts\run_ablation_studies.py", line 240, in main
+    study.save_results(json_output)
+  File "C:\Users\Dell\Desktop\2026\Research_Paper_01\multi-agent-fact-checker\tests\test_ablation_studies.py", line 372, in save_results
+    print(f"\n\u2713 Results saved to: {output_path}")
+  File "C:\Users\Dell\anaconda3\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 2: character maps to <undefined>
