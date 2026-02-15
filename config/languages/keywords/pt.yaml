@@ -1,0 +1,103 @@
+# Portuguese Keywords for FOL Parser and Verifiability Detection
+language: pt
+language_name: Portuguese
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - acreditar
+  - acredito
+  - pensar
+  - penso
+  - achar
+  - acho
+  - sentir
+  - sinto
+  - deveria
+  - melhor
+  - pior
+  - bom
+  - mau
+  - bonito
+  - feio
+  - provavelmente
+  - possivelmente
+  - talvez
+  - parece
+  - aparentemente
+  - supostamente
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - será
+  - serão
+  - vai
+  - vão
+  - irá
+  - irão
+  - poderia
+  - poderiam
+  - prever
+  - previsão
+  - esperar
+  - antecipar
+  - no futuro
+  - em breve
+  - eventualmente
+  - até 2030
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - alguns
+  - algumas
+  - muitos
+  - muitas
+  - poucos
+  - poucas
+  - vários
+  - várias
+  - diversos
+  - frequentemente
+  - às vezes
+  - raramente
+  - geralmente
+  - normalmente
+  - quase
+  - aproximadamente
+  - cerca de
+  - por volta de
+
+# Question patterns for query generation
+question_patterns:
+  question_starters:
+    - "O que é"
+    - "Quem é"
+    - "Quando"
+    - "Onde"
+    - "Quantos"
+    - "É verdade que"
+    - "Como"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - e
+    - também
+    - além disso
+    - ademais
+  disjunction:
+    - ou
+    - seja
+    - alternativamente
+  negation:
+    - não
+    - nunca
+    - jamais
+    - nenhum
+    - nenhuma
+    - nem
+  conditional:
+    - se
+    - quando
+    - a menos que
+    - desde que
+    - caso

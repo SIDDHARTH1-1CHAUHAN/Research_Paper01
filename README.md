@@ -346,21 +346,24 @@ MBFC_API_KEY=your_key_here
 ```
 multi-agent-fact-checker/
 ├── README.md                    # This file - Complete guide
-├── docs/                        # Documentation folder
-│   ├── RESEARCH_PAPER.md       # Academic methodology & results
-│   ├── ARCHITECTURE.md         # Technical deep-dive
-│   ├── IMPROVEMENTS.md         # Guide for paid AI upgrades
-│   ├── DEMO_OBSERVATIONS.md    # Demo results & analysis
-│   ├── WEB_APP_INSTRUCTIONS.md # Presentation guide
-│   ├── CONTRIBUTING.md         # Contribution guidelines
-│   └── HOW_TO_RUN.md           # Demo execution guide
 ├── requirements.txt            # Python dependencies
-├── setup.py                    # Package installation
-├── .env.example                # Environment template
+├── core/                       # Key files quick reference
+│   ├── evaluation_task.yaml   # Evaluation specification
+│   ├── EXECUTION_FLOWCHART.md # System flow diagram
+│   ├── SESSION_SUMMARY.md     # Development session log
+│   ├── dataset_loader.py      # Dataset utilities
+│   └── metrics.py             # Evaluation metrics
+├── docs/                       # Documentation folder
+│   ├── EXECUTION_FLOWCHART.md # Complete pipeline visualization
+│   ├── SESSION_SUMMARY.md     # Session log with accuracy report
+│   ├── RESEARCH_PAPER.md      # Academic methodology & results
+│   ├── ARCHITECTURE.md        # Technical deep-dive
+│   └── IMPROVEMENTS.md        # Guide for paid AI upgrades
 ├── config/                     # Configuration files
 │   ├── agent_config.yaml      # Agent settings
 │   ├── api_config.yaml        # API configuration
-│   └── benchmark_config.yaml  # Evaluation settings
+│   ├── benchmark_config.yaml  # Evaluation settings
+│   └── evaluation_task.yaml   # Macro F1 & MAR specification
 ├── src/                        # Source code (Python)
 │   ├── orchestrator.py        # Main workflow coordinator
 │   ├── agents/                # 6 specialized agents
@@ -370,28 +373,25 @@ multi-agent-fact-checker/
 │   │   ├── verdict_prediction.py
 │   │   ├── explainable_ai.py
 │   │   └── reinforcement_learning.py
-│   ├── utils/                 # Utilities
-│   │   ├── llm_interface.py   # LLM abstraction layer
-│   │   ├── fol_parser.py      # First-Order Logic parser
-│   │   ├── credibility_checker.py
-│   │   └── web_scraper.py
 │   ├── evaluation/            # Benchmark evaluation
+│   │   ├── metrics.py         # Macro F1, MAR metrics
+│   │   └── dataset_loader.py  # HOVER, FEVEROUS, SciFact loader
+│   ├── utils/                 # Utilities
 │   └── storage/               # Data storage modules
-├── web-app/                    # Next.js presentation app
-│   ├── README.md              # Web app documentation
-│   ├── package.json           # Node dependencies
-│   ├── app/                   # Next.js pages
-│   ├── components/            # React components
-│   │   ├── AgentFlowchart.tsx
-│   │   ├── MetricsVisualization.tsx
-│   │   └── ComparisonChart.tsx
-│   └── public/                # Static assets
 ├── data/                       # Data and cache
-│   └── benchmarks/            # Mock dataset & test data
-├── notebooks/                  # Jupyter demos (optional)
-├── examples/                   # Usage examples
-├── tests/                      # Unit tests
-└── docs/                       # Additional documentation
+│   ├── datasets/              # Evaluation datasets
+│   │   ├── hover/            # 4,000 dev + 18,000 train samples
+│   │   ├── feverous/         # 7,891 dev + 87,000 train samples
+│   │   └── scifact-open/     # 300 dev + 809 train samples
+│   ├── outputs/              # Generated outputs
+│   │   ├── predictions/
+│   │   ├── explanations/
+│   │   └── reports/
+│   └── benchmarks/           # Mock dataset
+├── web-app/                   # Next.js presentation app
+├── scripts/                   # Entry point scripts
+├── tests/                     # Unit tests
+└── notebooks/                 # Jupyter demos
 ```
 
 ---
@@ -586,4 +586,31 @@ MIT License - see [LICENSE](LICENSE) file
 - [ ] Install dependencies
 - [ ] Run first fact-check!
 
-**Ready to fight misinformation with AI? Let's go!** 🚀
+---
+
+## Execution Flowchart
+
+See [docs/EXECUTION_FLOWCHART.md](docs/EXECUTION_FLOWCHART.md) for the complete system flow:
+
+```
+User Claim → [Agent 1: Input Ingestion] → [Agent 2: Query Generation]
+          → [Agent 3: Evidence Seeking] → [Agent 4: Verdict Prediction]
+          → [Agent 5: Explainable AI] + [Agent 6: Reinforcement Learning]
+          → Final Verdict + Explanation
+```
+
+---
+
+## Evaluation Datasets
+
+| Dataset | Dev Samples | Train Samples | Description |
+|---------|-------------|---------------|-------------|
+| **HOVER** | 4,000 | ~18,000 | Multi-hop Wikipedia verification |
+| **FEVEROUS** | 7,891 | 87,026 | Text + Table verification |
+| **SciFact** | 300 | 809 | Scientific claim verification |
+
+Total: **12,191 dev samples** for evaluation
+
+---
+
+**Ready to fight misinformation with AI? Let's go!**

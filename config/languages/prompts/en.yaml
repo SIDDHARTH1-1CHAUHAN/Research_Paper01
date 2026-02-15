@@ -1,0 +1,102 @@
+# English Prompts Configuration
+language: en
+language_name: English
+
+# FOL Decomposition Prompts
+fol_decomposition:
+  system_prompt: |
+    You are a First-Order Logic expert specializing in claim decomposition.
+
+    Decompose complex claims into atomic subclaims using FOL predicates:
+    - Predicate(entity, property, value)
+    - Relation(entity1, entity2)
+
+    Rules:
+    1. Each subclaim should be independently verifiable
+    2. Use proper predicate notation
+    3. Extract all entities and properties
+    4. Classify verifiability
+
+  user_prompt_template: |
+    Decompose this claim into atomic subclaims:
+
+    CLAIM: {claim}
+
+    Provide up to {max_subclaims} atomic subclaims in JSON format:
+    {{
+      "subclaims": [
+        {{
+          "id": "SC1",
+          "text": "atomic claim text",
+          "logical_form": "Predicate(entity, property, value)",
+          "verifiability": "verifiable" | "opinion" | "vague" | "future_prediction",
+          "entities": ["entity1", "entity2"],
+          "properties": ["property1"]
+        }}
+      ]
+    }}
+
+# Query Generation Prompts
+query_generation:
+  system_prompt: |
+    You are a search query optimization expert.
+    Generate diverse, effective search queries for fact-checking.
+
+  user_prompt_template: |
+    Generate {num_queries} diverse search queries to verify:
+
+    CLAIM: {claim}
+    ENTITIES: {entities}
+
+    Provide queries that:
+    1. Search for direct evidence
+    2. Convert to question form
+    3. Use key entities and dates
+
+    Return as JSON: {{"queries": ["query1", "query2", ...]}}
+
+# Verdict Explanation Templates
+verdict_explanation:
+  supported: |
+    Claim: {claim}
+
+    Final Verdict: SUPPORTED
+
+    This claim is supported by credible sources. We found {total_sources} evidence sources,
+    including {high_cred_count} from highly credible outlets.
+
+    All subclaims have been verified by the evidence.
+
+  not_supported: |
+    Claim: {claim}
+
+    Final Verdict: NOT SUPPORTED
+
+    This claim could not be verified. After reviewing {total_sources} sources,
+    we were unable to find sufficient credible evidence to support all parts of the claim.
+
+    One or more subclaims could not be verified.
+
+  insufficient_evidence: |
+    Claim: {claim}
+
+    Final Verdict: INSUFFICIENT EVIDENCE
+
+    We found {total_sources} sources related to this claim, but the evidence is
+    inconclusive. More research may be needed to verify this claim.
+
+# Counterfactual Explanation Templates
+counterfactual:
+  would_change_supported: |
+    Removing the top {count} most important sources would likely change
+    the verdict to NOT_SUPPORTED.
+
+  would_change_not_supported: |
+    Additional high-credibility sources supporting all subclaims would be
+    needed to change the verdict to SUPPORTED.
+
+# Summary Templates
+summary:
+  sources_analyzed: "Total sources analyzed: {count}"
+  high_credibility: "High credibility sources: {count}"
+  subclaims_evaluated: "Subclaims evaluated: {count}"

@@ -1,14 +1,17 @@
 """
 Credibility Checker - Assesses source reliability using heuristics
 Fallback to MBFC API if configured
+Supports multilingual operation with language-specific trusted sources
 """
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Set, List
 from enum import Enum
 from dataclasses import dataclass
 from urllib.parse import urlparse
 from loguru import logger
 import requests
+
+from src.utils.multilingual_config import get_multilingual_config
 
 
 class CredibilityLevel(Enum):
@@ -32,30 +35,79 @@ class CredibilityChecker:
     Assesses source credibility using multiple methods:
     1. Heuristic-based (free, fast)
     2. MBFC API (paid, more accurate)
+
+    Supports multilingual operation with language-specific trusted sources.
     """
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None, language: str = 'en'):
         """
         Initialize credibility checker.
 
         Args:
             config: Credibility configuration from api_config.yaml
+            language: Language code for regional credibility sources (default: 'en')
         """
         self.config = config or {}
         self.mbfc_api_key = self.config.get('mbfc', {}).get('api_key')
+        self.language = language
+        self.ml_config = get_multilingual_config()
 
-        # High credibility domains
-        self.high_credibility_domains = set([
-            'edu', 'gov', 'ac.uk', 'nature.com', 'science.org',
-            'nih.gov', 'cdc.gov', 'who.int', 'nasa.gov',
-            'reuters.com', 'apnews.com', 'bbc.com', 'pbs.org'
-        ])
+        # Load language-specific credibility sources
+        self._load_credibility_sources()
 
-        # Medium credibility domains
-        self.medium_credibility_domains = set([
-            'wikipedia.org', 'britannica.com', 'nationalgeographic.com',
-            'scientificamerican.com', 'theconversation.com'
-        ])
+    def _load_credibility_sources(self):
+        """Load language-specific credibility sources from configuration"""
+        cred_config = self.ml_config.get_credibility_config(self.language)
+
+        # Extract high credibility domains
+        high_cred = cred_config.get('high_credibility', [])
+        self.high_credibility_domains = set()
+        self.high_credibility_scores = {}
+        for item in high_cred:
+            domain = item.get('domain', '')
+            self.high_credibility_domains.add(domain)
+            self.high_credibility_scores[domain] = item.get('score', 0.9)
+
+        # Extract medium credibility domains
+        med_cred = cred_config.get('medium_credibility', [])
+        self.medium_credibility_domains = set()
+        self.medium_credibility_scores = {}
+        for item in med_cred:
+            domain = item.get('domain', '')
+            self.medium_credibility_domains.add(domain)
+            self.medium_credibility_scores[domain] = item.get('score', 0.6)
+
+        # Extract fact-checkers
+        fact_checkers = cred_config.get('fact_checkers', [])
+        self.fact_checker_domains = set()
+        for item in fact_checkers:
+            self.fact_checker_domains.add(item.get('domain', ''))
+
+        # Add default domains if empty
+        if not self.high_credibility_domains:
+            self.high_credibility_domains = {
+                'edu', 'gov', 'ac.uk', 'nature.com', 'science.org',
+                'nih.gov', 'cdc.gov', 'who.int', 'nasa.gov',
+                'reuters.com', 'apnews.com', 'bbc.com', 'pbs.org'
+            }
+
+        if not self.medium_credibility_domains:
+            self.medium_credibility_domains = {
+                'wikipedia.org', 'britannica.com', 'nationalgeographic.com',
+                'scientificamerican.com', 'theconversation.com'
+            }
+
+    def set_language(self, language: str):
+        """
+        Set the language for credibility checking.
+
+        Args:
+            language: ISO 639-1 language code
+        """
+        if language != self.language:
+            self.language = language
+            self._load_credibility_sources()
+            logger.debug(f"CredibilityChecker language set to: {language}")
 
     def check(self, url: str) -> CredibilityScore:
         """

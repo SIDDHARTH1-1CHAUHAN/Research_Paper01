@@ -1,0 +1,116 @@
+# English Credibility Sources
+language: en
+language_name: English
+
+# High credibility domains
+high_credibility:
+  # Government & Official
+  - domain: ".gov"
+    type: government
+    score: 0.95
+  - domain: "nasa.gov"
+    type: government
+    score: 0.95
+  - domain: "cdc.gov"
+    type: government
+    score: 0.95
+  - domain: "nih.gov"
+    type: government
+    score: 0.95
+  - domain: "who.int"
+    type: international_org
+    score: 0.95
+
+  # Academic
+  - domain: ".edu"
+    type: academic
+    score: 0.90
+  - domain: ".ac.uk"
+    type: academic
+    score: 0.90
+
+  # Scientific Journals
+  - domain: "nature.com"
+    type: journal
+    score: 0.95
+  - domain: "science.org"
+    type: journal
+    score: 0.95
+  - domain: "sciencedirect.com"
+    type: journal
+    score: 0.90
+  - domain: "pubmed.ncbi.nlm.nih.gov"
+    type: journal
+    score: 0.95
+
+  # Reputable News (Wire Services)
+  - domain: "reuters.com"
+    type: wire_service
+    score: 0.90
+  - domain: "apnews.com"
+    type: wire_service
+    score: 0.90
+  - domain: "afp.com"
+    type: wire_service
+    score: 0.90
+
+  # Quality News Outlets
+  - domain: "bbc.com"
+    type: news
+    score: 0.85
+  - domain: "bbc.co.uk"
+    type: news
+    score: 0.85
+  - domain: "pbs.org"
+    type: news
+    score: 0.85
+  - domain: "npr.org"
+    type: news
+    score: 0.85
+
+# Medium credibility domains
+medium_credibility:
+  # Encyclopedias
+  - domain: "wikipedia.org"
+    type: encyclopedia
+    score: 0.70
+    note: "User-edited but generally reliable for basic facts"
+  - domain: "britannica.com"
+    type: encyclopedia
+    score: 0.80
+
+  # Quality Magazines
+  - domain: "nationalgeographic.com"
+    type: magazine
+    score: 0.75
+  - domain: "scientificamerican.com"
+    type: magazine
+    score: 0.80
+  - domain: "theconversation.com"
+    type: academic_news
+    score: 0.75
+
+  # Major News Networks
+  - domain: "cnn.com"
+    type: news
+    score: 0.65
+  - domain: "nytimes.com"
+    type: news
+    score: 0.70
+  - domain: "washingtonpost.com"
+    type: news
+    score: 0.70
+  - domain: "theguardian.com"
+    type: news
+    score: 0.70
+
+# Fact-checking organizations
+fact_checkers:
+  - domain: "snopes.com"
+    score: 0.85
+  - domain: "factcheck.org"
+    score: 0.90
+  - domain: "politifact.com"
+    score: 0.85
+  - domain: "fullfact.org"
+    score: 0.85

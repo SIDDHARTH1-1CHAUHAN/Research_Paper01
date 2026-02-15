@@ -1,0 +1,93 @@
+# Arabic Keywords for FOL Parser and Verifiability Detection
+language: ar
+language_name: Arabic
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - أعتقد
+  - أظن
+  - أشعر
+  - أفترض
+  - يجب
+  - ينبغي
+  - أفضل
+  - أسوأ
+  - جيد
+  - سيء
+  - جميل
+  - قبيح
+  - رائع
+  - فظيع
+  - ربما
+  - محتمل
+  - يبدو
+  - على ما يبدو
+  - يُزعم
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - سيكون
+  - سوف
+  - سـ
+  - قد
+  - ممكن
+  - يتوقع
+  - يتنبأ
+  - يُقدّر
+  - في المستقبل
+  - قريباً
+  - لاحقاً
+  - بحلول 2030
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - بعض
+  - كثير
+  - قليل
+  - عدة
+  - مختلف
+  - عديد
+  - كثيراً
+  - أحياناً
+  - نادراً
+  - عادةً
+  - غالباً
+  - تقريباً
+  - حوالي
+  - نحو
+
+# Question patterns for query generation
+question_patterns:
+  question_starters:
+    - "ما هو"
+    - "من هو"
+    - "متى"
+    - "أين"
+    - "كم"
+    - "هل"
+    - "كيف"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - و
+    - أيضاً
+    - كذلك
+    - بالإضافة
+    - علاوة
+  disjunction:
+    - أو
+    - إما
+  negation:
+    - لا
+    - لم
+    - لن
+    - ليس
+    - أبداً
+    - لا شيء
+  conditional:
+    - إذا
+    - لو
+    - إن
+    - ما لم
+    - بشرط

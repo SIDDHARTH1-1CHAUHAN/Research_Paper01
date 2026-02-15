@@ -1,0 +1,108 @@
+# Chinese Keywords for FOL Parser and Verifiability Detection
+language: zh
+language_name: Chinese
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - 认为
+  - 觉得
+  - 相信
+  - 感觉
+  - 假设
+  - 应该
+  - 更好
+  - 更差
+  - 最好
+  - 最差
+  - 好
+  - 坏
+  - 美丽
+  - 丑陋
+  - 可能
+  - 也许
+  - 大概
+  - 看起来
+  - 似乎
+  - 据说
+  - 传闻
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - 将会
+  - 将要
+  - 会
+  - 可能会
+  - 预计
+  - 预测
+  - 预期
+  - 预见
+  - 将来
+  - 未来
+  - 即将
+  - 不久
+  - 到2030年
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - 一些
+  - 某些
+  - 很多
+  - 许多
+  - 几个
+  - 数个
+  - 各种
+  - 众多
+  - 经常
+  - 有时
+  - 偶尔
+  - 很少
+  - 通常
+  - 一般
+  - 大约
+  - 大概
+  - 左右
+  - 差不多
+
+# Question patterns for query generation
+question_patterns:
+  statement_to_question:
+    - pattern: "(.+)是(.+)"
+      replacement: "\\1是\\2吗？"
+    - pattern: "(.+)有(.+)"
+      replacement: "\\1有\\2吗？"
+
+  question_starters:
+    - "什么是"
+    - "谁是"
+    - "什么时候"
+    - "在哪里"
+    - "多少"
+    - "是否"
+    - "如何"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - 和
+    - 与
+    - 以及
+    - 还有
+    - 并且
+    - 而且
+  disjunction:
+    - 或
+    - 或者
+    - 要么
+  negation:
+    - 不
+    - 没有
+    - 从不
+    - 绝不
+    - 无
+    - 非
+  conditional:
+    - 如果
+    - 假如
+    - 若
+    - 除非
+    - 只要

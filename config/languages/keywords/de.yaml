@@ -1,0 +1,115 @@
+# German Keywords for FOL Parser and Verifiability Detection
+language: de
+language_name: German
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - glauben
+  - glaube
+  - glaubt
+  - denken
+  - denke
+  - fühlen
+  - fühle
+  - vermuten
+  - sollte
+  - besser
+  - schlechter
+  - gut
+  - schlecht
+  - schön
+  - hässlich
+  - schrecklich
+  - ausgezeichnet
+  - wahrscheinlich
+  - möglicherweise
+  - vielleicht
+  - scheint
+  - anscheinend
+  - angeblich
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - wird
+  - werden
+  - würde
+  - würden
+  - könnte
+  - könnten
+  - vorhersagen
+  - prognostizieren
+  - erwarten
+  - antizipieren
+  - projiziert
+  - in der Zukunft
+  - bald
+  - schließlich
+  - bis 2030
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - einige
+  - manche
+  - viele
+  - wenige
+  - mehrere
+  - verschiedene
+  - zahlreiche
+  - oft
+  - manchmal
+  - selten
+  - häufig
+  - gewöhnlich
+  - normalerweise
+  - typischerweise
+  - fast
+  - ungefähr
+  - etwa
+  - circa
+
+# Question patterns for query generation
+question_patterns:
+  statement_to_question:
+    - pattern: "(.+) ist (.+)"
+      replacement: "Ist \\1 \\2?"
+    - pattern: "(.+) war (.+)"
+      replacement: "War \\1 \\2?"
+    - pattern: "(.+) sind (.+)"
+      replacement: "Sind \\1 \\2?"
+    - pattern: "(.+) hat (.+)"
+      replacement: "Hat \\1 \\2?"
+
+  question_starters:
+    - "Was ist"
+    - "Wer ist"
+    - "Wann"
+    - "Wo"
+    - "Wie viele"
+    - "Stimmt es, dass"
+    - "Wie"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - und
+    - auch
+    - außerdem
+    - ferner
+    - darüber hinaus
+  disjunction:
+    - oder
+    - entweder
+    - alternativ
+  negation:
+    - nicht
+    - nie
+    - niemals
+    - kein
+    - keine
+    - weder
+  conditional:
+    - wenn
+    - falls
+    - sofern
+    - vorausgesetzt
+    - angenommen

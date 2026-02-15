@@ -1,0 +1,1811 @@
+2026-01-30 09:30:31 | INFO     | ================================================================================
+2026-01-30 09:30:31 | INFO     | MULTI-AGENT FACT-CHECKING SYSTEM - DEMO
+2026-01-30 09:30:31 | INFO     | ================================================================================
+2026-01-30 09:30:31 | INFO     | Start Time: 2026-01-30 09:30:31
+2026-01-30 09:30:31 | INFO     | 
+2026-01-30 09:30:31 | INFO     | Loaded 10 claims from mock dataset
+2026-01-30 09:30:31 | INFO     | Processing 10 claims from mock dataset...
+2026-01-30 09:30:31 | INFO     | 
+2026-01-30 09:30:31 | INFO     | Initializing Multi-Agent System...
+2026-01-30 09:30:31 | INFO     | Loaded configuration from config\agent_config.yaml
+2026-01-30 09:30:31 | WARNING  | Ollama package not installed. Install with: pip install ollama
+2026-01-30 09:30:31 | WARNING  | OpenAI package not installed. Install with: pip install openai
+2026-01-30 09:30:31 | INFO     | LLM interface initialized successfully
+2026-01-30 09:30:31 | WARNING  | FastText not installed. Using heuristic language detection.
+2026-01-30 09:30:31 | INFO     | Install with: pip install fasttext
+2026-01-30 09:30:31 | INFO     | Multilingual components initialized
+2026-01-30 09:30:31 | INFO     | Initializing agents...
+2026-01-30 09:30:31 | INFO     | Input Ingestion Agent initialized
+2026-01-30 09:30:31 | INFO     | Query Generation Agent initialized (k=3, lang=en)
+2026-01-30 09:30:31 | INFO     | Evidence Seeking Agent initialized (lang=en, region=wt-wt)
+2026-01-30 09:30:31 | INFO     | Verdict Prediction Agent initialized (lang=en)
+2026-01-30 09:30:31 | INFO     | Explainable AI Agent initialized
+2026-01-30 09:30:31 | INFO     | Reinforcement Learning Agent initialized (heuristic-based)
+2026-01-30 09:30:31 | INFO     | ✓ All agents initialized successfully
+2026-01-30 09:30:31 | INFO     | 
+2026-01-30 09:30:31 | INFO     | 
+================================================================================
+2026-01-30 09:30:31 | INFO     | CLAIM 1/10
+2026-01-30 09:30:31 | INFO     | ================================================================================
+2026-01-30 09:30:31 | INFO     | Text: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:30:31 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:30:31 | INFO     | Category: simple
+2026-01-30 09:30:31 | INFO     | Difficulty: easy
+2026-01-30 09:30:31 | INFO     | ================================================================================
+2026-01-30 09:30:31 | INFO     | VERIFYING CLAIM: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:30:31 | INFO     | ================================================================================
+2026-01-30 09:30:31 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:30:31 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:30:31 | INFO     | Processing claim: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:30:31 | INFO     | Decomposing claim (lang=en): The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:30:35 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75a65c9b0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:30:35 | INFO     | Heuristic decomposition produced 3 subclaims
+2026-01-30 09:30:35 | INFO     | Decomposed into 3 verifiable subclaims, filtered 0
+2026-01-30 09:30:35 | INFO     | ✓ Found 3 verifiable subclaims
+2026-01-30 09:30:35 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:30:35 | INFO     | Generating queries for 3 subclaims (lang=en)
+2026-01-30 09:30:35 | INFO     | Generated 9 total queries
+2026-01-30 09:30:35 | INFO     | ✓ Generated 9 search queries
+2026-01-30 09:30:35 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:30:35 | INFO     |      Stage 1: Web Search
+2026-01-30 09:30:35 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:30:35 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:30:35 | INFO     | Seeking evidence for 3 subclaims (lang=en)
+2026-01-30 09:30:35 | INFO     | Searching for: The Eiffel Tower The Eiffel Tower was completed in 1889 (region=wt-wt)
+2026-01-30 09:30:35 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Eiffel_Tower_The_Eiffel_Tower_was_completed_in_1889
+2026-01-30 09:30:36 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Eiffel_Tower_The_Eiffel_Tower_was_completed_in_1889: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Eiffel_Tower_The_Eiffel_Tower_was_completed_in_1889
+2026-01-30 09:30:36 | INFO     | Scraping: https://www.britannica.com/topic/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:30:36 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:30:36 | INFO     | Scraping: https://www.example.edu/research/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:30:38 | ERROR    | Scraping failed for https://www.example.edu/research/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:30:38 | INFO     | Searching for: When the eiffel tower was completed in 1889 (region=wt-wt)
+2026-01-30 09:30:38 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_the_eiffel_tower_was_completed_in_1889
+2026-01-30 09:30:39 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_the_eiffel_tower_was_completed_in_1889: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_the_eiffel_tower_was_completed_in_1889
+2026-01-30 09:30:39 | INFO     | Scraping: https://www.britannica.com/topic/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:30:39 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-the-eiffel-tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:30:39 | INFO     | Scraping: https://www.example.edu/research/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:30:39 | ERROR    | Scraping failed for https://www.example.edu/research/When-the-eiffel-tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.example.edu/research/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:30:39 | INFO     | Searching for: completed tower The Eiffel Tower 1889 eiffel (region=wt-wt)
+2026-01-30 09:30:39 | INFO     | Scraping: https://en.wikipedia.org/wiki/completed_tower_The_Eiffel_Tower_1889_eiffel
+2026-01-30 09:30:40 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/completed_tower_The_Eiffel_Tower_1889_eiffel: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Completed_tower_The_Eiffel_Tower_1889_eiffel
+2026-01-30 09:30:40 | INFO     | Scraping: https://www.britannica.com/topic/completed-tower-The-Eiffel-Tower-1889-eiffel
+2026-01-30 09:30:41 | ERROR    | Scraping failed for https://www.britannica.com/topic/completed-tower-The-Eiffel-Tower-1889-eiffel: 404 Client Error: Not Found for url: https://www.britannica.com/topic/completed-tower-The-Eiffel-Tower-1889-eiffel
+2026-01-30 09:30:41 | INFO     | Scraping: https://www.example.edu/research/completed-tower-The-Eiffel-Tower-1889-eiffel
+2026-01-30 09:30:41 | ERROR    | Scraping failed for https://www.example.edu/research/completed-tower-The-Eiffel-Tower-1889-eiffel: 404 Client Error: Not Found for url: https://www.example.edu/research/completed-tower-The-Eiffel-Tower-1889-eiffel
+2026-01-30 09:30:41 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:30:41 | INFO     | Searching for: Paris is located in Paris (region=wt-wt)
+2026-01-30 09:30:41 | INFO     | Scraping: https://en.wikipedia.org/wiki/Paris_is_located_in_Paris
+2026-01-30 09:30:42 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Paris_is_located_in_Paris: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Paris_is_located_in_Paris
+2026-01-30 09:30:42 | INFO     | Scraping: https://www.britannica.com/topic/Paris-is-located-in-Paris
+2026-01-30 09:30:42 | ERROR    | Scraping failed for https://www.britannica.com/topic/Paris-is-located-in-Paris: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Paris-is-located-in-Paris
+2026-01-30 09:30:42 | INFO     | Scraping: https://www.example.edu/research/Paris-is-located-in-Paris
+2026-01-30 09:30:42 | ERROR    | Scraping failed for https://www.example.edu/research/Paris-is-located-in-Paris: 404 Client Error: Not Found for url: https://www.example.edu/research/Paris-is-located-in-Paris
+2026-01-30 09:30:42 | INFO     | Searching for: is located in Paris (region=wt-wt)
+2026-01-30 09:30:42 | INFO     | Scraping: https://en.wikipedia.org/wiki/is_located_in_Paris
+2026-01-30 09:30:43 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/is_located_in_Paris: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Is_located_in_Paris
+2026-01-30 09:30:43 | INFO     | Scraping: https://www.britannica.com/topic/is-located-in-Paris
+2026-01-30 09:30:43 | ERROR    | Scraping failed for https://www.britannica.com/topic/is-located-in-Paris: 404 Client Error: Not Found for url: https://www.britannica.com/topic/is-located-in-Paris
+2026-01-30 09:30:43 | INFO     | Scraping: https://www.example.edu/research/is-located-in-Paris
+2026-01-30 09:30:43 | ERROR    | Scraping failed for https://www.example.edu/research/is-located-in-Paris: 404 Client Error: Not Found for url: https://www.example.edu/research/is-located-in-Paris
+2026-01-30 09:30:43 | INFO     | Searching for: located Paris paris (region=wt-wt)
+2026-01-30 09:30:43 | INFO     | Scraping: https://en.wikipedia.org/wiki/located_Paris_paris
+2026-01-30 09:30:45 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/located_Paris_paris: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Located_Paris_paris
+2026-01-30 09:30:45 | INFO     | Scraping: https://www.britannica.com/topic/located-Paris-paris
+2026-01-30 09:30:45 | ERROR    | Scraping failed for https://www.britannica.com/topic/located-Paris-paris: 404 Client Error: Not Found for url: https://www.britannica.com/topic/located-Paris-paris
+2026-01-30 09:30:45 | INFO     | Scraping: https://www.example.edu/research/located-Paris-paris
+2026-01-30 09:30:45 | ERROR    | Scraping failed for https://www.example.edu/research/located-Paris-paris: 404 Client Error: Not Found for url: https://www.example.edu/research/located-Paris-paris
+2026-01-30 09:30:45 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:30:45 | INFO     | Searching for: France France (region=wt-wt)
+2026-01-30 09:30:45 | INFO     | Scraping: https://en.wikipedia.org/wiki/France_France
+2026-01-30 09:30:46 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/France_France: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/France_France
+2026-01-30 09:30:46 | INFO     | Scraping: https://www.britannica.com/topic/France-France
+2026-01-30 09:30:46 | ERROR    | Scraping failed for https://www.britannica.com/topic/France-France: 404 Client Error: Not Found for url: https://www.britannica.com/topic/France-France
+2026-01-30 09:30:46 | INFO     | Scraping: https://www.example.edu/research/France-France
+2026-01-30 09:30:46 | ERROR    | Scraping failed for https://www.example.edu/research/France-France: 404 Client Error: Not Found for url: https://www.example.edu/research/France-France
+2026-01-30 09:30:46 | INFO     | Searching for: What about france (region=wt-wt)
+2026-01-30 09:30:46 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_france
+2026-01-30 09:30:47 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_france: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_france
+2026-01-30 09:30:47 | INFO     | Scraping: https://www.britannica.com/topic/What-about-france
+2026-01-30 09:30:48 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-france: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-france
+2026-01-30 09:30:48 | INFO     | Scraping: https://www.example.edu/research/What-about-france
+2026-01-30 09:30:48 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-france: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-france
+2026-01-30 09:30:48 | INFO     | Searching for: france France (region=wt-wt)
+2026-01-30 09:30:48 | INFO     | Scraping: https://en.wikipedia.org/wiki/france_France
+2026-01-30 09:30:48 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/france_France: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/France_France
+2026-01-30 09:30:48 | INFO     | Scraping: https://www.britannica.com/topic/france-France
+2026-01-30 09:30:49 | ERROR    | Scraping failed for https://www.britannica.com/topic/france-France: 404 Client Error: Not Found for url: https://www.britannica.com/topic/france-France
+2026-01-30 09:30:49 | INFO     | Scraping: https://www.example.edu/research/france-France
+2026-01-30 09:30:49 | ERROR    | Scraping failed for https://www.example.edu/research/france-France: 404 Client Error: Not Found for url: https://www.example.edu/research/france-France
+2026-01-30 09:30:49 | INFO     | Found 0 evidence items for SC3 (0 high credibility)
+2026-01-30 09:30:49 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:30:49 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:30:49 | INFO     | Predicting verdict for: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:30:49 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:30:49 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:30:49 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:30:49 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:30:49 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:30:49 | INFO     | ✓ Explanation quality: 0.17
+2026-01-30 09:30:49 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:30:49 | INFO     | Run 1 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:30:49 | INFO     | ✓ Run recorded (accuracy: 0.00)
+2026-01-30 09:30:49 | INFO     | 
+================================================================================
+2026-01-30 09:30:49 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:30:49 | INFO     | ================================================================================
+2026-01-30 09:30:49 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:30:49 | INFO     |    Confidence: 30.00%
+2026-01-30 09:30:49 | INFO     |    Correct: ✗
+2026-01-30 09:30:49 | INFO     | 
+================================================================================
+2026-01-30 09:30:49 | INFO     | CLAIM 2/10
+2026-01-30 09:30:49 | INFO     | ================================================================================
+2026-01-30 09:30:49 | INFO     | Text: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:30:49 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:30:49 | INFO     | Category: biographical
+2026-01-30 09:30:49 | INFO     | Difficulty: easy
+2026-01-30 09:30:49 | INFO     | ================================================================================
+2026-01-30 09:30:49 | INFO     | VERIFYING CLAIM: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:30:49 | INFO     | ================================================================================
+2026-01-30 09:30:49 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:30:49 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:30:49 | INFO     | Processing claim: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:30:49 | INFO     | Decomposing claim (lang=en): Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:30:53 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b7266c0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:30:53 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:30:53 | INFO     | Decomposed into 1 verifiable subclaims, filtered 1
+2026-01-30 09:30:53 | INFO     | ✓ Found 1 verifiable subclaims
+2026-01-30 09:30:53 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:30:53 | INFO     | Generating queries for 1 subclaims (lang=en)
+2026-01-30 09:30:53 | INFO     | Generated 3 total queries
+2026-01-30 09:30:53 | INFO     | ✓ Generated 3 search queries
+2026-01-30 09:30:53 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:30:53 | INFO     |      Stage 1: Web Search
+2026-01-30 09:30:53 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:30:53 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:30:53 | INFO     | Seeking evidence for 1 subclaims (lang=en)
+2026-01-30 09:30:53 | INFO     | Searching for: Nobel Prize Physics won the Nobel Prize in Physics in 1921 (region=wt-wt)
+2026-01-30 09:30:53 | INFO     | Scraping: https://en.wikipedia.org/wiki/Nobel_Prize_Physics_won_the_Nobel_Prize_in_Physics_in_1921
+2026-01-30 09:30:54 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Nobel_Prize_Physics_won_the_Nobel_Prize_in_Physics_in_1921: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Nobel_Prize_Physics_won_the_Nobel_Prize_in_Physics_in_1921
+2026-01-30 09:30:54 | INFO     | Scraping: https://www.britannica.com/topic/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:30:54 | ERROR    | Scraping failed for https://www.britannica.com/topic/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:30:54 | INFO     | Scraping: https://www.example.edu/research/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:30:54 | ERROR    | Scraping failed for https://www.example.edu/research/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921: 404 Client Error: Not Found for url: https://www.example.edu/research/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:30:54 | INFO     | Searching for: What about won the nobel prize in physics in 1921 (region=wt-wt)
+2026-01-30 09:30:54 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_won_the_nobel_prize_in_physics_in_1921
+2026-01-30 09:30:55 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_won_the_nobel_prize_in_physics_in_1921: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_won_the_nobel_prize_in_physics_in_1921
+2026-01-30 09:30:55 | INFO     | Scraping: https://www.britannica.com/topic/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:30:55 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-won-the-nobel-prize-in-physics-in-1921: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:30:55 | INFO     | Scraping: https://www.example.edu/research/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:30:55 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-won-the-nobel-prize-in-physics-in-1921: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:30:55 | INFO     | Searching for: physics Nobel Prize won 1921 nobel Physics prize (region=wt-wt)
+2026-01-30 09:30:55 | INFO     | Scraping: https://en.wikipedia.org/wiki/physics_Nobel_Prize_won_1921_nobel_Physics_prize
+2026-01-30 09:30:57 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/physics_Nobel_Prize_won_1921_nobel_Physics_prize: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Physics_Nobel_Prize_won_1921_nobel_Physics_prize
+2026-01-30 09:30:57 | INFO     | Scraping: https://www.britannica.com/topic/physics-Nobel-Prize-won-1921-nobel-Physics-prize
+2026-01-30 09:30:57 | ERROR    | Scraping failed for https://www.britannica.com/topic/physics-Nobel-Prize-won-1921-nobel-Physics-prize: 404 Client Error: Not Found for url: https://www.britannica.com/topic/physics-Nobel-Prize-won-1921-nobel-Physics-prize
+2026-01-30 09:30:57 | INFO     | Scraping: https://www.example.edu/research/physics-Nobel-Prize-won-1921-nobel-Physics-prize
+2026-01-30 09:30:57 | ERROR    | Scraping failed for https://www.example.edu/research/physics-Nobel-Prize-won-1921-nobel-Physics-prize: 404 Client Error: Not Found for url: https://www.example.edu/research/physics-Nobel-Prize-won-1921-nobel-Physics-prize
+2026-01-30 09:30:57 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:30:57 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:30:57 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:30:57 | INFO     | Predicting verdict for: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:30:57 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:30:57 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:30:57 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:30:57 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:30:57 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:30:57 | INFO     | ✓ Explanation quality: 0.12
+2026-01-30 09:30:57 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:30:57 | INFO     | Run 2 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:30:57 | INFO     | ✓ Run recorded (accuracy: 0.00)
+2026-01-30 09:30:57 | INFO     | 
+================================================================================
+2026-01-30 09:30:57 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:30:57 | INFO     | ================================================================================
+2026-01-30 09:30:57 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:30:57 | INFO     |    Confidence: 30.00%
+2026-01-30 09:30:57 | INFO     |    Correct: ✗
+2026-01-30 09:30:57 | INFO     | 
+================================================================================
+2026-01-30 09:30:57 | INFO     | CLAIM 3/10
+2026-01-30 09:30:57 | INFO     | ================================================================================
+2026-01-30 09:30:57 | INFO     | Text: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:30:57 | INFO     | Ground Truth: NOT_SUPPORTED
+2026-01-30 09:30:57 | INFO     | Category: mixed
+2026-01-30 09:30:57 | INFO     | Difficulty: medium
+2026-01-30 09:30:57 | INFO     | ================================================================================
+2026-01-30 09:30:57 | INFO     | VERIFYING CLAIM: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:30:57 | INFO     | ================================================================================
+2026-01-30 09:30:57 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:30:57 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:30:57 | INFO     | Processing claim: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:30:57 | INFO     | Decomposing claim (lang=en): The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:31:01 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b725b50 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:31:01 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:31:01 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:31:01 | INFO     | ✓ Found 2 verifiable subclaims
+2026-01-30 09:31:01 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:31:01 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:31:01 | INFO     | Generated 6 total queries
+2026-01-30 09:31:01 | INFO     | ✓ Generated 6 search queries
+2026-01-30 09:31:01 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:31:01 | INFO     |      Stage 1: Web Search
+2026-01-30 09:31:01 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:31:01 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:31:01 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:31:01 | INFO     | Searching for: The Great Wall China The Great Wall of China is visible from space (region=wt-wt)
+2026-01-30 09:31:01 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Great_Wall_China_The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:31:02 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Great_Wall_China_The_Great_Wall_of_China_is_visible_from_space: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Great_Wall_China_The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:31:02 | INFO     | Scraping: https://www.britannica.com/topic/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:02 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:02 | INFO     | Scraping: https://www.example.edu/research/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:02 | ERROR    | Scraping failed for https://www.example.edu/research/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:02 | INFO     | Searching for: The Great Wall of China is visible from space (region=wt-wt)
+2026-01-30 09:31:02 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:31:03 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Great_Wall_of_China_is_visible_from_space: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:31:03 | INFO     | Scraping: https://www.britannica.com/topic/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:03 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:03 | INFO     | Scraping: https://www.example.edu/research/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:03 | ERROR    | Scraping failed for https://www.example.edu/research/The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:31:03 | INFO     | Searching for: China china visible great space The Great Wall wall (region=wt-wt)
+2026-01-30 09:31:03 | INFO     | Scraping: https://en.wikipedia.org/wiki/China_china_visible_great_space_The_Great_Wall_wall
+2026-01-30 09:31:04 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/China_china_visible_great_space_The_Great_Wall_wall: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/China_china_visible_great_space_The_Great_Wall_wall
+2026-01-30 09:31:04 | INFO     | Scraping: https://www.britannica.com/topic/China-china-visible-great-space-The-Great-Wall-wall
+2026-01-30 09:31:05 | ERROR    | Scraping failed for https://www.britannica.com/topic/China-china-visible-great-space-The-Great-Wall-wall: 404 Client Error: Not Found for url: https://www.britannica.com/topic/China-china-visible-great-space-The-Great-Wall-wall
+2026-01-30 09:31:05 | INFO     | Scraping: https://www.example.edu/research/China-china-visible-great-space-The-Great-Wall-wall
+2026-01-30 09:31:05 | ERROR    | Scraping failed for https://www.example.edu/research/China-china-visible-great-space-The-Great-Wall-wall: 404 Client Error: Not Found for url: https://www.example.edu/research/China-china-visible-great-space-The-Great-Wall-wall
+2026-01-30 09:31:05 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:31:05 | INFO     | Searching for: was built in the 5th century BC (region=wt-wt)
+2026-01-30 09:31:05 | INFO     | Scraping: https://en.wikipedia.org/wiki/was_built_in_the_5th_century_BC
+2026-01-30 09:31:06 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/was_built_in_the_5th_century_BC: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Was_built_in_the_5th_century_BC
+2026-01-30 09:31:06 | INFO     | Scraping: https://www.britannica.com/topic/was-built-in-the-5th-century-BC
+2026-01-30 09:31:06 | ERROR    | Scraping failed for https://www.britannica.com/topic/was-built-in-the-5th-century-BC: 404 Client Error: Not Found for url: https://www.britannica.com/topic/was-built-in-the-5th-century-BC
+2026-01-30 09:31:06 | INFO     | Scraping: https://www.example.edu/research/was-built-in-the-5th-century-BC
+2026-01-30 09:31:06 | ERROR    | Scraping failed for https://www.example.edu/research/was-built-in-the-5th-century-BC: 404 Client Error: Not Found for url: https://www.example.edu/research/was-built-in-the-5th-century-BC
+2026-01-30 09:31:06 | INFO     | Searching for: When was built in the 5th century bc (region=wt-wt)
+2026-01-30 09:31:06 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_was_built_in_the_5th_century_bc
+2026-01-30 09:31:07 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_was_built_in_the_5th_century_bc: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_was_built_in_the_5th_century_bc
+2026-01-30 09:31:07 | INFO     | Scraping: https://www.britannica.com/topic/When-was-built-in-the-5th-century-bc
+2026-01-30 09:31:07 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-was-built-in-the-5th-century-bc: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-was-built-in-the-5th-century-bc
+2026-01-30 09:31:07 | INFO     | Scraping: https://www.example.edu/research/When-was-built-in-the-5th-century-bc
+2026-01-30 09:31:08 | ERROR    | Scraping failed for https://www.example.edu/research/When-was-built-in-the-5th-century-bc: 404 Client Error: Not Found for url: https://www.example.edu/research/When-was-built-in-the-5th-century-bc
+2026-01-30 09:31:08 | INFO     | Searching for: built 5th century (region=wt-wt)
+2026-01-30 09:31:08 | INFO     | Scraping: https://en.wikipedia.org/wiki/built_5th_century
+2026-01-30 09:31:09 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/built_5th_century: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Built_5th_century
+2026-01-30 09:31:09 | INFO     | Scraping: https://www.britannica.com/topic/built-5th-century
+2026-01-30 09:31:09 | ERROR    | Scraping failed for https://www.britannica.com/topic/built-5th-century: 404 Client Error: Not Found for url: https://www.britannica.com/topic/built-5th-century
+2026-01-30 09:31:09 | INFO     | Scraping: https://www.example.edu/research/built-5th-century
+2026-01-30 09:31:09 | ERROR    | Scraping failed for https://www.example.edu/research/built-5th-century: 404 Client Error: Not Found for url: https://www.example.edu/research/built-5th-century
+2026-01-30 09:31:09 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:31:09 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:31:09 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:31:09 | INFO     | Predicting verdict for: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:31:09 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:09 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:09 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:31:09 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:31:09 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:31:09 | INFO     | ✓ Explanation quality: 0.15
+2026-01-30 09:31:09 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:31:09 | INFO     | Run 3 recorded: accuracy=1.00, quality=0.00
+2026-01-30 09:31:09 | INFO     | ✓ Run recorded (accuracy: 1.00)
+2026-01-30 09:31:09 | INFO     | 
+================================================================================
+2026-01-30 09:31:09 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:31:09 | INFO     | ================================================================================
+2026-01-30 09:31:09 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:31:09 | INFO     |    Confidence: 30.00%
+2026-01-30 09:31:09 | INFO     |    Correct: ✓
+2026-01-30 09:31:09 | INFO     | 
+================================================================================
+2026-01-30 09:31:09 | INFO     | CLAIM 4/10
+2026-01-30 09:31:09 | INFO     | ================================================================================
+2026-01-30 09:31:09 | INFO     | Text: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:31:09 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:31:09 | INFO     | Category: scientific
+2026-01-30 09:31:09 | INFO     | Difficulty: easy
+2026-01-30 09:31:09 | INFO     | ================================================================================
+2026-01-30 09:31:09 | INFO     | VERIFYING CLAIM: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:31:09 | INFO     | ================================================================================
+2026-01-30 09:31:09 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:31:09 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:31:09 | INFO     | Processing claim: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:31:09 | INFO     | Decomposing claim (lang=en): Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:31:13 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b725430 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:31:13 | INFO     | Heuristic decomposition produced 1 subclaims
+2026-01-30 09:31:13 | INFO     | Decomposed into 1 verifiable subclaims, filtered 0
+2026-01-30 09:31:13 | INFO     | ✓ Found 1 verifiable subclaims
+2026-01-30 09:31:13 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:31:13 | INFO     | Generating queries for 1 subclaims (lang=en)
+2026-01-30 09:31:13 | INFO     | Generated 3 total queries
+2026-01-30 09:31:13 | INFO     | ✓ Generated 3 search queries
+2026-01-30 09:31:13 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:31:13 | INFO     |      Stage 1: Web Search
+2026-01-30 09:31:13 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:31:13 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:31:13 | INFO     | Seeking evidence for 1 subclaims (lang=en)
+2026-01-30 09:31:13 | INFO     | Searching for: Water Celsius Water boils at 100 degrees Celsius at sea level (region=wt-wt)
+2026-01-30 09:31:13 | INFO     | Scraping: https://en.wikipedia.org/wiki/Water_Celsius_Water_boils_at_100_degrees_Celsius_at_sea_level
+2026-01-30 09:31:14 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Water_Celsius_Water_boils_at_100_degrees_Celsius_at_sea_level: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Water_Celsius_Water_boils_at_100_degrees_Celsius_at_sea_level
+2026-01-30 09:31:14 | INFO     | Scraping: https://www.britannica.com/topic/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:31:14 | ERROR    | Scraping failed for https://www.britannica.com/topic/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:31:14 | INFO     | Scraping: https://www.example.edu/research/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:31:14 | ERROR    | Scraping failed for https://www.example.edu/research/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.example.edu/research/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:31:14 | INFO     | Searching for: What about water boils at 100 degrees celsius at sea level (region=wt-wt)
+2026-01-30 09:31:14 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_water_boils_at_100_degrees_celsius_at_sea_level
+2026-01-30 09:31:15 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_water_boils_at_100_degrees_celsius_at_sea_level: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_water_boils_at_100_degrees_celsius_at_sea_level
+2026-01-30 09:31:15 | INFO     | Scraping: https://www.britannica.com/topic/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:31:15 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-water-boils-at-100-degrees-celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:31:15 | INFO     | Scraping: https://www.example.edu/research/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:31:16 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-water-boils-at-100-degrees-celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:31:16 | INFO     | Searching for: degrees 100 level boils sea Water Celsius celsius (region=wt-wt)
+2026-01-30 09:31:16 | INFO     | Scraping: https://en.wikipedia.org/wiki/degrees_100_level_boils_sea_Water_Celsius_celsius
+2026-01-30 09:31:17 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/degrees_100_level_boils_sea_Water_Celsius_celsius: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Degrees_100_level_boils_sea_Water_Celsius_celsius
+2026-01-30 09:31:17 | INFO     | Scraping: https://www.britannica.com/topic/degrees-100-level-boils-sea-Water-Celsius-celsius
+2026-01-30 09:31:17 | ERROR    | Scraping failed for https://www.britannica.com/topic/degrees-100-level-boils-sea-Water-Celsius-celsius: 404 Client Error: Not Found for url: https://www.britannica.com/topic/degrees-100-level-boils-sea-Water-Celsius-celsius
+2026-01-30 09:31:17 | INFO     | Scraping: https://www.example.edu/research/degrees-100-level-boils-sea-Water-Celsius-celsius
+2026-01-30 09:31:17 | ERROR    | Scraping failed for https://www.example.edu/research/degrees-100-level-boils-sea-Water-Celsius-celsius: 404 Client Error: Not Found for url: https://www.example.edu/research/degrees-100-level-boils-sea-Water-Celsius-celsius
+2026-01-30 09:31:17 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:31:17 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:31:17 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:31:17 | INFO     | Predicting verdict for: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:31:17 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:17 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:17 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:31:17 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:31:17 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:31:17 | INFO     | ✓ Explanation quality: 0.10
+2026-01-30 09:31:17 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:31:17 | INFO     | Run 4 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:31:17 | INFO     | ✓ Run recorded (accuracy: 0.00)
+2026-01-30 09:31:17 | INFO     | 
+================================================================================
+2026-01-30 09:31:17 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:31:17 | INFO     | ================================================================================
+2026-01-30 09:31:17 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:31:17 | INFO     |    Confidence: 30.00%
+2026-01-30 09:31:17 | INFO     |    Correct: ✗
+2026-01-30 09:31:17 | INFO     | 
+================================================================================
+2026-01-30 09:31:17 | INFO     | CLAIM 5/10
+2026-01-30 09:31:17 | INFO     | ================================================================================
+2026-01-30 09:31:17 | INFO     | Text: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:31:17 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:31:17 | INFO     | Category: technology
+2026-01-30 09:31:17 | INFO     | Difficulty: easy
+2026-01-30 09:31:17 | INFO     | ================================================================================
+2026-01-30 09:31:17 | INFO     | VERIFYING CLAIM: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:31:17 | INFO     | ================================================================================
+2026-01-30 09:31:17 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:31:17 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:31:17 | INFO     | Processing claim: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:31:17 | INFO     | Decomposing claim (lang=en): The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:31:21 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b6e1b80 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:31:21 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:31:21 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:31:21 | INFO     | ✓ Found 2 verifiable subclaims
+2026-01-30 09:31:21 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:31:21 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:31:21 | INFO     | Generated 6 total queries
+2026-01-30 09:31:21 | INFO     | ✓ Generated 6 search queries
+2026-01-30 09:31:21 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:31:21 | INFO     |      Stage 1: Web Search
+2026-01-30 09:31:21 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:31:21 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:31:21 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:31:21 | INFO     | Searching for: The Python Guido Rossum The Python programming language was created by Guido van Rossum (region=wt-wt)
+2026-01-30 09:31:21 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Python_Guido_Rossum_The_Python_programming_language_was_created_by_Guido_van_Rossum
+2026-01-30 09:31:22 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Python_Guido_Rossum_The_Python_programming_language_was_created_by_Guido_van_Rossum: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Python_Guido_Rossum_The_Python_programming_language_was_created_by_Guido_van_Rossum
+2026-01-30 09:31:22 | INFO     | Scraping: https://www.britannica.com/topic/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:31:22 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:31:22 | INFO     | Scraping: https://www.example.edu/research/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:31:22 | ERROR    | Scraping failed for https://www.example.edu/research/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:31:22 | INFO     | Searching for: When the python programming language was created by guido van rossum (region=wt-wt)
+2026-01-30 09:31:22 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_the_python_programming_language_was_created_by_guido_van_rossum
+2026-01-30 09:31:24 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_the_python_programming_language_was_created_by_guido_van_rossum: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_the_python_programming_language_was_created_by_guido_van_rossum
+2026-01-30 09:31:24 | INFO     | Scraping: https://www.britannica.com/topic/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:31:24 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-the-python-programming-language-was-created-by-guido-van-rossum: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:31:24 | INFO     | Scraping: https://www.example.edu/research/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:31:24 | ERROR    | Scraping failed for https://www.example.edu/research/When-the-python-programming-language-was-created-by-guido-van-rossum: 404 Client Error: Not Found for url: https://www.example.edu/research/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:31:24 | INFO     | Searching for: Guido created rossum Rossum The Python python guido programming (region=wt-wt)
+2026-01-30 09:31:24 | INFO     | Scraping: https://en.wikipedia.org/wiki/Guido_created_rossum_Rossum_The_Python_python_guido_programming
+2026-01-30 09:31:25 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Guido_created_rossum_Rossum_The_Python_python_guido_programming: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Guido_created_rossum_Rossum_The_Python_python_guido_programming
+2026-01-30 09:31:25 | INFO     | Scraping: https://www.britannica.com/topic/Guido-created-rossum-Rossum-The-Python-python-guido-programming
+2026-01-30 09:31:25 | ERROR    | Scraping failed for https://www.britannica.com/topic/Guido-created-rossum-Rossum-The-Python-python-guido-programming: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Guido-created-rossum-Rossum-The-Python-python-guido-programming
+2026-01-30 09:31:25 | INFO     | Scraping: https://www.example.edu/research/Guido-created-rossum-Rossum-The-Python-python-guido-programming
+2026-01-30 09:31:25 | ERROR    | Scraping failed for https://www.example.edu/research/Guido-created-rossum-Rossum-The-Python-python-guido-programming: 404 Client Error: Not Found for url: https://www.example.edu/research/Guido-created-rossum-Rossum-The-Python-python-guido-programming
+2026-01-30 09:31:25 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:31:25 | INFO     | Searching for: first released in 1991 (region=wt-wt)
+2026-01-30 09:31:25 | INFO     | Scraping: https://en.wikipedia.org/wiki/first_released_in_1991
+2026-01-30 09:31:27 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/first_released_in_1991: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/First_released_in_1991
+2026-01-30 09:31:27 | INFO     | Scraping: https://www.britannica.com/topic/first-released-in-1991
+2026-01-30 09:31:27 | ERROR    | Scraping failed for https://www.britannica.com/topic/first-released-in-1991: 404 Client Error: Not Found for url: https://www.britannica.com/topic/first-released-in-1991
+2026-01-30 09:31:27 | INFO     | Scraping: https://www.example.edu/research/first-released-in-1991
+2026-01-30 09:31:27 | ERROR    | Scraping failed for https://www.example.edu/research/first-released-in-1991: 404 Client Error: Not Found for url: https://www.example.edu/research/first-released-in-1991
+2026-01-30 09:31:27 | INFO     | Searching for: What about first released in 1991 (region=wt-wt)
+2026-01-30 09:31:27 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_first_released_in_1991
+2026-01-30 09:31:28 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_first_released_in_1991: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_first_released_in_1991
+2026-01-30 09:31:28 | INFO     | Scraping: https://www.britannica.com/topic/What-about-first-released-in-1991
+2026-01-30 09:31:28 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-first-released-in-1991: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-first-released-in-1991
+2026-01-30 09:31:28 | INFO     | Scraping: https://www.example.edu/research/What-about-first-released-in-1991
+2026-01-30 09:31:28 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-first-released-in-1991: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-first-released-in-1991
+2026-01-30 09:31:28 | INFO     | Searching for: 1991 released first (region=wt-wt)
+2026-01-30 09:31:28 | INFO     | Scraping: https://en.wikipedia.org/wiki/1991_released_first
+2026-01-30 09:31:29 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/1991_released_first: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/1991_released_first
+2026-01-30 09:31:29 | INFO     | Scraping: https://www.britannica.com/topic/1991-released-first
+2026-01-30 09:31:29 | ERROR    | Scraping failed for https://www.britannica.com/topic/1991-released-first: 404 Client Error: Not Found for url: https://www.britannica.com/topic/1991-released-first
+2026-01-30 09:31:29 | INFO     | Scraping: https://www.example.edu/research/1991-released-first
+2026-01-30 09:31:30 | ERROR    | Scraping failed for https://www.example.edu/research/1991-released-first: 404 Client Error: Not Found for url: https://www.example.edu/research/1991-released-first
+2026-01-30 09:31:30 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:31:30 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:31:30 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:31:30 | INFO     | Predicting verdict for: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:31:30 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:30 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:30 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:31:30 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:31:30 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:31:30 | INFO     | ✓ Explanation quality: 0.15
+2026-01-30 09:31:30 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:31:30 | INFO     | Run 5 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:31:30 | INFO     | ✓ Run recorded (accuracy: 0.00)
+2026-01-30 09:31:30 | INFO     | 
+================================================================================
+2026-01-30 09:31:30 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:31:30 | INFO     | ================================================================================
+2026-01-30 09:31:30 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:31:30 | INFO     |    Confidence: 30.00%
+2026-01-30 09:31:30 | INFO     |    Correct: ✗
+2026-01-30 09:31:30 | INFO     | 
+================================================================================
+2026-01-30 09:31:30 | INFO     | CLAIM 6/10
+2026-01-30 09:31:30 | INFO     | ================================================================================
+2026-01-30 09:31:30 | INFO     | Text: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:31:30 | INFO     | Ground Truth: NOT_SUPPORTED
+2026-01-30 09:31:30 | INFO     | Category: geographical
+2026-01-30 09:31:30 | INFO     | Difficulty: medium
+2026-01-30 09:31:30 | INFO     | ================================================================================
+2026-01-30 09:31:30 | INFO     | VERIFYING CLAIM: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:31:30 | INFO     | ================================================================================
+2026-01-30 09:31:30 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:31:30 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:31:30 | INFO     | Processing claim: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:31:30 | INFO     | Decomposing claim (lang=en): Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:31:34 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b6e1b80 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:31:34 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:31:34 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:31:34 | INFO     | ✓ Found 2 verifiable subclaims
+2026-01-30 09:31:34 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:31:34 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:31:34 | INFO     | Generated 6 total queries
+2026-01-30 09:31:34 | INFO     | ✓ Generated 6 search queries
+2026-01-30 09:31:34 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:31:34 | INFO     |      Stage 1: Web Search
+2026-01-30 09:31:34 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:31:34 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:31:34 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:31:34 | INFO     | Searching for: Mount Everest Earth Mount Everest is the tallest mountain on Earth (region=wt-wt)
+2026-01-30 09:31:34 | INFO     | Scraping: https://en.wikipedia.org/wiki/Mount_Everest_Earth_Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:31:34 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Mount_Everest_Earth_Mount_Everest_is_the_tallest_mountain_on_Earth: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Mount_Everest_Earth_Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:31:34 | INFO     | Scraping: https://www.britannica.com/topic/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:35 | ERROR    | Scraping failed for https://www.britannica.com/topic/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:35 | INFO     | Scraping: https://www.example.edu/research/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:35 | ERROR    | Scraping failed for https://www.example.edu/research/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.example.edu/research/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:35 | INFO     | Searching for: Mount Everest is the tallest mountain on Earth (region=wt-wt)
+2026-01-30 09:31:35 | INFO     | Scraping: https://en.wikipedia.org/wiki/Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:31:35 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Mount_Everest_is_the_tallest_mountain_on_Earth: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:31:35 | INFO     | Scraping: https://www.britannica.com/topic/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:36 | ERROR    | Scraping failed for https://www.britannica.com/topic/Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:36 | INFO     | Scraping: https://www.example.edu/research/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:36 | ERROR    | Scraping failed for https://www.example.edu/research/Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.example.edu/research/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:31:36 | INFO     | Searching for: everest mount earth mountain Mount Everest tallest Earth (region=wt-wt)
+2026-01-30 09:31:36 | INFO     | Scraping: https://en.wikipedia.org/wiki/everest_mount_earth_mountain_Mount_Everest_tallest_Earth
+2026-01-30 09:31:37 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/everest_mount_earth_mountain_Mount_Everest_tallest_Earth: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Everest_mount_earth_mountain_Mount_Everest_tallest_Earth
+2026-01-30 09:31:37 | INFO     | Scraping: https://www.britannica.com/topic/everest-mount-earth-mountain-Mount-Everest-tallest-Earth
+2026-01-30 09:31:37 | ERROR    | Scraping failed for https://www.britannica.com/topic/everest-mount-earth-mountain-Mount-Everest-tallest-Earth: 404 Client Error: Not Found for url: https://www.britannica.com/topic/everest-mount-earth-mountain-Mount-Everest-tallest-Earth
+2026-01-30 09:31:37 | INFO     | Scraping: https://www.example.edu/research/everest-mount-earth-mountain-Mount-Everest-tallest-Earth
+2026-01-30 09:31:37 | ERROR    | Scraping failed for https://www.example.edu/research/everest-mount-earth-mountain-Mount-Everest-tallest-Earth: 404 Client Error: Not Found for url: https://www.example.edu/research/everest-mount-earth-mountain-Mount-Everest-tallest-Earth
+2026-01-30 09:31:37 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:31:37 | INFO     | Searching for: Nepal is located in Nepal (region=wt-wt)
+2026-01-30 09:31:37 | INFO     | Scraping: https://en.wikipedia.org/wiki/Nepal_is_located_in_Nepal
+2026-01-30 09:31:38 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Nepal_is_located_in_Nepal: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Nepal_is_located_in_Nepal
+2026-01-30 09:31:38 | INFO     | Scraping: https://www.britannica.com/topic/Nepal-is-located-in-Nepal
+2026-01-30 09:31:38 | ERROR    | Scraping failed for https://www.britannica.com/topic/Nepal-is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Nepal-is-located-in-Nepal
+2026-01-30 09:31:38 | INFO     | Scraping: https://www.example.edu/research/Nepal-is-located-in-Nepal
+2026-01-30 09:31:38 | ERROR    | Scraping failed for https://www.example.edu/research/Nepal-is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.example.edu/research/Nepal-is-located-in-Nepal
+2026-01-30 09:31:38 | INFO     | Searching for: is located in Nepal (region=wt-wt)
+2026-01-30 09:31:38 | INFO     | Scraping: https://en.wikipedia.org/wiki/is_located_in_Nepal
+2026-01-30 09:31:40 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/is_located_in_Nepal: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Is_located_in_Nepal
+2026-01-30 09:31:40 | INFO     | Scraping: https://www.britannica.com/topic/is-located-in-Nepal
+2026-01-30 09:31:40 | ERROR    | Scraping failed for https://www.britannica.com/topic/is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.britannica.com/topic/is-located-in-Nepal
+2026-01-30 09:31:40 | INFO     | Scraping: https://www.example.edu/research/is-located-in-Nepal
+2026-01-30 09:31:40 | ERROR    | Scraping failed for https://www.example.edu/research/is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.example.edu/research/is-located-in-Nepal
+2026-01-30 09:31:40 | INFO     | Searching for: nepal Nepal located (region=wt-wt)
+2026-01-30 09:31:40 | INFO     | Scraping: https://en.wikipedia.org/wiki/nepal_Nepal_located
+2026-01-30 09:31:41 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/nepal_Nepal_located: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Nepal_Nepal_located
+2026-01-30 09:31:41 | INFO     | Scraping: https://www.britannica.com/topic/nepal-Nepal-located
+2026-01-30 09:31:41 | ERROR    | Scraping failed for https://www.britannica.com/topic/nepal-Nepal-located: 404 Client Error: Not Found for url: https://www.britannica.com/topic/nepal-Nepal-located
+2026-01-30 09:31:41 | INFO     | Scraping: https://www.example.edu/research/nepal-Nepal-located
+2026-01-30 09:31:42 | ERROR    | Scraping failed for https://www.example.edu/research/nepal-Nepal-located: 404 Client Error: Not Found for url: https://www.example.edu/research/nepal-Nepal-located
+2026-01-30 09:31:42 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:31:42 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:31:42 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:31:42 | INFO     | Predicting verdict for: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:31:42 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:42 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:42 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:31:42 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:31:42 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:31:42 | INFO     | ✓ Explanation quality: 0.14
+2026-01-30 09:31:42 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:31:42 | INFO     | Run 6 recorded: accuracy=1.00, quality=0.00
+2026-01-30 09:31:42 | INFO     | ✓ Run recorded (accuracy: 1.00)
+2026-01-30 09:31:42 | INFO     | 
+================================================================================
+2026-01-30 09:31:42 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:31:42 | INFO     | ================================================================================
+2026-01-30 09:31:42 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:31:42 | INFO     |    Confidence: 30.00%
+2026-01-30 09:31:42 | INFO     |    Correct: ✓
+2026-01-30 09:31:42 | INFO     | 
+================================================================================
+2026-01-30 09:31:42 | INFO     | CLAIM 7/10
+2026-01-30 09:31:42 | INFO     | ================================================================================
+2026-01-30 09:31:42 | INFO     | Text: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:31:42 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:31:42 | INFO     | Category: scientific
+2026-01-30 09:31:42 | INFO     | Difficulty: easy
+2026-01-30 09:31:42 | INFO     | ================================================================================
+2026-01-30 09:31:42 | INFO     | VERIFYING CLAIM: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:31:42 | INFO     | ================================================================================
+2026-01-30 09:31:42 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:31:42 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:31:42 | INFO     | Processing claim: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:31:42 | INFO     | Decomposing claim (lang=en): The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:31:46 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b6e1b80 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:31:46 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:31:46 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:31:46 | INFO     | ✓ Found 2 verifiable subclaims
+2026-01-30 09:31:46 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:31:46 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:31:46 | INFO     | Generated 6 total queries
+2026-01-30 09:31:46 | INFO     | ✓ Generated 6 search queries
+2026-01-30 09:31:46 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:31:46 | INFO     |      Stage 1: Web Search
+2026-01-30 09:31:46 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:31:46 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:31:46 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:31:46 | INFO     | Searching for: The Earth Sun The Earth orbits the Sun (region=wt-wt)
+2026-01-30 09:31:46 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Earth_Sun_The_Earth_orbits_the_Sun
+2026-01-30 09:31:47 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Earth_Sun_The_Earth_orbits_the_Sun: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Earth_Sun_The_Earth_orbits_the_Sun
+2026-01-30 09:31:47 | INFO     | Scraping: https://www.britannica.com/topic/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:31:47 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Earth-Sun-The-Earth-orbits-the-Sun: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:31:47 | INFO     | Scraping: https://www.example.edu/research/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:31:47 | ERROR    | Scraping failed for https://www.example.edu/research/The-Earth-Sun-The-Earth-orbits-the-Sun: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:31:47 | INFO     | Searching for: What about the earth orbits the sun (region=wt-wt)
+2026-01-30 09:31:47 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_the_earth_orbits_the_sun
+2026-01-30 09:31:48 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_the_earth_orbits_the_sun: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_the_earth_orbits_the_sun
+2026-01-30 09:31:48 | INFO     | Scraping: https://www.britannica.com/topic/What-about-the-earth-orbits-the-sun
+2026-01-30 09:31:48 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-the-earth-orbits-the-sun: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-the-earth-orbits-the-sun
+2026-01-30 09:31:48 | INFO     | Scraping: https://www.example.edu/research/What-about-the-earth-orbits-the-sun
+2026-01-30 09:31:48 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-the-earth-orbits-the-sun: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-the-earth-orbits-the-sun
+2026-01-30 09:31:48 | INFO     | Searching for: orbits The Earth earth Sun sun (region=wt-wt)
+2026-01-30 09:31:48 | INFO     | Scraping: https://en.wikipedia.org/wiki/orbits_The_Earth_earth_Sun_sun
+2026-01-30 09:31:50 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/orbits_The_Earth_earth_Sun_sun: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Orbits_The_Earth_earth_Sun_sun
+2026-01-30 09:31:50 | INFO     | Scraping: https://www.britannica.com/topic/orbits-The-Earth-earth-Sun-sun
+2026-01-30 09:31:50 | ERROR    | Scraping failed for https://www.britannica.com/topic/orbits-The-Earth-earth-Sun-sun: 404 Client Error: Not Found for url: https://www.britannica.com/topic/orbits-The-Earth-earth-Sun-sun
+2026-01-30 09:31:50 | INFO     | Scraping: https://www.example.edu/research/orbits-The-Earth-earth-Sun-sun
+2026-01-30 09:31:50 | ERROR    | Scraping failed for https://www.example.edu/research/orbits-The-Earth-earth-Sun-sun: 404 Client Error: Not Found for url: https://www.example.edu/research/orbits-The-Earth-earth-Sun-sun
+2026-01-30 09:31:50 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:31:50 | INFO     | Searching for: completes one orbit every 365.25 days (region=wt-wt)
+2026-01-30 09:31:50 | INFO     | Scraping: https://en.wikipedia.org/wiki/completes_one_orbit_every_365.25_days
+2026-01-30 09:31:51 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/completes_one_orbit_every_365.25_days: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Completes_one_orbit_every_365.25_days
+2026-01-30 09:31:51 | INFO     | Scraping: https://www.britannica.com/topic/completes-one-orbit-every-365.25-days
+2026-01-30 09:31:51 | ERROR    | Scraping failed for https://www.britannica.com/topic/completes-one-orbit-every-365.25-days: 404 Client Error: Not Found for url: https://www.britannica.com/topic/completes-one-orbit-every-365.25-days
+2026-01-30 09:31:51 | INFO     | Scraping: https://www.example.edu/research/completes-one-orbit-every-365.25-days
+2026-01-30 09:31:51 | ERROR    | Scraping failed for https://www.example.edu/research/completes-one-orbit-every-365.25-days: 404 Client Error: Not Found for url: https://www.example.edu/research/completes-one-orbit-every-365.25-days
+2026-01-30 09:31:51 | INFO     | Searching for: What about completes one orbit every 365?25 days (region=wt-wt)
+2026-01-30 09:31:51 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_completes_one_orbit_every_365?25_days
+2026-01-30 09:31:52 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_completes_one_orbit_every_365?25_days: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_completes_one_orbit_every_365?25_days
+2026-01-30 09:31:52 | INFO     | Scraping: https://www.britannica.com/topic/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:31:52 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-completes-one-orbit-every-365?25-days: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:31:52 | INFO     | Scraping: https://www.example.edu/research/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:31:52 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-completes-one-orbit-every-365?25-days: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:31:52 | INFO     | Searching for: completes orbit 365.25 one every days (region=wt-wt)
+2026-01-30 09:31:52 | INFO     | Scraping: https://en.wikipedia.org/wiki/completes_orbit_365.25_one_every_days
+2026-01-30 09:31:53 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/completes_orbit_365.25_one_every_days: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Completes_orbit_365.25_one_every_days
+2026-01-30 09:31:53 | INFO     | Scraping: https://www.britannica.com/topic/completes-orbit-365.25-one-every-days
+2026-01-30 09:31:54 | ERROR    | Scraping failed for https://www.britannica.com/topic/completes-orbit-365.25-one-every-days: 404 Client Error: Not Found for url: https://www.britannica.com/topic/completes-orbit-365.25-one-every-days
+2026-01-30 09:31:54 | INFO     | Scraping: https://www.example.edu/research/completes-orbit-365.25-one-every-days
+2026-01-30 09:31:54 | ERROR    | Scraping failed for https://www.example.edu/research/completes-orbit-365.25-one-every-days: 404 Client Error: Not Found for url: https://www.example.edu/research/completes-orbit-365.25-one-every-days
+2026-01-30 09:31:54 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:31:54 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:31:54 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:31:54 | INFO     | Predicting verdict for: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:31:54 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:54 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:31:54 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:31:54 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:31:54 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:31:54 | INFO     | ✓ Explanation quality: 0.14
+2026-01-30 09:31:54 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:31:54 | INFO     | Run 7 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:31:54 | INFO     | ✓ Run recorded (accuracy: 0.00)
+2026-01-30 09:31:54 | INFO     | 
+================================================================================
+2026-01-30 09:31:54 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:31:54 | INFO     | ================================================================================
+2026-01-30 09:31:54 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:31:54 | INFO     |    Confidence: 30.00%
+2026-01-30 09:31:54 | INFO     |    Correct: ✗
+2026-01-30 09:31:54 | INFO     | 
+================================================================================
+2026-01-30 09:31:54 | INFO     | CLAIM 8/10
+2026-01-30 09:31:54 | INFO     | ================================================================================
+2026-01-30 09:31:54 | INFO     | Text: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:31:54 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:31:54 | INFO     | Category: historical
+2026-01-30 09:31:54 | INFO     | Difficulty: easy
+2026-01-30 09:31:54 | INFO     | ================================================================================
+2026-01-30 09:31:54 | INFO     | VERIFYING CLAIM: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:31:54 | INFO     | ================================================================================
+2026-01-30 09:31:54 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:31:54 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:31:54 | INFO     | Processing claim: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:31:54 | INFO     | Decomposing claim (lang=en): William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:31:58 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b711b80 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:31:58 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:31:58 | INFO     | Decomposed into 1 verifiable subclaims, filtered 1
+2026-01-30 09:31:58 | INFO     | ✓ Found 1 verifiable subclaims
+2026-01-30 09:31:58 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:31:58 | INFO     | Generating queries for 1 subclaims (lang=en)
+2026-01-30 09:31:58 | INFO     | Generated 3 total queries
+2026-01-30 09:31:58 | INFO     | ✓ Generated 3 search queries
+2026-01-30 09:31:58 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:31:58 | INFO     |      Stage 1: Web Search
+2026-01-30 09:31:58 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:31:58 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:31:58 | INFO     | Seeking evidence for 1 subclaims (lang=en)
+2026-01-30 09:31:58 | INFO     | Searching for: Stratford Avon was born in Stratford-upon-Avon in 1564 (region=wt-wt)
+2026-01-30 09:31:58 | INFO     | Scraping: https://en.wikipedia.org/wiki/Stratford_Avon_was_born_in_Stratford-upon-Avon_in_1564
+2026-01-30 09:31:59 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Stratford_Avon_was_born_in_Stratford-upon-Avon_in_1564: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Stratford_Avon_was_born_in_Stratford-upon-Avon_in_1564
+2026-01-30 09:31:59 | INFO     | Scraping: https://www.britannica.com/topic/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:31:59 | ERROR    | Scraping failed for https://www.britannica.com/topic/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:31:59 | INFO     | Scraping: https://www.example.edu/research/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:31:59 | ERROR    | Scraping failed for https://www.example.edu/research/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564: 404 Client Error: Not Found for url: https://www.example.edu/research/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:31:59 | INFO     | Searching for: When was born in stratford-upon-avon in 1564 (region=wt-wt)
+2026-01-30 09:31:59 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_was_born_in_stratford-upon-avon_in_1564
+2026-01-30 09:32:00 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_was_born_in_stratford-upon-avon_in_1564: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_was_born_in_stratford-upon-avon_in_1564
+2026-01-30 09:32:00 | INFO     | Scraping: https://www.britannica.com/topic/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:32:00 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-was-born-in-stratford-upon-avon-in-1564: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:32:00 | INFO     | Scraping: https://www.example.edu/research/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:32:00 | ERROR    | Scraping failed for https://www.example.edu/research/When-was-born-in-stratford-upon-avon-in-1564: 404 Client Error: Not Found for url: https://www.example.edu/research/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:32:00 | INFO     | Searching for: Stratford born 1564 Avon stratford-upon-avon (region=wt-wt)
+2026-01-30 09:32:00 | INFO     | Scraping: https://en.wikipedia.org/wiki/Stratford_born_1564_Avon_stratford-upon-avon
+2026-01-30 09:32:01 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Stratford_born_1564_Avon_stratford-upon-avon: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Stratford_born_1564_Avon_stratford-upon-avon
+2026-01-30 09:32:01 | INFO     | Scraping: https://www.britannica.com/topic/Stratford-born-1564-Avon-stratford-upon-avon
+2026-01-30 09:32:01 | ERROR    | Scraping failed for https://www.britannica.com/topic/Stratford-born-1564-Avon-stratford-upon-avon: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Stratford-born-1564-Avon-stratford-upon-avon
+2026-01-30 09:32:01 | INFO     | Scraping: https://www.example.edu/research/Stratford-born-1564-Avon-stratford-upon-avon
+2026-01-30 09:32:01 | ERROR    | Scraping failed for https://www.example.edu/research/Stratford-born-1564-Avon-stratford-upon-avon: 404 Client Error: Not Found for url: https://www.example.edu/research/Stratford-born-1564-Avon-stratford-upon-avon
+2026-01-30 09:32:01 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:32:01 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:32:01 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:32:01 | INFO     | Predicting verdict for: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:32:01 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:32:01 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:32:01 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:32:01 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:32:01 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:32:01 | INFO     | ✓ Explanation quality: 0.11
+2026-01-30 09:32:01 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:32:01 | INFO     | Run 8 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:32:01 | INFO     | ✓ Run recorded (accuracy: 0.00)
+2026-01-30 09:32:01 | INFO     | 
+================================================================================
+2026-01-30 09:32:01 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:32:01 | INFO     | ================================================================================
+2026-01-30 09:32:01 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:32:01 | INFO     |    Confidence: 30.00%
+2026-01-30 09:32:01 | INFO     |    Correct: ✗
+2026-01-30 09:32:01 | INFO     | 
+================================================================================
+2026-01-30 09:32:01 | INFO     | CLAIM 9/10
+2026-01-30 09:32:01 | INFO     | ================================================================================
+2026-01-30 09:32:01 | INFO     | Text: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:32:01 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:32:01 | INFO     | Category: contemporary
+2026-01-30 09:32:01 | INFO     | Difficulty: medium
+2026-01-30 09:32:01 | INFO     | ================================================================================
+2026-01-30 09:32:01 | INFO     | VERIFYING CLAIM: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:32:01 | INFO     | ================================================================================
+2026-01-30 09:32:01 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:32:01 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:32:01 | INFO     | Processing claim: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:32:01 | INFO     | Decomposing claim (lang=en): The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:32:05 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75804a8d0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:32:05 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:32:05 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:32:05 | INFO     | ✓ Found 2 verifiable subclaims
+2026-01-30 09:32:05 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:32:05 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:32:05 | INFO     | Generated 6 total queries
+2026-01-30 09:32:05 | INFO     | ✓ Generated 6 search queries
+2026-01-30 09:32:05 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:32:05 | INFO     |      Stage 1: Web Search
+2026-01-30 09:32:05 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:32:05 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:32:05 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:32:05 | INFO     | Searching for: The The COVID-19 pandemic started in 2019 (region=wt-wt)
+2026-01-30 09:32:05 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_The_COVID-19_pandemic_started_in_2019
+2026-01-30 09:32:06 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_The_COVID-19_pandemic_started_in_2019: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_The_COVID-19_pandemic_started_in_2019
+2026-01-30 09:32:06 | INFO     | Scraping: https://www.britannica.com/topic/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:32:06 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-The-COVID-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:32:06 | INFO     | Scraping: https://www.example.edu/research/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:32:06 | ERROR    | Scraping failed for https://www.example.edu/research/The-The-COVID-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.example.edu/research/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:32:06 | INFO     | Searching for: What about the covid-19 pandemic started in 2019 (region=wt-wt)
+2026-01-30 09:32:06 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_the_covid-19_pandemic_started_in_2019
+2026-01-30 09:32:07 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_the_covid-19_pandemic_started_in_2019: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_the_covid-19_pandemic_started_in_2019
+2026-01-30 09:32:07 | INFO     | Scraping: https://www.britannica.com/topic/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:32:07 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-the-covid-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:32:07 | INFO     | Scraping: https://www.example.edu/research/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:32:07 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-the-covid-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:32:07 | INFO     | Searching for: The pandemic started covid-19 2019 (region=wt-wt)
+2026-01-30 09:32:07 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_pandemic_started_covid-19_2019
+2026-01-30 09:32:08 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_pandemic_started_covid-19_2019: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_pandemic_started_covid-19_2019
+2026-01-30 09:32:08 | INFO     | Scraping: https://www.britannica.com/topic/The-pandemic-started-covid-19-2019
+2026-01-30 09:32:08 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-pandemic-started-covid-19-2019: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-pandemic-started-covid-19-2019
+2026-01-30 09:32:08 | INFO     | Scraping: https://www.example.edu/research/The-pandemic-started-covid-19-2019
+2026-01-30 09:32:08 | ERROR    | Scraping failed for https://www.example.edu/research/The-pandemic-started-covid-19-2019: 404 Client Error: Not Found for url: https://www.example.edu/research/The-pandemic-started-covid-19-2019
+2026-01-30 09:32:08 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:32:08 | INFO     | Searching for: vaccines were developed within one year (region=wt-wt)
+2026-01-30 09:32:08 | INFO     | Scraping: https://en.wikipedia.org/wiki/vaccines_were_developed_within_one_year
+2026-01-30 09:32:10 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/vaccines_were_developed_within_one_year: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Vaccines_were_developed_within_one_year
+2026-01-30 09:32:10 | INFO     | Scraping: https://www.britannica.com/topic/vaccines-were-developed-within-one-year
+2026-01-30 09:32:10 | ERROR    | Scraping failed for https://www.britannica.com/topic/vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.britannica.com/topic/vaccines-were-developed-within-one-year
+2026-01-30 09:32:10 | INFO     | Scraping: https://www.example.edu/research/vaccines-were-developed-within-one-year
+2026-01-30 09:32:10 | ERROR    | Scraping failed for https://www.example.edu/research/vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.example.edu/research/vaccines-were-developed-within-one-year
+2026-01-30 09:32:10 | INFO     | Searching for: What about vaccines were developed within one year (region=wt-wt)
+2026-01-30 09:32:10 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_vaccines_were_developed_within_one_year
+2026-01-30 09:32:11 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_vaccines_were_developed_within_one_year: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_vaccines_were_developed_within_one_year
+2026-01-30 09:32:11 | INFO     | Scraping: https://www.britannica.com/topic/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:32:11 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:32:11 | INFO     | Scraping: https://www.example.edu/research/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:32:11 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:32:11 | INFO     | Searching for: year within one developed vaccines (region=wt-wt)
+2026-01-30 09:32:11 | INFO     | Scraping: https://en.wikipedia.org/wiki/year_within_one_developed_vaccines
+2026-01-30 09:32:13 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/year_within_one_developed_vaccines: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Year_within_one_developed_vaccines
+2026-01-30 09:32:13 | INFO     | Scraping: https://www.britannica.com/topic/year-within-one-developed-vaccines
+2026-01-30 09:32:13 | ERROR    | Scraping failed for https://www.britannica.com/topic/year-within-one-developed-vaccines: 404 Client Error: Not Found for url: https://www.britannica.com/topic/year-within-one-developed-vaccines
+2026-01-30 09:32:13 | INFO     | Scraping: https://www.example.edu/research/year-within-one-developed-vaccines
+2026-01-30 09:32:13 | ERROR    | Scraping failed for https://www.example.edu/research/year-within-one-developed-vaccines: 404 Client Error: Not Found for url: https://www.example.edu/research/year-within-one-developed-vaccines
+2026-01-30 09:32:13 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:32:13 | INFO     | ✓ Retrieved 0 evidence items
+2026-01-30 09:32:13 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:32:13 | INFO     | Predicting verdict for: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:32:13 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:32:13 | INFO     | ✓ Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:32:13 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:32:13 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:32:13 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:32:13 | INFO     | ✓ Explanation quality: 0.15
+2026-01-30 09:32:13 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:32:13 | INFO     | Run 9 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:32:13 | INFO     | ✓ Run recorded (accuracy: 0.00)
+2026-01-30 09:32:13 | INFO     | 
+================================================================================
+2026-01-30 09:32:13 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:32:13 | INFO     | ================================================================================
+2026-01-30 09:32:13 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:32:13 | INFO     |    Confidence: 30.00%
+2026-01-30 09:32:13 | INFO     |    Correct: ✗
+2026-01-30 09:32:13 | INFO     | 
+================================================================================
+2026-01-30 09:32:13 | INFO     | CLAIM 10/10
+2026-01-30 09:32:13 | INFO     | ================================================================================
+2026-01-30 09:32:13 | INFO     | Text: The human brain contains approximately 100 billion neurons
+2026-01-30 09:32:13 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:32:13 | INFO     | Category: scientific
+2026-01-30 09:32:13 | INFO     | Difficulty: medium
+2026-01-30 09:32:13 | INFO     | ================================================================================
+2026-01-30 09:32:13 | INFO     | VERIFYING CLAIM: The human brain contains approximately 100 billion neurons
+2026-01-30 09:32:13 | INFO     | ================================================================================
+2026-01-30 09:32:13 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:32:13 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:32:13 | INFO     | Processing claim: The human brain contains approximately 100 billion neurons
+2026-01-30 09:32:13 | INFO     | Decomposing claim (lang=en): The human brain contains approximately 100 billion neurons
+2026-01-30 09:32:17 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x1f75b726210 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:32:17 | INFO     | Heuristic decomposition produced 1 subclaims
+2026-01-30 09:32:17 | INFO     | Decomposed into 0 verifiable subclaims, filtered 1
+2026-01-30 09:32:17 | INFO     | ✓ Found 0 verifiable subclaims
+2026-01-30 09:32:17 | WARNING  | No verifiable subclaims found!
+2026-01-30 09:32:17 | INFO     | 
+🏁 VERDICT: NOT_SUPPORTED
+2026-01-30 09:32:17 | INFO     |    Confidence: 0.00%
+2026-01-30 09:32:17 | INFO     |    Correct: ✗
+2026-01-30 09:32:17 | INFO     | 
+================================================================================
+2026-01-30 09:32:17 | INFO     | CALCULATING EVALUATION METRICS
+2026-01-30 09:32:17 | INFO     | ================================================================================
+2026-01-30 09:34:12 | INFO     | ================================================================================
+2026-01-30 09:34:12 | INFO     | MULTI-AGENT FACT-CHECKING SYSTEM - DEMO
+2026-01-30 09:34:12 | INFO     | ================================================================================
+2026-01-30 09:34:12 | INFO     | Start Time: 2026-01-30 09:34:12
+2026-01-30 09:34:12 | INFO     | 
+2026-01-30 09:34:12 | INFO     | Loaded 10 claims from mock dataset
+2026-01-30 09:34:12 | INFO     | Processing 10 claims from mock dataset...
+2026-01-30 09:34:12 | INFO     | 
+2026-01-30 09:34:12 | INFO     | Initializing Multi-Agent System...
+2026-01-30 09:34:12 | INFO     | Loaded configuration from config\agent_config.yaml
+2026-01-30 09:34:12 | WARNING  | Ollama package not installed. Install with: pip install ollama
+2026-01-30 09:34:12 | WARNING  | OpenAI package not installed. Install with: pip install openai
+2026-01-30 09:34:12 | INFO     | LLM interface initialized successfully
+2026-01-30 09:34:13 | WARNING  | FastText not installed. Using heuristic language detection.
+2026-01-30 09:34:13 | INFO     | Install with: pip install fasttext
+2026-01-30 09:34:13 | INFO     | Multilingual components initialized
+2026-01-30 09:34:13 | INFO     | Initializing agents...
+2026-01-30 09:34:13 | INFO     | Input Ingestion Agent initialized
+2026-01-30 09:34:13 | INFO     | Query Generation Agent initialized (k=3, lang=en)
+2026-01-30 09:34:13 | INFO     | Evidence Seeking Agent initialized (lang=en, region=wt-wt)
+2026-01-30 09:34:13 | INFO     | Verdict Prediction Agent initialized (lang=en)
+2026-01-30 09:34:13 | INFO     | Explainable AI Agent initialized
+2026-01-30 09:34:13 | INFO     | Reinforcement Learning Agent initialized (heuristic-based)
+2026-01-30 09:34:13 | INFO     | [OK] All agents initialized successfully
+2026-01-30 09:34:13 | INFO     | 
+2026-01-30 09:34:13 | INFO     | 
+================================================================================
+2026-01-30 09:34:13 | INFO     | CLAIM 1/10
+2026-01-30 09:34:13 | INFO     | ================================================================================
+2026-01-30 09:34:13 | INFO     | Text: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:34:13 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:34:13 | INFO     | Category: simple
+2026-01-30 09:34:13 | INFO     | Difficulty: easy
+2026-01-30 09:34:13 | INFO     | ================================================================================
+2026-01-30 09:34:13 | INFO     | VERIFYING CLAIM: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:34:13 | INFO     | ================================================================================
+2026-01-30 09:34:13 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:34:13 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:34:13 | INFO     | Processing claim: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:34:13 | INFO     | Decomposing claim (lang=en): The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:34:17 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afa8f8ce0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:34:17 | INFO     | Heuristic decomposition produced 3 subclaims
+2026-01-30 09:34:17 | INFO     | Decomposed into 3 verifiable subclaims, filtered 0
+2026-01-30 09:34:17 | INFO     | [OK] Found 3 verifiable subclaims
+2026-01-30 09:34:17 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:34:17 | INFO     | Generating queries for 3 subclaims (lang=en)
+2026-01-30 09:34:17 | INFO     | Generated 9 total queries
+2026-01-30 09:34:17 | INFO     | [OK] Generated 9 search queries
+2026-01-30 09:34:17 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:34:17 | INFO     |      Stage 1: Web Search
+2026-01-30 09:34:17 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:34:17 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:34:17 | INFO     | Seeking evidence for 3 subclaims (lang=en)
+2026-01-30 09:34:17 | INFO     | Searching for: The Eiffel Tower The Eiffel Tower was completed in 1889 (region=wt-wt)
+2026-01-30 09:34:17 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Eiffel_Tower_The_Eiffel_Tower_was_completed_in_1889
+2026-01-30 09:34:17 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Eiffel_Tower_The_Eiffel_Tower_was_completed_in_1889: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Eiffel_Tower_The_Eiffel_Tower_was_completed_in_1889
+2026-01-30 09:34:17 | INFO     | Scraping: https://www.britannica.com/topic/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:34:17 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:34:17 | INFO     | Scraping: https://www.example.edu/research/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:34:17 | ERROR    | Scraping failed for https://www.example.edu/research/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Eiffel-Tower-The-Eiffel-Tower-was-completed-in-1889
+2026-01-30 09:34:17 | INFO     | Searching for: When the eiffel tower was completed in 1889 (region=wt-wt)
+2026-01-30 09:34:17 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_the_eiffel_tower_was_completed_in_1889
+2026-01-30 09:34:18 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_the_eiffel_tower_was_completed_in_1889: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_the_eiffel_tower_was_completed_in_1889
+2026-01-30 09:34:18 | INFO     | Scraping: https://www.britannica.com/topic/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:34:18 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-the-eiffel-tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:34:18 | INFO     | Scraping: https://www.example.edu/research/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:34:18 | ERROR    | Scraping failed for https://www.example.edu/research/When-the-eiffel-tower-was-completed-in-1889: 404 Client Error: Not Found for url: https://www.example.edu/research/When-the-eiffel-tower-was-completed-in-1889
+2026-01-30 09:34:18 | INFO     | Searching for: eiffel The Eiffel Tower completed tower 1889 (region=wt-wt)
+2026-01-30 09:34:18 | INFO     | Scraping: https://en.wikipedia.org/wiki/eiffel_The_Eiffel_Tower_completed_tower_1889
+2026-01-30 09:34:19 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/eiffel_The_Eiffel_Tower_completed_tower_1889: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Eiffel_The_Eiffel_Tower_completed_tower_1889
+2026-01-30 09:34:19 | INFO     | Scraping: https://www.britannica.com/topic/eiffel-The-Eiffel-Tower-completed-tower-1889
+2026-01-30 09:34:19 | ERROR    | Scraping failed for https://www.britannica.com/topic/eiffel-The-Eiffel-Tower-completed-tower-1889: 404 Client Error: Not Found for url: https://www.britannica.com/topic/eiffel-The-Eiffel-Tower-completed-tower-1889
+2026-01-30 09:34:19 | INFO     | Scraping: https://www.example.edu/research/eiffel-The-Eiffel-Tower-completed-tower-1889
+2026-01-30 09:34:19 | ERROR    | Scraping failed for https://www.example.edu/research/eiffel-The-Eiffel-Tower-completed-tower-1889: 404 Client Error: Not Found for url: https://www.example.edu/research/eiffel-The-Eiffel-Tower-completed-tower-1889
+2026-01-30 09:34:19 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:34:19 | INFO     | Searching for: Paris is located in Paris (region=wt-wt)
+2026-01-30 09:34:19 | INFO     | Scraping: https://en.wikipedia.org/wiki/Paris_is_located_in_Paris
+2026-01-30 09:34:20 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Paris_is_located_in_Paris: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Paris_is_located_in_Paris
+2026-01-30 09:34:20 | INFO     | Scraping: https://www.britannica.com/topic/Paris-is-located-in-Paris
+2026-01-30 09:34:20 | ERROR    | Scraping failed for https://www.britannica.com/topic/Paris-is-located-in-Paris: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Paris-is-located-in-Paris
+2026-01-30 09:34:20 | INFO     | Scraping: https://www.example.edu/research/Paris-is-located-in-Paris
+2026-01-30 09:34:20 | ERROR    | Scraping failed for https://www.example.edu/research/Paris-is-located-in-Paris: 404 Client Error: Not Found for url: https://www.example.edu/research/Paris-is-located-in-Paris
+2026-01-30 09:34:20 | INFO     | Searching for: is located in Paris (region=wt-wt)
+2026-01-30 09:34:20 | INFO     | Scraping: https://en.wikipedia.org/wiki/is_located_in_Paris
+2026-01-30 09:34:21 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/is_located_in_Paris: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Is_located_in_Paris
+2026-01-30 09:34:21 | INFO     | Scraping: https://www.britannica.com/topic/is-located-in-Paris
+2026-01-30 09:34:21 | ERROR    | Scraping failed for https://www.britannica.com/topic/is-located-in-Paris: 404 Client Error: Not Found for url: https://www.britannica.com/topic/is-located-in-Paris
+2026-01-30 09:34:21 | INFO     | Scraping: https://www.example.edu/research/is-located-in-Paris
+2026-01-30 09:34:21 | ERROR    | Scraping failed for https://www.example.edu/research/is-located-in-Paris: 404 Client Error: Not Found for url: https://www.example.edu/research/is-located-in-Paris
+2026-01-30 09:34:21 | INFO     | Searching for: Paris located paris (region=wt-wt)
+2026-01-30 09:34:21 | INFO     | Scraping: https://en.wikipedia.org/wiki/Paris_located_paris
+2026-01-30 09:34:22 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Paris_located_paris: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Paris_located_paris
+2026-01-30 09:34:22 | INFO     | Scraping: https://www.britannica.com/topic/Paris-located-paris
+2026-01-30 09:34:22 | ERROR    | Scraping failed for https://www.britannica.com/topic/Paris-located-paris: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Paris-located-paris
+2026-01-30 09:34:22 | INFO     | Scraping: https://www.example.edu/research/Paris-located-paris
+2026-01-30 09:34:22 | ERROR    | Scraping failed for https://www.example.edu/research/Paris-located-paris: 404 Client Error: Not Found for url: https://www.example.edu/research/Paris-located-paris
+2026-01-30 09:34:22 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:34:22 | INFO     | Searching for: France France (region=wt-wt)
+2026-01-30 09:34:22 | INFO     | Scraping: https://en.wikipedia.org/wiki/France_France
+2026-01-30 09:34:22 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/France_France: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/France_France
+2026-01-30 09:34:22 | INFO     | Scraping: https://www.britannica.com/topic/France-France
+2026-01-30 09:34:23 | ERROR    | Scraping failed for https://www.britannica.com/topic/France-France: 404 Client Error: Not Found for url: https://www.britannica.com/topic/France-France
+2026-01-30 09:34:23 | INFO     | Scraping: https://www.example.edu/research/France-France
+2026-01-30 09:34:23 | ERROR    | Scraping failed for https://www.example.edu/research/France-France: 404 Client Error: Not Found for url: https://www.example.edu/research/France-France
+2026-01-30 09:34:23 | INFO     | Searching for: What about france (region=wt-wt)
+2026-01-30 09:34:23 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_france
+2026-01-30 09:34:23 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_france: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_france
+2026-01-30 09:34:23 | INFO     | Scraping: https://www.britannica.com/topic/What-about-france
+2026-01-30 09:34:23 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-france: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-france
+2026-01-30 09:34:23 | INFO     | Scraping: https://www.example.edu/research/What-about-france
+2026-01-30 09:34:23 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-france: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-france
+2026-01-30 09:34:23 | INFO     | Searching for: France france (region=wt-wt)
+2026-01-30 09:34:23 | INFO     | Scraping: https://en.wikipedia.org/wiki/France_france
+2026-01-30 09:34:24 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/France_france: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/France_france
+2026-01-30 09:34:24 | INFO     | Scraping: https://www.britannica.com/topic/France-france
+2026-01-30 09:34:24 | ERROR    | Scraping failed for https://www.britannica.com/topic/France-france: 404 Client Error: Not Found for url: https://www.britannica.com/topic/France-france
+2026-01-30 09:34:24 | INFO     | Scraping: https://www.example.edu/research/France-france
+2026-01-30 09:34:24 | ERROR    | Scraping failed for https://www.example.edu/research/France-france: 404 Client Error: Not Found for url: https://www.example.edu/research/France-france
+2026-01-30 09:34:24 | INFO     | Found 0 evidence items for SC3 (0 high credibility)
+2026-01-30 09:34:24 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:34:24 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:34:24 | INFO     | Predicting verdict for: The Eiffel Tower was completed in 1889 and is located in Paris, France
+2026-01-30 09:34:24 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:24 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:24 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:34:24 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:34:24 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:34:24 | INFO     | [OK] Explanation quality: 0.17
+2026-01-30 09:34:24 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:34:24 | INFO     | Run 1 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:34:24 | INFO     | [OK] Run recorded (accuracy: 0.00)
+2026-01-30 09:34:24 | INFO     | 
+================================================================================
+2026-01-30 09:34:24 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:34:24 | INFO     | ================================================================================
+2026-01-30 09:34:24 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:34:24 | INFO     |    Confidence: 30.00%
+2026-01-30 09:34:24 | INFO     |    Correct: NO
+2026-01-30 09:34:24 | INFO     | 
+================================================================================
+2026-01-30 09:34:24 | INFO     | CLAIM 2/10
+2026-01-30 09:34:24 | INFO     | ================================================================================
+2026-01-30 09:34:24 | INFO     | Text: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:34:24 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:34:24 | INFO     | Category: biographical
+2026-01-30 09:34:24 | INFO     | Difficulty: easy
+2026-01-30 09:34:24 | INFO     | ================================================================================
+2026-01-30 09:34:24 | INFO     | VERIFYING CLAIM: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:34:24 | INFO     | ================================================================================
+2026-01-30 09:34:24 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:34:24 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:34:24 | INFO     | Processing claim: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:34:24 | INFO     | Decomposing claim (lang=en): Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:34:28 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb603410 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:34:28 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:34:28 | INFO     | Decomposed into 1 verifiable subclaims, filtered 1
+2026-01-30 09:34:28 | INFO     | [OK] Found 1 verifiable subclaims
+2026-01-30 09:34:28 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:34:28 | INFO     | Generating queries for 1 subclaims (lang=en)
+2026-01-30 09:34:28 | INFO     | Generated 3 total queries
+2026-01-30 09:34:28 | INFO     | [OK] Generated 3 search queries
+2026-01-30 09:34:28 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:34:28 | INFO     |      Stage 1: Web Search
+2026-01-30 09:34:28 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:34:28 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:34:28 | INFO     | Seeking evidence for 1 subclaims (lang=en)
+2026-01-30 09:34:28 | INFO     | Searching for: Nobel Prize Physics won the Nobel Prize in Physics in 1921 (region=wt-wt)
+2026-01-30 09:34:28 | INFO     | Scraping: https://en.wikipedia.org/wiki/Nobel_Prize_Physics_won_the_Nobel_Prize_in_Physics_in_1921
+2026-01-30 09:34:29 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Nobel_Prize_Physics_won_the_Nobel_Prize_in_Physics_in_1921: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Nobel_Prize_Physics_won_the_Nobel_Prize_in_Physics_in_1921
+2026-01-30 09:34:29 | INFO     | Scraping: https://www.britannica.com/topic/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:34:29 | ERROR    | Scraping failed for https://www.britannica.com/topic/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:34:29 | INFO     | Scraping: https://www.example.edu/research/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:34:29 | ERROR    | Scraping failed for https://www.example.edu/research/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921: 404 Client Error: Not Found for url: https://www.example.edu/research/Nobel-Prize-Physics-won-the-Nobel-Prize-in-Physics-in-1921
+2026-01-30 09:34:29 | INFO     | Searching for: What about won the nobel prize in physics in 1921 (region=wt-wt)
+2026-01-30 09:34:29 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_won_the_nobel_prize_in_physics_in_1921
+2026-01-30 09:34:30 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_won_the_nobel_prize_in_physics_in_1921: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_won_the_nobel_prize_in_physics_in_1921
+2026-01-30 09:34:30 | INFO     | Scraping: https://www.britannica.com/topic/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:34:30 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-won-the-nobel-prize-in-physics-in-1921: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:34:30 | INFO     | Scraping: https://www.example.edu/research/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:34:30 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-won-the-nobel-prize-in-physics-in-1921: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-won-the-nobel-prize-in-physics-in-1921
+2026-01-30 09:34:30 | INFO     | Searching for: 1921 won nobel prize Physics physics Nobel Prize (region=wt-wt)
+2026-01-30 09:34:30 | INFO     | Scraping: https://en.wikipedia.org/wiki/1921_won_nobel_prize_Physics_physics_Nobel_Prize
+2026-01-30 09:34:31 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/1921_won_nobel_prize_Physics_physics_Nobel_Prize: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/1921_won_nobel_prize_Physics_physics_Nobel_Prize
+2026-01-30 09:34:31 | INFO     | Scraping: https://www.britannica.com/topic/1921-won-nobel-prize-Physics-physics-Nobel-Prize
+2026-01-30 09:34:31 | ERROR    | Scraping failed for https://www.britannica.com/topic/1921-won-nobel-prize-Physics-physics-Nobel-Prize: 404 Client Error: Not Found for url: https://www.britannica.com/topic/1921-won-nobel-prize-Physics-physics-Nobel-Prize
+2026-01-30 09:34:31 | INFO     | Scraping: https://www.example.edu/research/1921-won-nobel-prize-Physics-physics-Nobel-Prize
+2026-01-30 09:34:31 | ERROR    | Scraping failed for https://www.example.edu/research/1921-won-nobel-prize-Physics-physics-Nobel-Prize: 404 Client Error: Not Found for url: https://www.example.edu/research/1921-won-nobel-prize-Physics-physics-Nobel-Prize
+2026-01-30 09:34:31 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:34:31 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:34:31 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:34:31 | INFO     | Predicting verdict for: Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921
+2026-01-30 09:34:31 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:31 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:31 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:34:31 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:34:31 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:34:31 | INFO     | [OK] Explanation quality: 0.12
+2026-01-30 09:34:31 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:34:31 | INFO     | Run 2 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:34:31 | INFO     | [OK] Run recorded (accuracy: 0.00)
+2026-01-30 09:34:31 | INFO     | 
+================================================================================
+2026-01-30 09:34:31 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:34:31 | INFO     | ================================================================================
+2026-01-30 09:34:31 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:34:31 | INFO     |    Confidence: 30.00%
+2026-01-30 09:34:31 | INFO     |    Correct: NO
+2026-01-30 09:34:31 | INFO     | 
+================================================================================
+2026-01-30 09:34:31 | INFO     | CLAIM 3/10
+2026-01-30 09:34:31 | INFO     | ================================================================================
+2026-01-30 09:34:31 | INFO     | Text: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:34:31 | INFO     | Ground Truth: NOT_SUPPORTED
+2026-01-30 09:34:31 | INFO     | Category: mixed
+2026-01-30 09:34:31 | INFO     | Difficulty: medium
+2026-01-30 09:34:31 | INFO     | ================================================================================
+2026-01-30 09:34:31 | INFO     | VERIFYING CLAIM: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:34:31 | INFO     | ================================================================================
+2026-01-30 09:34:31 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:34:31 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:34:31 | INFO     | Processing claim: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:34:31 | INFO     | Decomposing claim (lang=en): The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:34:35 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb602150 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:34:35 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:34:35 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:34:35 | INFO     | [OK] Found 2 verifiable subclaims
+2026-01-30 09:34:35 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:34:35 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:34:35 | INFO     | Generated 6 total queries
+2026-01-30 09:34:35 | INFO     | [OK] Generated 6 search queries
+2026-01-30 09:34:35 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:34:35 | INFO     |      Stage 1: Web Search
+2026-01-30 09:34:35 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:34:35 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:34:35 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:34:35 | INFO     | Searching for: The Great Wall China The Great Wall of China is visible from space (region=wt-wt)
+2026-01-30 09:34:35 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Great_Wall_China_The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:34:35 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Great_Wall_China_The_Great_Wall_of_China_is_visible_from_space: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Great_Wall_China_The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:34:35 | INFO     | Scraping: https://www.britannica.com/topic/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | INFO     | Scraping: https://www.example.edu/research/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | ERROR    | Scraping failed for https://www.example.edu/research/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Great-Wall-China-The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | INFO     | Searching for: The Great Wall of China is visible from space (region=wt-wt)
+2026-01-30 09:34:36 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:34:36 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Great_Wall_of_China_is_visible_from_space: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Great_Wall_of_China_is_visible_from_space
+2026-01-30 09:34:36 | INFO     | Scraping: https://www.britannica.com/topic/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | INFO     | Scraping: https://www.example.edu/research/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | ERROR    | Scraping failed for https://www.example.edu/research/The-Great-Wall-of-China-is-visible-from-space: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Great-Wall-of-China-is-visible-from-space
+2026-01-30 09:34:36 | INFO     | Searching for: China great space wall visible china The Great Wall (region=wt-wt)
+2026-01-30 09:34:36 | INFO     | Scraping: https://en.wikipedia.org/wiki/China_great_space_wall_visible_china_The_Great_Wall
+2026-01-30 09:34:38 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/China_great_space_wall_visible_china_The_Great_Wall: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/China_great_space_wall_visible_china_The_Great_Wall
+2026-01-30 09:34:38 | INFO     | Scraping: https://www.britannica.com/topic/China-great-space-wall-visible-china-The-Great-Wall
+2026-01-30 09:34:38 | ERROR    | Scraping failed for https://www.britannica.com/topic/China-great-space-wall-visible-china-The-Great-Wall: 404 Client Error: Not Found for url: https://www.britannica.com/topic/China-great-space-wall-visible-china-The-Great-Wall
+2026-01-30 09:34:38 | INFO     | Scraping: https://www.example.edu/research/China-great-space-wall-visible-china-The-Great-Wall
+2026-01-30 09:34:38 | ERROR    | Scraping failed for https://www.example.edu/research/China-great-space-wall-visible-china-The-Great-Wall: 404 Client Error: Not Found for url: https://www.example.edu/research/China-great-space-wall-visible-china-The-Great-Wall
+2026-01-30 09:34:38 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:34:38 | INFO     | Searching for: was built in the 5th century BC (region=wt-wt)
+2026-01-30 09:34:38 | INFO     | Scraping: https://en.wikipedia.org/wiki/was_built_in_the_5th_century_BC
+2026-01-30 09:34:38 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/was_built_in_the_5th_century_BC: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Was_built_in_the_5th_century_BC
+2026-01-30 09:34:38 | INFO     | Scraping: https://www.britannica.com/topic/was-built-in-the-5th-century-BC
+2026-01-30 09:34:39 | ERROR    | Scraping failed for https://www.britannica.com/topic/was-built-in-the-5th-century-BC: 404 Client Error: Not Found for url: https://www.britannica.com/topic/was-built-in-the-5th-century-BC
+2026-01-30 09:34:39 | INFO     | Scraping: https://www.example.edu/research/was-built-in-the-5th-century-BC
+2026-01-30 09:34:39 | ERROR    | Scraping failed for https://www.example.edu/research/was-built-in-the-5th-century-BC: 404 Client Error: Not Found for url: https://www.example.edu/research/was-built-in-the-5th-century-BC
+2026-01-30 09:34:39 | INFO     | Searching for: When was built in the 5th century bc (region=wt-wt)
+2026-01-30 09:34:39 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_was_built_in_the_5th_century_bc
+2026-01-30 09:34:39 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_was_built_in_the_5th_century_bc: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_was_built_in_the_5th_century_bc
+2026-01-30 09:34:39 | INFO     | Scraping: https://www.britannica.com/topic/When-was-built-in-the-5th-century-bc
+2026-01-30 09:34:39 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-was-built-in-the-5th-century-bc: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-was-built-in-the-5th-century-bc
+2026-01-30 09:34:39 | INFO     | Scraping: https://www.example.edu/research/When-was-built-in-the-5th-century-bc
+2026-01-30 09:34:39 | ERROR    | Scraping failed for https://www.example.edu/research/When-was-built-in-the-5th-century-bc: 404 Client Error: Not Found for url: https://www.example.edu/research/When-was-built-in-the-5th-century-bc
+2026-01-30 09:34:39 | INFO     | Searching for: century built 5th (region=wt-wt)
+2026-01-30 09:34:39 | INFO     | Scraping: https://en.wikipedia.org/wiki/century_built_5th
+2026-01-30 09:34:41 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/century_built_5th: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Century_built_5th
+2026-01-30 09:34:41 | INFO     | Scraping: https://www.britannica.com/topic/century-built-5th
+2026-01-30 09:34:41 | ERROR    | Scraping failed for https://www.britannica.com/topic/century-built-5th: 404 Client Error: Not Found for url: https://www.britannica.com/topic/century-built-5th
+2026-01-30 09:34:41 | INFO     | Scraping: https://www.example.edu/research/century-built-5th
+2026-01-30 09:34:41 | ERROR    | Scraping failed for https://www.example.edu/research/century-built-5th: 404 Client Error: Not Found for url: https://www.example.edu/research/century-built-5th
+2026-01-30 09:34:41 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:34:41 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:34:41 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:34:41 | INFO     | Predicting verdict for: The Great Wall of China is visible from space and was built in the 5th century BC
+2026-01-30 09:34:41 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:41 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:41 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:34:41 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:34:41 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:34:41 | INFO     | [OK] Explanation quality: 0.15
+2026-01-30 09:34:41 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:34:41 | INFO     | Run 3 recorded: accuracy=1.00, quality=0.00
+2026-01-30 09:34:41 | INFO     | [OK] Run recorded (accuracy: 1.00)
+2026-01-30 09:34:41 | INFO     | 
+================================================================================
+2026-01-30 09:34:41 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:34:41 | INFO     | ================================================================================
+2026-01-30 09:34:41 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:34:41 | INFO     |    Confidence: 30.00%
+2026-01-30 09:34:41 | INFO     |    Correct: YES
+2026-01-30 09:34:41 | INFO     | 
+================================================================================
+2026-01-30 09:34:41 | INFO     | CLAIM 4/10
+2026-01-30 09:34:41 | INFO     | ================================================================================
+2026-01-30 09:34:41 | INFO     | Text: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:34:41 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:34:41 | INFO     | Category: scientific
+2026-01-30 09:34:41 | INFO     | Difficulty: easy
+2026-01-30 09:34:41 | INFO     | ================================================================================
+2026-01-30 09:34:41 | INFO     | VERIFYING CLAIM: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:34:41 | INFO     | ================================================================================
+2026-01-30 09:34:41 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:34:41 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:34:41 | INFO     | Processing claim: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:34:41 | INFO     | Decomposing claim (lang=en): Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:34:45 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb5fa7e0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:34:45 | INFO     | Heuristic decomposition produced 1 subclaims
+2026-01-30 09:34:45 | INFO     | Decomposed into 1 verifiable subclaims, filtered 0
+2026-01-30 09:34:45 | INFO     | [OK] Found 1 verifiable subclaims
+2026-01-30 09:34:45 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:34:45 | INFO     | Generating queries for 1 subclaims (lang=en)
+2026-01-30 09:34:45 | INFO     | Generated 3 total queries
+2026-01-30 09:34:45 | INFO     | [OK] Generated 3 search queries
+2026-01-30 09:34:45 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:34:45 | INFO     |      Stage 1: Web Search
+2026-01-30 09:34:45 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:34:45 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:34:45 | INFO     | Seeking evidence for 1 subclaims (lang=en)
+2026-01-30 09:34:45 | INFO     | Searching for: Water Celsius Water boils at 100 degrees Celsius at sea level (region=wt-wt)
+2026-01-30 09:34:45 | INFO     | Scraping: https://en.wikipedia.org/wiki/Water_Celsius_Water_boils_at_100_degrees_Celsius_at_sea_level
+2026-01-30 09:34:45 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Water_Celsius_Water_boils_at_100_degrees_Celsius_at_sea_level: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Water_Celsius_Water_boils_at_100_degrees_Celsius_at_sea_level
+2026-01-30 09:34:45 | INFO     | Scraping: https://www.britannica.com/topic/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:34:46 | ERROR    | Scraping failed for https://www.britannica.com/topic/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:34:46 | INFO     | Scraping: https://www.example.edu/research/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:34:46 | ERROR    | Scraping failed for https://www.example.edu/research/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.example.edu/research/Water-Celsius-Water-boils-at-100-degrees-Celsius-at-sea-level
+2026-01-30 09:34:46 | INFO     | Searching for: What about water boils at 100 degrees celsius at sea level (region=wt-wt)
+2026-01-30 09:34:46 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_water_boils_at_100_degrees_celsius_at_sea_level
+2026-01-30 09:34:46 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_water_boils_at_100_degrees_celsius_at_sea_level: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_water_boils_at_100_degrees_celsius_at_sea_level
+2026-01-30 09:34:46 | INFO     | Scraping: https://www.britannica.com/topic/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:34:46 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-water-boils-at-100-degrees-celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:34:46 | INFO     | Scraping: https://www.example.edu/research/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:34:46 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-water-boils-at-100-degrees-celsius-at-sea-level: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-water-boils-at-100-degrees-celsius-at-sea-level
+2026-01-30 09:34:46 | INFO     | Searching for: celsius Celsius water degrees Water level boils 100 (region=wt-wt)
+2026-01-30 09:34:46 | INFO     | Scraping: https://en.wikipedia.org/wiki/celsius_Celsius_water_degrees_Water_level_boils_100
+2026-01-30 09:34:47 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/celsius_Celsius_water_degrees_Water_level_boils_100: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Celsius_Celsius_water_degrees_Water_level_boils_100
+2026-01-30 09:34:47 | INFO     | Scraping: https://www.britannica.com/topic/celsius-Celsius-water-degrees-Water-level-boils-100
+2026-01-30 09:34:48 | ERROR    | Scraping failed for https://www.britannica.com/topic/celsius-Celsius-water-degrees-Water-level-boils-100: 404 Client Error: Not Found for url: https://www.britannica.com/topic/celsius-Celsius-water-degrees-Water-level-boils-100
+2026-01-30 09:34:48 | INFO     | Scraping: https://www.example.edu/research/celsius-Celsius-water-degrees-Water-level-boils-100
+2026-01-30 09:34:48 | ERROR    | Scraping failed for https://www.example.edu/research/celsius-Celsius-water-degrees-Water-level-boils-100: 404 Client Error: Not Found for url: https://www.example.edu/research/celsius-Celsius-water-degrees-Water-level-boils-100
+2026-01-30 09:34:48 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:34:48 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:34:48 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:34:48 | INFO     | Predicting verdict for: Water boils at 100 degrees Celsius at sea level
+2026-01-30 09:34:48 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:48 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:48 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:34:48 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:34:48 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:34:48 | INFO     | [OK] Explanation quality: 0.10
+2026-01-30 09:34:48 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:34:48 | INFO     | Run 4 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:34:48 | INFO     | [OK] Run recorded (accuracy: 0.00)
+2026-01-30 09:34:48 | INFO     | 
+================================================================================
+2026-01-30 09:34:48 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:34:48 | INFO     | ================================================================================
+2026-01-30 09:34:48 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:34:48 | INFO     |    Confidence: 30.00%
+2026-01-30 09:34:48 | INFO     |    Correct: NO
+2026-01-30 09:34:48 | INFO     | 
+================================================================================
+2026-01-30 09:34:48 | INFO     | CLAIM 5/10
+2026-01-30 09:34:48 | INFO     | ================================================================================
+2026-01-30 09:34:48 | INFO     | Text: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:34:48 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:34:48 | INFO     | Category: technology
+2026-01-30 09:34:48 | INFO     | Difficulty: easy
+2026-01-30 09:34:48 | INFO     | ================================================================================
+2026-01-30 09:34:48 | INFO     | VERIFYING CLAIM: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:34:48 | INFO     | ================================================================================
+2026-01-30 09:34:48 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:34:48 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:34:48 | INFO     | Processing claim: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:34:48 | INFO     | Decomposing claim (lang=en): The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:34:52 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb5fadb0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:34:52 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:34:52 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:34:52 | INFO     | [OK] Found 2 verifiable subclaims
+2026-01-30 09:34:52 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:34:52 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:34:52 | INFO     | Generated 6 total queries
+2026-01-30 09:34:52 | INFO     | [OK] Generated 6 search queries
+2026-01-30 09:34:52 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:34:52 | INFO     |      Stage 1: Web Search
+2026-01-30 09:34:52 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:34:52 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:34:52 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:34:52 | INFO     | Searching for: The Python Guido Rossum The Python programming language was created by Guido van Rossum (region=wt-wt)
+2026-01-30 09:34:52 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Python_Guido_Rossum_The_Python_programming_language_was_created_by_Guido_van_Rossum
+2026-01-30 09:34:52 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Python_Guido_Rossum_The_Python_programming_language_was_created_by_Guido_van_Rossum: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Python_Guido_Rossum_The_Python_programming_language_was_created_by_Guido_van_Rossum
+2026-01-30 09:34:52 | INFO     | Scraping: https://www.britannica.com/topic/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:34:52 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:34:52 | INFO     | Scraping: https://www.example.edu/research/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:34:52 | ERROR    | Scraping failed for https://www.example.edu/research/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Python-Guido-Rossum-The-Python-programming-language-was-created-by-Guido-van-Rossum
+2026-01-30 09:34:52 | INFO     | Searching for: When the python programming language was created by guido van rossum (region=wt-wt)
+2026-01-30 09:34:52 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_the_python_programming_language_was_created_by_guido_van_rossum
+2026-01-30 09:34:53 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_the_python_programming_language_was_created_by_guido_van_rossum: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_the_python_programming_language_was_created_by_guido_van_rossum
+2026-01-30 09:34:53 | INFO     | Scraping: https://www.britannica.com/topic/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:34:53 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-the-python-programming-language-was-created-by-guido-van-rossum: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:34:53 | INFO     | Scraping: https://www.example.edu/research/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:34:53 | ERROR    | Scraping failed for https://www.example.edu/research/When-the-python-programming-language-was-created-by-guido-van-rossum: 404 Client Error: Not Found for url: https://www.example.edu/research/When-the-python-programming-language-was-created-by-guido-van-rossum
+2026-01-30 09:34:53 | INFO     | Searching for: Rossum The Python language Guido guido programming van created (region=wt-wt)
+2026-01-30 09:34:53 | INFO     | Scraping: https://en.wikipedia.org/wiki/Rossum_The_Python_language_Guido_guido_programming_van_created
+2026-01-30 09:34:54 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Rossum_The_Python_language_Guido_guido_programming_van_created: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Rossum_The_Python_language_Guido_guido_programming_van_created
+2026-01-30 09:34:54 | INFO     | Scraping: https://www.britannica.com/topic/Rossum-The-Python-language-Guido-guido-programming-van-created
+2026-01-30 09:34:54 | ERROR    | Scraping failed for https://www.britannica.com/topic/Rossum-The-Python-language-Guido-guido-programming-van-created: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Rossum-The-Python-language-Guido-guido-programming-van-created
+2026-01-30 09:34:54 | INFO     | Scraping: https://www.example.edu/research/Rossum-The-Python-language-Guido-guido-programming-van-created
+2026-01-30 09:34:54 | ERROR    | Scraping failed for https://www.example.edu/research/Rossum-The-Python-language-Guido-guido-programming-van-created: 404 Client Error: Not Found for url: https://www.example.edu/research/Rossum-The-Python-language-Guido-guido-programming-van-created
+2026-01-30 09:34:54 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:34:54 | INFO     | Searching for: first released in 1991 (region=wt-wt)
+2026-01-30 09:34:54 | INFO     | Scraping: https://en.wikipedia.org/wiki/first_released_in_1991
+2026-01-30 09:34:55 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/first_released_in_1991: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/First_released_in_1991
+2026-01-30 09:34:55 | INFO     | Scraping: https://www.britannica.com/topic/first-released-in-1991
+2026-01-30 09:34:55 | ERROR    | Scraping failed for https://www.britannica.com/topic/first-released-in-1991: 404 Client Error: Not Found for url: https://www.britannica.com/topic/first-released-in-1991
+2026-01-30 09:34:55 | INFO     | Scraping: https://www.example.edu/research/first-released-in-1991
+2026-01-30 09:34:55 | ERROR    | Scraping failed for https://www.example.edu/research/first-released-in-1991: 404 Client Error: Not Found for url: https://www.example.edu/research/first-released-in-1991
+2026-01-30 09:34:55 | INFO     | Searching for: What about first released in 1991 (region=wt-wt)
+2026-01-30 09:34:55 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_first_released_in_1991
+2026-01-30 09:34:55 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_first_released_in_1991: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_first_released_in_1991
+2026-01-30 09:34:55 | INFO     | Scraping: https://www.britannica.com/topic/What-about-first-released-in-1991
+2026-01-30 09:34:56 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-first-released-in-1991: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-first-released-in-1991
+2026-01-30 09:34:56 | INFO     | Scraping: https://www.example.edu/research/What-about-first-released-in-1991
+2026-01-30 09:34:56 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-first-released-in-1991: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-first-released-in-1991
+2026-01-30 09:34:56 | INFO     | Searching for: 1991 first released (region=wt-wt)
+2026-01-30 09:34:56 | INFO     | Scraping: https://en.wikipedia.org/wiki/1991_first_released
+2026-01-30 09:34:57 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/1991_first_released: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/1991_first_released
+2026-01-30 09:34:57 | INFO     | Scraping: https://www.britannica.com/topic/1991-first-released
+2026-01-30 09:34:57 | ERROR    | Scraping failed for https://www.britannica.com/topic/1991-first-released: 404 Client Error: Not Found for url: https://www.britannica.com/topic/1991-first-released
+2026-01-30 09:34:57 | INFO     | Scraping: https://www.example.edu/research/1991-first-released
+2026-01-30 09:34:57 | ERROR    | Scraping failed for https://www.example.edu/research/1991-first-released: 404 Client Error: Not Found for url: https://www.example.edu/research/1991-first-released
+2026-01-30 09:34:57 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:34:57 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:34:57 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:34:57 | INFO     | Predicting verdict for: The Python programming language was created by Guido van Rossum and first released in 1991
+2026-01-30 09:34:57 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:57 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:34:57 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:34:57 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:34:57 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:34:57 | INFO     | [OK] Explanation quality: 0.15
+2026-01-30 09:34:57 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:34:57 | INFO     | Run 5 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:34:57 | INFO     | [OK] Run recorded (accuracy: 0.00)
+2026-01-30 09:34:57 | INFO     | 
+================================================================================
+2026-01-30 09:34:57 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:34:57 | INFO     | ================================================================================
+2026-01-30 09:34:57 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:34:57 | INFO     |    Confidence: 30.00%
+2026-01-30 09:34:57 | INFO     |    Correct: NO
+2026-01-30 09:34:57 | INFO     | 
+================================================================================
+2026-01-30 09:34:57 | INFO     | CLAIM 6/10
+2026-01-30 09:34:57 | INFO     | ================================================================================
+2026-01-30 09:34:57 | INFO     | Text: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:34:57 | INFO     | Ground Truth: NOT_SUPPORTED
+2026-01-30 09:34:57 | INFO     | Category: geographical
+2026-01-30 09:34:57 | INFO     | Difficulty: medium
+2026-01-30 09:34:57 | INFO     | ================================================================================
+2026-01-30 09:34:57 | INFO     | VERIFYING CLAIM: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:34:57 | INFO     | ================================================================================
+2026-01-30 09:34:57 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:34:57 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:34:57 | INFO     | Processing claim: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:34:57 | INFO     | Decomposing claim (lang=en): Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:35:01 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb5fb740 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:35:01 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:35:01 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:35:01 | INFO     | [OK] Found 2 verifiable subclaims
+2026-01-30 09:35:01 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:35:01 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:35:01 | INFO     | Generated 6 total queries
+2026-01-30 09:35:01 | INFO     | [OK] Generated 6 search queries
+2026-01-30 09:35:01 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:35:01 | INFO     |      Stage 1: Web Search
+2026-01-30 09:35:01 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:35:01 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:35:01 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:35:01 | INFO     | Searching for: Mount Everest Earth Mount Everest is the tallest mountain on Earth (region=wt-wt)
+2026-01-30 09:35:01 | INFO     | Scraping: https://en.wikipedia.org/wiki/Mount_Everest_Earth_Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:35:02 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Mount_Everest_Earth_Mount_Everest_is_the_tallest_mountain_on_Earth: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Mount_Everest_Earth_Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:35:02 | INFO     | Scraping: https://www.britannica.com/topic/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:02 | ERROR    | Scraping failed for https://www.britannica.com/topic/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:02 | INFO     | Scraping: https://www.example.edu/research/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:02 | ERROR    | Scraping failed for https://www.example.edu/research/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.example.edu/research/Mount-Everest-Earth-Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:02 | INFO     | Searching for: Mount Everest is the tallest mountain on Earth (region=wt-wt)
+2026-01-30 09:35:02 | INFO     | Scraping: https://en.wikipedia.org/wiki/Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:35:03 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Mount_Everest_is_the_tallest_mountain_on_Earth: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Mount_Everest_is_the_tallest_mountain_on_Earth
+2026-01-30 09:35:03 | INFO     | Scraping: https://www.britannica.com/topic/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:03 | ERROR    | Scraping failed for https://www.britannica.com/topic/Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:03 | INFO     | Scraping: https://www.example.edu/research/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:03 | ERROR    | Scraping failed for https://www.example.edu/research/Mount-Everest-is-the-tallest-mountain-on-Earth: 404 Client Error: Not Found for url: https://www.example.edu/research/Mount-Everest-is-the-tallest-mountain-on-Earth
+2026-01-30 09:35:03 | INFO     | Searching for: Earth earth mount everest tallest mountain Mount Everest (region=wt-wt)
+2026-01-30 09:35:03 | INFO     | Scraping: https://en.wikipedia.org/wiki/Earth_earth_mount_everest_tallest_mountain_Mount_Everest
+2026-01-30 09:35:04 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Earth_earth_mount_everest_tallest_mountain_Mount_Everest: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Earth_earth_mount_everest_tallest_mountain_Mount_Everest
+2026-01-30 09:35:04 | INFO     | Scraping: https://www.britannica.com/topic/Earth-earth-mount-everest-tallest-mountain-Mount-Everest
+2026-01-30 09:35:04 | ERROR    | Scraping failed for https://www.britannica.com/topic/Earth-earth-mount-everest-tallest-mountain-Mount-Everest: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Earth-earth-mount-everest-tallest-mountain-Mount-Everest
+2026-01-30 09:35:04 | INFO     | Scraping: https://www.example.edu/research/Earth-earth-mount-everest-tallest-mountain-Mount-Everest
+2026-01-30 09:35:04 | ERROR    | Scraping failed for https://www.example.edu/research/Earth-earth-mount-everest-tallest-mountain-Mount-Everest: 404 Client Error: Not Found for url: https://www.example.edu/research/Earth-earth-mount-everest-tallest-mountain-Mount-Everest
+2026-01-30 09:35:04 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:35:04 | INFO     | Searching for: Nepal is located in Nepal (region=wt-wt)
+2026-01-30 09:35:04 | INFO     | Scraping: https://en.wikipedia.org/wiki/Nepal_is_located_in_Nepal
+2026-01-30 09:35:05 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Nepal_is_located_in_Nepal: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Nepal_is_located_in_Nepal
+2026-01-30 09:35:05 | INFO     | Scraping: https://www.britannica.com/topic/Nepal-is-located-in-Nepal
+2026-01-30 09:35:05 | ERROR    | Scraping failed for https://www.britannica.com/topic/Nepal-is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Nepal-is-located-in-Nepal
+2026-01-30 09:35:05 | INFO     | Scraping: https://www.example.edu/research/Nepal-is-located-in-Nepal
+2026-01-30 09:35:05 | ERROR    | Scraping failed for https://www.example.edu/research/Nepal-is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.example.edu/research/Nepal-is-located-in-Nepal
+2026-01-30 09:35:05 | INFO     | Searching for: is located in Nepal (region=wt-wt)
+2026-01-30 09:35:05 | INFO     | Scraping: https://en.wikipedia.org/wiki/is_located_in_Nepal
+2026-01-30 09:35:05 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/is_located_in_Nepal: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Is_located_in_Nepal
+2026-01-30 09:35:05 | INFO     | Scraping: https://www.britannica.com/topic/is-located-in-Nepal
+2026-01-30 09:35:06 | ERROR    | Scraping failed for https://www.britannica.com/topic/is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.britannica.com/topic/is-located-in-Nepal
+2026-01-30 09:35:06 | INFO     | Scraping: https://www.example.edu/research/is-located-in-Nepal
+2026-01-30 09:35:06 | ERROR    | Scraping failed for https://www.example.edu/research/is-located-in-Nepal: 404 Client Error: Not Found for url: https://www.example.edu/research/is-located-in-Nepal
+2026-01-30 09:35:06 | INFO     | Searching for: Nepal nepal located (region=wt-wt)
+2026-01-30 09:35:06 | INFO     | Scraping: https://en.wikipedia.org/wiki/Nepal_nepal_located
+2026-01-30 09:35:06 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Nepal_nepal_located: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Nepal_nepal_located
+2026-01-30 09:35:06 | INFO     | Scraping: https://www.britannica.com/topic/Nepal-nepal-located
+2026-01-30 09:35:07 | ERROR    | Scraping failed for https://www.britannica.com/topic/Nepal-nepal-located: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Nepal-nepal-located
+2026-01-30 09:35:07 | INFO     | Scraping: https://www.example.edu/research/Nepal-nepal-located
+2026-01-30 09:35:07 | ERROR    | Scraping failed for https://www.example.edu/research/Nepal-nepal-located: 404 Client Error: Not Found for url: https://www.example.edu/research/Nepal-nepal-located
+2026-01-30 09:35:07 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:35:07 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:35:07 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:35:07 | INFO     | Predicting verdict for: Mount Everest is the tallest mountain on Earth and is located in Nepal
+2026-01-30 09:35:07 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:07 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:07 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:35:07 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:35:07 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:35:07 | INFO     | [OK] Explanation quality: 0.14
+2026-01-30 09:35:07 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:35:07 | INFO     | Run 6 recorded: accuracy=1.00, quality=0.00
+2026-01-30 09:35:07 | INFO     | [OK] Run recorded (accuracy: 1.00)
+2026-01-30 09:35:07 | INFO     | 
+================================================================================
+2026-01-30 09:35:07 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:35:07 | INFO     | ================================================================================
+2026-01-30 09:35:07 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:35:07 | INFO     |    Confidence: 30.00%
+2026-01-30 09:35:07 | INFO     |    Correct: YES
+2026-01-30 09:35:07 | INFO     | 
+================================================================================
+2026-01-30 09:35:07 | INFO     | CLAIM 7/10
+2026-01-30 09:35:07 | INFO     | ================================================================================
+2026-01-30 09:35:07 | INFO     | Text: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:35:07 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:35:07 | INFO     | Category: scientific
+2026-01-30 09:35:07 | INFO     | Difficulty: easy
+2026-01-30 09:35:07 | INFO     | ================================================================================
+2026-01-30 09:35:07 | INFO     | VERIFYING CLAIM: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:35:07 | INFO     | ================================================================================
+2026-01-30 09:35:07 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:35:07 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:35:07 | INFO     | Processing claim: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:35:07 | INFO     | Decomposing claim (lang=en): The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:35:11 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb5fb4d0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:35:11 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:35:11 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:35:11 | INFO     | [OK] Found 2 verifiable subclaims
+2026-01-30 09:35:11 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:35:11 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:35:11 | INFO     | Generated 6 total queries
+2026-01-30 09:35:11 | INFO     | [OK] Generated 6 search queries
+2026-01-30 09:35:11 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:35:11 | INFO     |      Stage 1: Web Search
+2026-01-30 09:35:11 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:35:11 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:35:11 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:35:11 | INFO     | Searching for: The Earth Sun The Earth orbits the Sun (region=wt-wt)
+2026-01-30 09:35:11 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Earth_Sun_The_Earth_orbits_the_Sun
+2026-01-30 09:35:11 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Earth_Sun_The_Earth_orbits_the_Sun: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Earth_Sun_The_Earth_orbits_the_Sun
+2026-01-30 09:35:11 | INFO     | Scraping: https://www.britannica.com/topic/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:35:11 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Earth-Sun-The-Earth-orbits-the-Sun: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:35:11 | INFO     | Scraping: https://www.example.edu/research/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:35:11 | ERROR    | Scraping failed for https://www.example.edu/research/The-Earth-Sun-The-Earth-orbits-the-Sun: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Earth-Sun-The-Earth-orbits-the-Sun
+2026-01-30 09:35:11 | INFO     | Searching for: What about the earth orbits the sun (region=wt-wt)
+2026-01-30 09:35:11 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_the_earth_orbits_the_sun
+2026-01-30 09:35:12 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_the_earth_orbits_the_sun: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_the_earth_orbits_the_sun
+2026-01-30 09:35:12 | INFO     | Scraping: https://www.britannica.com/topic/What-about-the-earth-orbits-the-sun
+2026-01-30 09:35:12 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-the-earth-orbits-the-sun: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-the-earth-orbits-the-sun
+2026-01-30 09:35:12 | INFO     | Scraping: https://www.example.edu/research/What-about-the-earth-orbits-the-sun
+2026-01-30 09:35:12 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-the-earth-orbits-the-sun: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-the-earth-orbits-the-sun
+2026-01-30 09:35:12 | INFO     | Searching for: The Earth earth Sun sun orbits (region=wt-wt)
+2026-01-30 09:35:12 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_Earth_earth_Sun_sun_orbits
+2026-01-30 09:35:13 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_Earth_earth_Sun_sun_orbits: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_Earth_earth_Sun_sun_orbits
+2026-01-30 09:35:13 | INFO     | Scraping: https://www.britannica.com/topic/The-Earth-earth-Sun-sun-orbits
+2026-01-30 09:35:14 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-Earth-earth-Sun-sun-orbits: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-Earth-earth-Sun-sun-orbits
+2026-01-30 09:35:14 | INFO     | Scraping: https://www.example.edu/research/The-Earth-earth-Sun-sun-orbits
+2026-01-30 09:35:14 | ERROR    | Scraping failed for https://www.example.edu/research/The-Earth-earth-Sun-sun-orbits: 404 Client Error: Not Found for url: https://www.example.edu/research/The-Earth-earth-Sun-sun-orbits
+2026-01-30 09:35:14 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:35:14 | INFO     | Searching for: completes one orbit every 365.25 days (region=wt-wt)
+2026-01-30 09:35:14 | INFO     | Scraping: https://en.wikipedia.org/wiki/completes_one_orbit_every_365.25_days
+2026-01-30 09:35:14 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/completes_one_orbit_every_365.25_days: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Completes_one_orbit_every_365.25_days
+2026-01-30 09:35:14 | INFO     | Scraping: https://www.britannica.com/topic/completes-one-orbit-every-365.25-days
+2026-01-30 09:35:14 | ERROR    | Scraping failed for https://www.britannica.com/topic/completes-one-orbit-every-365.25-days: 404 Client Error: Not Found for url: https://www.britannica.com/topic/completes-one-orbit-every-365.25-days
+2026-01-30 09:35:14 | INFO     | Scraping: https://www.example.edu/research/completes-one-orbit-every-365.25-days
+2026-01-30 09:35:14 | ERROR    | Scraping failed for https://www.example.edu/research/completes-one-orbit-every-365.25-days: 404 Client Error: Not Found for url: https://www.example.edu/research/completes-one-orbit-every-365.25-days
+2026-01-30 09:35:14 | INFO     | Searching for: What about completes one orbit every 365?25 days (region=wt-wt)
+2026-01-30 09:35:14 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_completes_one_orbit_every_365?25_days
+2026-01-30 09:35:15 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_completes_one_orbit_every_365?25_days: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_completes_one_orbit_every_365?25_days
+2026-01-30 09:35:15 | INFO     | Scraping: https://www.britannica.com/topic/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:35:15 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-completes-one-orbit-every-365?25-days: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:35:15 | INFO     | Scraping: https://www.example.edu/research/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:35:15 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-completes-one-orbit-every-365?25-days: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-completes-one-orbit-every-365?25-days
+2026-01-30 09:35:15 | INFO     | Searching for: 365.25 days every orbit completes one (region=wt-wt)
+2026-01-30 09:35:15 | INFO     | Scraping: https://en.wikipedia.org/wiki/365.25_days_every_orbit_completes_one
+2026-01-30 09:35:16 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/365.25_days_every_orbit_completes_one: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/365.25_days_every_orbit_completes_one
+2026-01-30 09:35:16 | INFO     | Scraping: https://www.britannica.com/topic/365.25-days-every-orbit-completes-one
+2026-01-30 09:35:16 | ERROR    | Scraping failed for https://www.britannica.com/topic/365.25-days-every-orbit-completes-one: 404 Client Error: Not Found for url: https://www.britannica.com/topic/365.25-days-every-orbit-completes-one
+2026-01-30 09:35:16 | INFO     | Scraping: https://www.example.edu/research/365.25-days-every-orbit-completes-one
+2026-01-30 09:35:16 | ERROR    | Scraping failed for https://www.example.edu/research/365.25-days-every-orbit-completes-one: 404 Client Error: Not Found for url: https://www.example.edu/research/365.25-days-every-orbit-completes-one
+2026-01-30 09:35:16 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:35:16 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:35:16 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:35:16 | INFO     | Predicting verdict for: The Earth orbits the Sun and completes one orbit every 365.25 days
+2026-01-30 09:35:16 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:16 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:16 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:35:16 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:35:16 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:35:16 | INFO     | [OK] Explanation quality: 0.14
+2026-01-30 09:35:16 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:35:16 | INFO     | Run 7 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:35:16 | INFO     | [OK] Run recorded (accuracy: 0.00)
+2026-01-30 09:35:16 | INFO     | 
+================================================================================
+2026-01-30 09:35:16 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:35:16 | INFO     | ================================================================================
+2026-01-30 09:35:16 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:35:16 | INFO     |    Confidence: 30.00%
+2026-01-30 09:35:16 | INFO     |    Correct: NO
+2026-01-30 09:35:16 | INFO     | 
+================================================================================
+2026-01-30 09:35:16 | INFO     | CLAIM 8/10
+2026-01-30 09:35:16 | INFO     | ================================================================================
+2026-01-30 09:35:16 | INFO     | Text: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:35:16 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:35:16 | INFO     | Category: historical
+2026-01-30 09:35:16 | INFO     | Difficulty: easy
+2026-01-30 09:35:16 | INFO     | ================================================================================
+2026-01-30 09:35:16 | INFO     | VERIFYING CLAIM: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:35:16 | INFO     | ================================================================================
+2026-01-30 09:35:16 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:35:16 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:35:16 | INFO     | Processing claim: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:35:16 | INFO     | Decomposing claim (lang=en): William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:35:20 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb5faa20 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:35:20 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:35:20 | INFO     | Decomposed into 1 verifiable subclaims, filtered 1
+2026-01-30 09:35:20 | INFO     | [OK] Found 1 verifiable subclaims
+2026-01-30 09:35:20 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:35:20 | INFO     | Generating queries for 1 subclaims (lang=en)
+2026-01-30 09:35:20 | INFO     | Generated 3 total queries
+2026-01-30 09:35:20 | INFO     | [OK] Generated 3 search queries
+2026-01-30 09:35:20 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:35:20 | INFO     |      Stage 1: Web Search
+2026-01-30 09:35:20 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:35:20 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:35:20 | INFO     | Seeking evidence for 1 subclaims (lang=en)
+2026-01-30 09:35:20 | INFO     | Searching for: Stratford Avon was born in Stratford-upon-Avon in 1564 (region=wt-wt)
+2026-01-30 09:35:20 | INFO     | Scraping: https://en.wikipedia.org/wiki/Stratford_Avon_was_born_in_Stratford-upon-Avon_in_1564
+2026-01-30 09:35:21 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/Stratford_Avon_was_born_in_Stratford-upon-Avon_in_1564: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Stratford_Avon_was_born_in_Stratford-upon-Avon_in_1564
+2026-01-30 09:35:21 | INFO     | Scraping: https://www.britannica.com/topic/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:35:21 | ERROR    | Scraping failed for https://www.britannica.com/topic/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564: 404 Client Error: Not Found for url: https://www.britannica.com/topic/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:35:21 | INFO     | Scraping: https://www.example.edu/research/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:35:21 | ERROR    | Scraping failed for https://www.example.edu/research/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564: 404 Client Error: Not Found for url: https://www.example.edu/research/Stratford-Avon-was-born-in-Stratford-upon-Avon-in-1564
+2026-01-30 09:35:21 | INFO     | Searching for: When was born in stratford-upon-avon in 1564 (region=wt-wt)
+2026-01-30 09:35:21 | INFO     | Scraping: https://en.wikipedia.org/wiki/When_was_born_in_stratford-upon-avon_in_1564
+2026-01-30 09:35:21 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/When_was_born_in_stratford-upon-avon_in_1564: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/When_was_born_in_stratford-upon-avon_in_1564
+2026-01-30 09:35:21 | INFO     | Scraping: https://www.britannica.com/topic/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:35:22 | ERROR    | Scraping failed for https://www.britannica.com/topic/When-was-born-in-stratford-upon-avon-in-1564: 404 Client Error: Not Found for url: https://www.britannica.com/topic/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:35:22 | INFO     | Scraping: https://www.example.edu/research/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:35:22 | ERROR    | Scraping failed for https://www.example.edu/research/When-was-born-in-stratford-upon-avon-in-1564: 404 Client Error: Not Found for url: https://www.example.edu/research/When-was-born-in-stratford-upon-avon-in-1564
+2026-01-30 09:35:22 | INFO     | Searching for: born 1564 Stratford Avon stratford-upon-avon (region=wt-wt)
+2026-01-30 09:35:22 | INFO     | Scraping: https://en.wikipedia.org/wiki/born_1564_Stratford_Avon_stratford-upon-avon
+2026-01-30 09:35:23 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/born_1564_Stratford_Avon_stratford-upon-avon: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Born_1564_Stratford_Avon_stratford-upon-avon
+2026-01-30 09:35:23 | INFO     | Scraping: https://www.britannica.com/topic/born-1564-Stratford-Avon-stratford-upon-avon
+2026-01-30 09:35:23 | ERROR    | Scraping failed for https://www.britannica.com/topic/born-1564-Stratford-Avon-stratford-upon-avon: 404 Client Error: Not Found for url: https://www.britannica.com/topic/born-1564-Stratford-Avon-stratford-upon-avon
+2026-01-30 09:35:23 | INFO     | Scraping: https://www.example.edu/research/born-1564-Stratford-Avon-stratford-upon-avon
+2026-01-30 09:35:23 | ERROR    | Scraping failed for https://www.example.edu/research/born-1564-Stratford-Avon-stratford-upon-avon: 404 Client Error: Not Found for url: https://www.example.edu/research/born-1564-Stratford-Avon-stratford-upon-avon
+2026-01-30 09:35:23 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:35:23 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:35:23 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:35:23 | INFO     | Predicting verdict for: William Shakespeare wrote Hamlet and was born in Stratford-upon-Avon in 1564
+2026-01-30 09:35:23 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:23 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:23 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:35:23 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:35:23 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:35:23 | INFO     | [OK] Explanation quality: 0.11
+2026-01-30 09:35:23 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:35:23 | INFO     | Run 8 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:35:23 | INFO     | [OK] Run recorded (accuracy: 0.00)
+2026-01-30 09:35:23 | INFO     | 
+================================================================================
+2026-01-30 09:35:23 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:35:23 | INFO     | ================================================================================
+2026-01-30 09:35:23 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:35:23 | INFO     |    Confidence: 30.00%
+2026-01-30 09:35:23 | INFO     |    Correct: NO
+2026-01-30 09:35:23 | INFO     | 
+================================================================================
+2026-01-30 09:35:23 | INFO     | CLAIM 9/10
+2026-01-30 09:35:23 | INFO     | ================================================================================
+2026-01-30 09:35:23 | INFO     | Text: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:35:23 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:35:23 | INFO     | Category: contemporary
+2026-01-30 09:35:23 | INFO     | Difficulty: medium
+2026-01-30 09:35:23 | INFO     | ================================================================================
+2026-01-30 09:35:23 | INFO     | VERIFYING CLAIM: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:35:23 | INFO     | ================================================================================
+2026-01-30 09:35:23 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:35:23 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:35:23 | INFO     | Processing claim: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:35:23 | INFO     | Decomposing claim (lang=en): The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:35:27 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb5f8080 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:35:27 | INFO     | Heuristic decomposition produced 2 subclaims
+2026-01-30 09:35:27 | INFO     | Decomposed into 2 verifiable subclaims, filtered 0
+2026-01-30 09:35:27 | INFO     | [OK] Found 2 verifiable subclaims
+2026-01-30 09:35:27 | INFO     | 
+[2/6] Query Generation Agent - Creating search queries...
+2026-01-30 09:35:27 | INFO     | Generating queries for 2 subclaims (lang=en)
+2026-01-30 09:35:27 | INFO     | Generated 6 total queries
+2026-01-30 09:35:27 | INFO     | [OK] Generated 6 search queries
+2026-01-30 09:35:27 | INFO     | 
+[3/6] Evidence Seeking Agent - Retrieving evidence...
+2026-01-30 09:35:27 | INFO     |      Stage 1: Web Search
+2026-01-30 09:35:27 | INFO     |      Stage 2: Credibility Check
+2026-01-30 09:35:27 | INFO     |      Stage 3: Content Extraction
+2026-01-30 09:35:27 | INFO     | Seeking evidence for 2 subclaims (lang=en)
+2026-01-30 09:35:27 | INFO     | Searching for: The The COVID-19 pandemic started in 2019 (region=wt-wt)
+2026-01-30 09:35:27 | INFO     | Scraping: https://en.wikipedia.org/wiki/The_The_COVID-19_pandemic_started_in_2019
+2026-01-30 09:35:28 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/The_The_COVID-19_pandemic_started_in_2019: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/The_The_COVID-19_pandemic_started_in_2019
+2026-01-30 09:35:28 | INFO     | Scraping: https://www.britannica.com/topic/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | ERROR    | Scraping failed for https://www.britannica.com/topic/The-The-COVID-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.britannica.com/topic/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | INFO     | Scraping: https://www.example.edu/research/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | ERROR    | Scraping failed for https://www.example.edu/research/The-The-COVID-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.example.edu/research/The-The-COVID-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | INFO     | Searching for: What about the covid-19 pandemic started in 2019 (region=wt-wt)
+2026-01-30 09:35:28 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_the_covid-19_pandemic_started_in_2019
+2026-01-30 09:35:28 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_the_covid-19_pandemic_started_in_2019: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_the_covid-19_pandemic_started_in_2019
+2026-01-30 09:35:28 | INFO     | Scraping: https://www.britannica.com/topic/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-the-covid-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | INFO     | Scraping: https://www.example.edu/research/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-the-covid-19-pandemic-started-in-2019: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-the-covid-19-pandemic-started-in-2019
+2026-01-30 09:35:28 | INFO     | Searching for: 2019 The started covid-19 pandemic (region=wt-wt)
+2026-01-30 09:35:28 | INFO     | Scraping: https://en.wikipedia.org/wiki/2019_The_started_covid-19_pandemic
+2026-01-30 09:35:29 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/2019_The_started_covid-19_pandemic: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/2019_The_started_covid-19_pandemic
+2026-01-30 09:35:29 | INFO     | Scraping: https://www.britannica.com/topic/2019-The-started-covid-19-pandemic
+2026-01-30 09:35:29 | ERROR    | Scraping failed for https://www.britannica.com/topic/2019-The-started-covid-19-pandemic: 404 Client Error: Not Found for url: https://www.britannica.com/topic/2019-The-started-covid-19-pandemic
+2026-01-30 09:35:29 | INFO     | Scraping: https://www.example.edu/research/2019-The-started-covid-19-pandemic
+2026-01-30 09:35:29 | ERROR    | Scraping failed for https://www.example.edu/research/2019-The-started-covid-19-pandemic: 404 Client Error: Not Found for url: https://www.example.edu/research/2019-The-started-covid-19-pandemic
+2026-01-30 09:35:29 | INFO     | Found 0 evidence items for SC1 (0 high credibility)
+2026-01-30 09:35:29 | INFO     | Searching for: vaccines were developed within one year (region=wt-wt)
+2026-01-30 09:35:29 | INFO     | Scraping: https://en.wikipedia.org/wiki/vaccines_were_developed_within_one_year
+2026-01-30 09:35:30 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/vaccines_were_developed_within_one_year: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Vaccines_were_developed_within_one_year
+2026-01-30 09:35:30 | INFO     | Scraping: https://www.britannica.com/topic/vaccines-were-developed-within-one-year
+2026-01-30 09:35:30 | ERROR    | Scraping failed for https://www.britannica.com/topic/vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.britannica.com/topic/vaccines-were-developed-within-one-year
+2026-01-30 09:35:30 | INFO     | Scraping: https://www.example.edu/research/vaccines-were-developed-within-one-year
+2026-01-30 09:35:30 | ERROR    | Scraping failed for https://www.example.edu/research/vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.example.edu/research/vaccines-were-developed-within-one-year
+2026-01-30 09:35:30 | INFO     | Searching for: What about vaccines were developed within one year (region=wt-wt)
+2026-01-30 09:35:30 | INFO     | Scraping: https://en.wikipedia.org/wiki/What_about_vaccines_were_developed_within_one_year
+2026-01-30 09:35:30 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/What_about_vaccines_were_developed_within_one_year: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/What_about_vaccines_were_developed_within_one_year
+2026-01-30 09:35:30 | INFO     | Scraping: https://www.britannica.com/topic/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:35:31 | ERROR    | Scraping failed for https://www.britannica.com/topic/What-about-vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.britannica.com/topic/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:35:31 | INFO     | Scraping: https://www.example.edu/research/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:35:31 | ERROR    | Scraping failed for https://www.example.edu/research/What-about-vaccines-were-developed-within-one-year: 404 Client Error: Not Found for url: https://www.example.edu/research/What-about-vaccines-were-developed-within-one-year
+2026-01-30 09:35:31 | INFO     | Searching for: vaccines within year developed one (region=wt-wt)
+2026-01-30 09:35:31 | INFO     | Scraping: https://en.wikipedia.org/wiki/vaccines_within_year_developed_one
+2026-01-30 09:35:32 | ERROR    | Scraping failed for https://en.wikipedia.org/wiki/vaccines_within_year_developed_one: 404 Client Error: Not Found for url: https://en.wikipedia.org/wiki/Vaccines_within_year_developed_one
+2026-01-30 09:35:32 | INFO     | Scraping: https://www.britannica.com/topic/vaccines-within-year-developed-one
+2026-01-30 09:35:32 | ERROR    | Scraping failed for https://www.britannica.com/topic/vaccines-within-year-developed-one: 404 Client Error: Not Found for url: https://www.britannica.com/topic/vaccines-within-year-developed-one
+2026-01-30 09:35:32 | INFO     | Scraping: https://www.example.edu/research/vaccines-within-year-developed-one
+2026-01-30 09:35:32 | ERROR    | Scraping failed for https://www.example.edu/research/vaccines-within-year-developed-one: 404 Client Error: Not Found for url: https://www.example.edu/research/vaccines-within-year-developed-one
+2026-01-30 09:35:32 | INFO     | Found 0 evidence items for SC2 (0 high credibility)
+2026-01-30 09:35:32 | INFO     | [OK] Retrieved 0 evidence items
+2026-01-30 09:35:32 | INFO     | 
+[4/6] Verdict Prediction Agent - Aggregating evidence...
+2026-01-30 09:35:32 | INFO     | Predicting verdict for: The COVID-19 pandemic started in 2019 and vaccines were developed within one year
+2026-01-30 09:35:32 | INFO     | Final verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:32 | INFO     | [OK] Verdict: NOT_SUPPORTED (confidence: 0.30)
+2026-01-30 09:35:32 | INFO     | 
+[5/6] Explainable AI Agent - Generating explanations...
+2026-01-30 09:35:32 | INFO     | Generating explanations for verdict: NOT_SUPPORTED
+2026-01-30 09:35:32 | INFO     | Explanation quality - Coverage: 0.00, Soundness: 0.00
+2026-01-30 09:35:32 | INFO     | [OK] Explanation quality: 0.15
+2026-01-30 09:35:32 | INFO     | 
+[6/6] Reinforcement Learning Agent - Recording performance...
+2026-01-30 09:35:32 | INFO     | Run 9 recorded: accuracy=0.00, quality=0.00
+2026-01-30 09:35:32 | INFO     | [OK] Run recorded (accuracy: 0.00)
+2026-01-30 09:35:32 | INFO     | 
+================================================================================
+2026-01-30 09:35:32 | INFO     | VERIFICATION COMPLETE
+2026-01-30 09:35:32 | INFO     | ================================================================================
+2026-01-30 09:35:32 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:35:32 | INFO     |    Confidence: 30.00%
+2026-01-30 09:35:32 | INFO     |    Correct: NO
+2026-01-30 09:35:32 | INFO     | 
+================================================================================
+2026-01-30 09:35:32 | INFO     | CLAIM 10/10
+2026-01-30 09:35:32 | INFO     | ================================================================================
+2026-01-30 09:35:32 | INFO     | Text: The human brain contains approximately 100 billion neurons
+2026-01-30 09:35:32 | INFO     | Ground Truth: SUPPORTED
+2026-01-30 09:35:32 | INFO     | Category: scientific
+2026-01-30 09:35:32 | INFO     | Difficulty: medium
+2026-01-30 09:35:32 | INFO     | ================================================================================
+2026-01-30 09:35:32 | INFO     | VERIFYING CLAIM: The human brain contains approximately 100 billion neurons
+2026-01-30 09:35:32 | INFO     | ================================================================================
+2026-01-30 09:35:32 | INFO     | Detected language: en (confidence: 1.00)
+2026-01-30 09:35:32 | INFO     | 
+[1/6] Input Ingestion Agent - Decomposing claim...
+2026-01-30 09:35:32 | INFO     | Processing claim: The human brain contains approximately 100 billion neurons
+2026-01-30 09:35:32 | INFO     | Decomposing claim (lang=en): The human brain contains approximately 100 billion neurons
+2026-01-30 09:35:36 | ERROR    | LLM decomposition failed: RetryError[<Future at 0x26afb601ca0 state=finished raised Exception>], falling back to heuristic
+2026-01-30 09:35:36 | INFO     | Heuristic decomposition produced 1 subclaims
+2026-01-30 09:35:36 | INFO     | Decomposed into 0 verifiable subclaims, filtered 1
+2026-01-30 09:35:36 | INFO     | [OK] Found 0 verifiable subclaims
+2026-01-30 09:35:36 | WARNING  | No verifiable subclaims found!
+2026-01-30 09:35:36 | INFO     | 
+>>> VERDICT: NOT_SUPPORTED
+2026-01-30 09:35:36 | INFO     |    Confidence: 0.00%
+2026-01-30 09:35:36 | INFO     |    Correct: NO
+2026-01-30 09:35:36 | INFO     | 
+================================================================================
+2026-01-30 09:35:36 | INFO     | CALCULATING EVALUATION METRICS
+2026-01-30 09:35:36 | INFO     | ================================================================================
+2026-01-30 09:35:36 | INFO     | 
+================================================================================
+2026-01-30 09:35:36 | INFO     | REINFORCEMENT LEARNING ANALYSIS
+2026-01-30 09:35:36 | INFO     | ================================================================================
+2026-01-30 09:35:36 | INFO     | Generating performance analysis...
+2026-01-30 09:35:36 | INFO     | Analyzing 9 runs
+2026-01-30 09:35:36 | INFO     | Performance score: 2.22
+2026-01-30 09:35:36 | INFO     | 
+Performance Score: 2.2222
+2026-01-30 09:35:36 | INFO     | 
+Patterns Detected:
+2026-01-30 09:35:36 | INFO     |   Accuracy: mean=0.2222, recent=0.2000
+2026-01-30 09:35:36 | INFO     |   Evidence Quality: mean=0.0000
+2026-01-30 09:35:36 | INFO     | 
+Suggestions for Improvement:
+2026-01-30 09:35:36 | INFO     |   1. Accuracy is low (mean: 0.22). Consider:
+  - Increasing queries per subclaim (current k=3, try k=4)
+  - Raising credibility threshold to filter low-quality sources
+2026-01-30 09:35:36 | INFO     |   2. Evidence quality is low (mean: 0.00). Consider:
+  - Using stricter credibility threshold (current: medium, try: high)
+  - Increasing max search results to find more high-quality sources
+2026-01-30 09:35:36 | INFO     | 
+[OK] Detailed observations saved to: DEMO_OBSERVATIONS.md
+2026-01-30 09:35:36 | INFO     | 
+================================================================================
+2026-01-30 09:35:36 | INFO     | DEMO COMPLETE - 2026-01-30 09:35:36
+2026-01-30 09:35:36 | INFO     | ================================================================================

@@ -1,0 +1,127 @@
+# English Keywords for FOL Parser and Verifiability Detection
+language: en
+language_name: English
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - believe
+  - think
+  - feel
+  - suppose
+  - guess
+  - assume
+  - should
+  - ought
+  - better
+  - worse
+  - best
+  - worst
+  - beautiful
+  - ugly
+  - good
+  - bad
+  - nice
+  - terrible
+  - probably
+  - likely
+  - possibly
+  - maybe
+  - perhaps
+  - seems
+  - appears
+  - allegedly
+  - reportedly
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - will
+  - would
+  - might
+  - may
+  - could
+  - going to
+  - gonna
+  - shall
+  - predict
+  - forecast
+  - expect
+  - anticipate
+  - projected
+  - estimated future
+  - by 2030
+  - in the future
+  - soon
+  - eventually
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - some
+  - many
+  - few
+  - several
+  - various
+  - numerous
+  - often
+  - sometimes
+  - rarely
+  - frequently
+  - usually
+  - generally
+  - typically
+  - mostly
+  - almost
+  - nearly
+  - about
+  - approximately
+  - around
+  - roughly
+
+# Question patterns for query generation
+question_patterns:
+  statement_to_question:
+    - pattern: "(.+) is (.+)"
+      replacement: "Is \\1 \\2?"
+    - pattern: "(.+) was (.+)"
+      replacement: "Was \\1 \\2?"
+    - pattern: "(.+) are (.+)"
+      replacement: "Are \\1 \\2?"
+    - pattern: "(.+) were (.+)"
+      replacement: "Were \\1 \\2?"
+    - pattern: "(.+) has (.+)"
+      replacement: "Does \\1 have \\2?"
+    - pattern: "(.+) had (.+)"
+      replacement: "Did \\1 have \\2?"
+
+  question_starters:
+    - "What is"
+    - "Who is"
+    - "When did"
+    - "Where is"
+    - "How many"
+    - "Is it true that"
+    - "Did"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - and
+    - also
+    - additionally
+    - furthermore
+    - moreover
+  disjunction:
+    - or
+    - either
+    - alternatively
+  negation:
+    - not
+    - never
+    - no
+    - none
+    - neither
+  conditional:
+    - if
+    - when
+    - unless
+    - provided that
+    - assuming

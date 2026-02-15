@@ -1,0 +1,130 @@
+# Spanish Keywords for FOL Parser and Verifiability Detection
+language: es
+language_name: Spanish
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - creer
+  - creo
+  - cree
+  - pensar
+  - pienso
+  - piensa
+  - sentir
+  - siento
+  - suponer
+  - supongo
+  - debería
+  - debe
+  - mejor
+  - peor
+  - bueno
+  - malo
+  - bonito
+  - feo
+  - terrible
+  - excelente
+  - probablemente
+  - posiblemente
+  - quizás
+  - tal vez
+  - parece
+  - aparentemente
+  - supuestamente
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - será
+  - serán
+  - va a
+  - van a
+  - irá
+  - irán
+  - podría
+  - podrían
+  - puede que
+  - predecir
+  - pronosticar
+  - esperar
+  - anticipar
+  - proyectado
+  - en el futuro
+  - pronto
+  - eventualmente
+  - para 2030
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - algunos
+  - algunas
+  - muchos
+  - muchas
+  - pocos
+  - pocas
+  - varios
+  - varias
+  - numerosos
+  - a menudo
+  - a veces
+  - raramente
+  - frecuentemente
+  - usualmente
+  - generalmente
+  - típicamente
+  - mayormente
+  - casi
+  - aproximadamente
+  - alrededor de
+  - más o menos
+
+# Question patterns for query generation
+question_patterns:
+  statement_to_question:
+    - pattern: "(.+) es (.+)"
+      replacement: "¿Es \\1 \\2?"
+    - pattern: "(.+) fue (.+)"
+      replacement: "¿Fue \\1 \\2?"
+    - pattern: "(.+) son (.+)"
+      replacement: "¿Son \\1 \\2?"
+    - pattern: "(.+) fueron (.+)"
+      replacement: "¿Fueron \\1 \\2?"
+    - pattern: "(.+) tiene (.+)"
+      replacement: "¿Tiene \\1 \\2?"
+    - pattern: "(.+) tuvo (.+)"
+      replacement: "¿Tuvo \\1 \\2?"
+
+  question_starters:
+    - "¿Qué es"
+    - "¿Quién es"
+    - "¿Cuándo"
+    - "¿Dónde"
+    - "¿Cuántos"
+    - "¿Es verdad que"
+    - "¿Cómo"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - y
+    - también
+    - además
+    - asimismo
+    - igualmente
+  disjunction:
+    - o
+    - u
+    - ya sea
+    - alternativamente
+  negation:
+    - no
+    - nunca
+    - jamás
+    - ninguno
+    - ninguna
+    - ni
+  conditional:
+    - si
+    - cuando
+    - a menos que
+    - siempre que
+    - dado que

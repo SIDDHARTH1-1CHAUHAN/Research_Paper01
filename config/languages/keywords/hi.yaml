@@ -1,0 +1,86 @@
+# Hindi Keywords for FOL Parser and Verifiability Detection
+language: hi
+language_name: Hindi
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - मानना
+  - सोचना
+  - लगता
+  - महसूस
+  - चाहिए
+  - बेहतर
+  - बदतर
+  - अच्छा
+  - बुरा
+  - सुंदर
+  - बदसूरत
+  - शायद
+  - संभवतः
+  - लगभग
+  - प्रतीत
+  - कथित
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - होगा
+  - होगी
+  - होंगे
+  - जाएगा
+  - जाएगी
+  - सकता
+  - सकती
+  - भविष्यवाणी
+  - अनुमान
+  - भविष्य में
+  - जल्द ही
+  - आगे
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - कुछ
+  - कई
+  - बहुत
+  - थोड़ा
+  - अनेक
+  - विभिन्न
+  - अक्सर
+  - कभी-कभी
+  - शायद ही
+  - आमतौर पर
+  - सामान्यतः
+  - लगभग
+  - करीब
+
+# Question patterns for query generation
+question_patterns:
+  question_starters:
+    - "क्या है"
+    - "कौन है"
+    - "कब"
+    - "कहाँ"
+    - "कितने"
+    - "क्या"
+    - "कैसे"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - और
+    - तथा
+    - एवं
+    - भी
+    - साथ ही
+  disjunction:
+    - या
+    - अथवा
+  negation:
+    - नहीं
+    - न
+    - कभी नहीं
+    - कोई नहीं
+  conditional:
+    - अगर
+    - यदि
+    - जब
+    - जब तक

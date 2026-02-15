@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "Bash(dir /s \"C:\\\\Users\\\\Dell\\\\Desktop\\\\2026\\\\Research_Paper_01\\\\multi-agent-fact-checker\")",
+      "WebSearch",
+      "WebFetch(domain:fasttext.cc)",
+      "WebFetch(domain:aclanthology.org)",
+      "Bash(ls -la \"C:\\\\Users\\\\Dell\\\\Desktop\\\\2026\\\\Research_Paper_01\\\\multi-agent-fact-checker\\\\data\\\\benchmarks\"\" 2>/dev/null || echo \"Checking data structure... \")",
+      "Bash(tree:*)",
+      "Bash(wc:*)",
+      "Bash(python:*)",
+      "Bash(venvScriptspip install -r requirements_minimal.txt)",
+      "Bash(\"venv/Scripts/pip.exe\" install -r requirements_minimal.txt)",
+      "Bash(\"venv/Scripts/python.exe\" demo.py)"
+    ]
+  }
+}

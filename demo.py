@@ -97,9 +97,9 @@ def run_demo(num_claims: int = 10):
         final_verdict = verdict.get('final_verdict', 'UNKNOWN')
         confidence = verdict.get('overall_confidence', 0)
 
-        logger.info(f"\n🏁 VERDICT: {final_verdict}")
+        logger.info(f"\n>>> VERDICT: {final_verdict}")
         logger.info(f"   Confidence: {confidence:.2%}")
-        logger.info(f"   Correct: {'✓' if final_verdict == ground_truth else '✗'}")
+        logger.info(f"   Correct: {'YES' if final_verdict == ground_truth else 'NO'}")
 
     # Calculate comprehensive metrics
     logger.info("\n" + "="*80)
@@ -147,7 +147,7 @@ def save_observations(results, dataset, metrics, rl_analysis):
     """Save detailed observations to file"""
     observations_file = "DEMO_OBSERVATIONS.md"
 
-    with open(observations_file, 'w') as f:
+    with open(observations_file, 'w', encoding='utf-8') as f:
         f.write("# Multi-Agent Fact-Checking System - Demo Observations\n\n")
         f.write(f"**Date:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         f.write(f"**Dataset:** Mock Benchmark ({len(dataset)} claims)\n\n")
@@ -268,7 +268,7 @@ def save_observations(results, dataset, metrics, rl_analysis):
         f.write("- Reproducible evaluation framework\n")
         f.write("- Publication-ready documentation\n\n")
 
-    logger.info(f"\n✓ Detailed observations saved to: {observations_file}")
+    logger.info(f"\n[OK] Detailed observations saved to: {observations_file}")
 
 
 if __name__ == "__main__":

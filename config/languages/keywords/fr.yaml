@@ -1,0 +1,116 @@
+# French Keywords for FOL Parser and Verifiability Detection
+language: fr
+language_name: French
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - croire
+  - crois
+  - croit
+  - penser
+  - pense
+  - sentir
+  - sens
+  - supposer
+  - devrait
+  - meilleur
+  - pire
+  - bon
+  - mauvais
+  - beau
+  - laid
+  - terrible
+  - excellent
+  - probablement
+  - possiblement
+  - peut-être
+  - semble
+  - apparemment
+  - prétendument
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - sera
+  - seront
+  - va
+  - vont
+  - ira
+  - iront
+  - pourrait
+  - pourraient
+  - prédire
+  - prévoir
+  - attendre
+  - anticiper
+  - projeté
+  - dans le futur
+  - bientôt
+  - éventuellement
+  - d'ici 2030
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - quelques
+  - certains
+  - beaucoup
+  - peu
+  - plusieurs
+  - divers
+  - nombreux
+  - souvent
+  - parfois
+  - rarement
+  - fréquemment
+  - habituellement
+  - généralement
+  - typiquement
+  - presque
+  - environ
+  - approximativement
+  - à peu près
+
+# Question patterns for query generation
+question_patterns:
+  statement_to_question:
+    - pattern: "(.+) est (.+)"
+      replacement: "Est-ce que \\1 est \\2?"
+    - pattern: "(.+) était (.+)"
+      replacement: "Est-ce que \\1 était \\2?"
+    - pattern: "(.+) sont (.+)"
+      replacement: "Est-ce que \\1 sont \\2?"
+    - pattern: "(.+) a (.+)"
+      replacement: "Est-ce que \\1 a \\2?"
+
+  question_starters:
+    - "Qu'est-ce que"
+    - "Qui est"
+    - "Quand"
+    - "Où"
+    - "Combien"
+    - "Est-ce vrai que"
+    - "Comment"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - et
+    - aussi
+    - également
+    - de plus
+    - en outre
+  disjunction:
+    - ou
+    - soit
+    - alternativement
+  negation:
+    - ne pas
+    - jamais
+    - aucun
+    - aucune
+    - ni
+  conditional:
+    - si
+    - quand
+    - à moins que
+    - pourvu que
+    - étant donné que

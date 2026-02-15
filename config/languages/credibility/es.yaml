@@ -1,0 +1,99 @@
+# Spanish Credibility Sources
+language: es
+language_name: Spanish
+
+# High credibility domains
+high_credibility:
+  # Government (Spain)
+  - domain: ".gob.es"
+    type: government
+    score: 0.95
+  - domain: "ine.es"
+    type: government
+    score: 0.90
+
+  # Government (Latin America)
+  - domain: ".gob.mx"
+    type: government
+    score: 0.90
+  - domain: ".gov.ar"
+    type: government
+    score: 0.90
+  - domain: ".gob.cl"
+    type: government
+    score: 0.90
+  - domain: ".gov.co"
+    type: government
+    score: 0.90
+
+  # Academic (Spain)
+  - domain: "csic.es"
+    type: research
+    score: 0.90
+  - domain: ".upm.es"
+    type: academic
+    score: 0.85
+  - domain: ".ucm.es"
+    type: academic
+    score: 0.85
+
+  # Academic (Latin America)
+  - domain: "unam.mx"
+    type: academic
+    score: 0.85
+  - domain: "uba.ar"
+    type: academic
+    score: 0.85
+
+  # Wire Services
+  - domain: "efe.com"
+    type: wire_service
+    score: 0.90
+  - domain: "reuters.com"
+    type: wire_service
+    score: 0.90
+
+  # Quality News (Spain)
+  - domain: "elpais.com"
+    type: news
+    score: 0.80
+  - domain: "elmundo.es"
+    type: news
+    score: 0.75
+  - domain: "rtve.es"
+    type: public_broadcast
+    score: 0.85
+
+# Medium credibility domains
+medium_credibility:
+  # Encyclopedias
+  - domain: "es.wikipedia.org"
+    type: encyclopedia
+    score: 0.70
+
+  # Major News (Latin America)
+  - domain: "clarin.com"
+    type: news
+    score: 0.65
+  - domain: "lanacion.com.ar"
+    type: news
+    score: 0.70
+  - domain: "reforma.com"
+    type: news
+    score: 0.70
+  - domain: "eluniversal.com.mx"
+    type: news
+    score: 0.65
+
+# Fact-checking organizations
+fact_checkers:
+  - domain: "maldita.es"
+    score: 0.85
+  - domain: "newtral.es"
+    score: 0.85
+  - domain: "verificado.mx"
+    score: 0.80
+  - domain: "chequeado.com"
+    score: 0.85
+  - domain: "colombiacheck.com"
+    score: 0.80

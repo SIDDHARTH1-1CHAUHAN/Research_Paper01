@@ -1,0 +1,104 @@
+# Spanish Prompts Configuration
+language: es
+language_name: Spanish
+
+# FOL Decomposition Prompts
+fol_decomposition:
+  system_prompt: |
+    Eres un experto en Lógica de Primer Orden especializado en descomposición de afirmaciones.
+
+    Descompone afirmaciones complejas en subafirmaciones atómicas usando predicados FOL:
+    - Predicado(entidad, propiedad, valor)
+    - Relación(entidad1, entidad2)
+
+    Reglas:
+    1. Cada subafirmación debe ser verificable independientemente
+    2. Usa notación de predicados apropiada
+    3. Extrae todas las entidades y propiedades
+    4. Clasifica la verificabilidad
+
+  user_prompt_template: |
+    Descompone esta afirmación en subafirmaciones atómicas:
+
+    AFIRMACIÓN: {claim}
+
+    Proporciona hasta {max_subclaims} subafirmaciones atómicas en formato JSON:
+    {{
+      "subclaims": [
+        {{
+          "id": "SC1",
+          "text": "texto de la afirmación atómica",
+          "logical_form": "Predicado(entidad, propiedad, valor)",
+          "verifiability": "verifiable" | "opinion" | "vague" | "future_prediction",
+          "entities": ["entidad1", "entidad2"],
+          "properties": ["propiedad1"]
+        }}
+      ]
+    }}
+
+# Query Generation Prompts
+query_generation:
+  system_prompt: |
+    Eres un experto en optimización de consultas de búsqueda.
+    Genera consultas diversas y efectivas para verificación de hechos.
+
+  user_prompt_template: |
+    Genera {num_queries} consultas de búsqueda diversas para verificar:
+
+    AFIRMACIÓN: {claim}
+    ENTIDADES: {entities}
+
+    Proporciona consultas que:
+    1. Busquen evidencia directa
+    2. Conviertan a forma de pregunta
+    3. Usen entidades clave y fechas
+
+    Devuelve como JSON: {{"queries": ["consulta1", "consulta2", ...]}}
+
+# Verdict Explanation Templates
+verdict_explanation:
+  supported: |
+    Afirmación: {claim}
+
+    Veredicto Final: VERIFICADO
+
+    Esta afirmación está respaldada por fuentes creíbles. Encontramos {total_sources}
+    fuentes de evidencia, incluyendo {high_cred_count} de medios altamente creíbles.
+
+    Todas las subafirmaciones han sido verificadas por la evidencia.
+
+  not_supported: |
+    Afirmación: {claim}
+
+    Veredicto Final: NO VERIFICADO
+
+    Esta afirmación no pudo ser verificada. Después de revisar {total_sources} fuentes,
+    no pudimos encontrar suficiente evidencia creíble para respaldar todas las partes
+    de la afirmación.
+
+    Una o más subafirmaciones no pudieron ser verificadas.
+
+  insufficient_evidence: |
+    Afirmación: {claim}
+
+    Veredicto Final: EVIDENCIA INSUFICIENTE
+
+    Encontramos {total_sources} fuentes relacionadas con esta afirmación, pero la
+    evidencia es inconclusa. Se puede necesitar más investigación para verificar
+    esta afirmación.
+
+# Counterfactual Explanation Templates
+counterfactual:
+  would_change_supported: |
+    Eliminar las {count} fuentes más importantes probablemente cambiaría
+    el veredicto a NO VERIFICADO.
+
+  would_change_not_supported: |
+    Se necesitarían fuentes adicionales de alta credibilidad que respalden
+    todas las subafirmaciones para cambiar el veredicto a VERIFICADO.
+
+# Summary Templates
+summary:
+  sources_analyzed: "Total de fuentes analizadas: {count}"
+  high_credibility: "Fuentes de alta credibilidad: {count}"
+  subclaims_evaluated: "Subafirmaciones evaluadas: {count}"

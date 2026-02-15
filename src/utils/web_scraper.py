@@ -1,6 +1,7 @@
 """
 Web Scraper - Extract content from URLs
 Supports both requests (fast) and Selenium (full JS rendering)
+Includes multilingual support with dynamic Accept-Language headers
 """
 
 from typing import Optional, Dict, Any
@@ -10,6 +11,8 @@ import requests
 from bs4 import BeautifulSoup
 import time
 from tenacity import retry, stop_after_attempt, wait_exponential
+
+from src.utils.multilingual_config import get_multilingual_config
 
 
 @dataclass
@@ -22,6 +25,7 @@ class ScrapedContent:
     success: bool
     error: Optional[str] = None
     metadata: Dict[str, Any] = None
+    detected_language: Optional[str] = None
 
 
 class WebScraper:
@@ -29,23 +33,51 @@ class WebScraper:
     Web content scraper with multiple backends:
     - requests + BeautifulSoup (fast, free)
     - Selenium (slower, full JS support)
+
+    Supports multilingual scraping with dynamic Accept-Language headers.
     """
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None, language: str = 'en'):
         """
         Initialize web scraper.
 
         Args:
             config: Scraping configuration from api_config.yaml
+            language: Language code for Accept-Language header (default: 'en')
         """
         self.config = config or {}
         self.method = self.config.get('method', 'requests')
+        self.language = language
+        self.ml_config = get_multilingual_config()
 
-        self.headers = self.config.get('requests', {}).get('headers', {
+        # Base headers
+        self.base_headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        })
+        }
+
+        # Set headers with language-specific Accept-Language
+        self.headers = self._get_headers_for_language(language)
 
         self.timeout = self.config.get('requests', {}).get('timeout', 10)
+
+    def _get_headers_for_language(self, language: str) -> Dict[str, str]:
+        """Get headers with appropriate Accept-Language for the language"""
+        headers = self.base_headers.copy()
+        accept_lang = self.ml_config.get_accept_language(language)
+        headers['Accept-Language'] = accept_lang
+        return headers
+
+    def set_language(self, language: str):
+        """
+        Set the language for scraping.
+
+        Args:
+            language: ISO 639-1 language code
+        """
+        if language != self.language:
+            self.language = language
+            self.headers = self._get_headers_for_language(language)
+            logger.debug(f"WebScraper language set to: {language}")
 
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
     def scrape(self, url: str, extract_main_content: bool = True) -> ScrapedContent:

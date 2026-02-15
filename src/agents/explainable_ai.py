@@ -1,10 +1,17 @@
 """
 Explainable AI Agent - LIME/SHAP-inspired explanations for transparency
+Includes LLM Judge functionality for evaluating explanation quality across methods
+Uses configurable prompts from prompts.yaml
 """
 
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, asdict
 from loguru import logger
+import json
+
+from src.utils.multilingual_config import get_multilingual_config
+from src.utils.translator import Translator
+from src.utils.prompts_loader import get_prompts_loader
 
 
 @dataclass
@@ -33,14 +40,16 @@ class ExplainableAIAgent:
     - Readability: Human comprehension
     """
 
-    def __init__(self, config: Dict[str, Any] = None):
+    def __init__(self, config: Dict[str, Any] = None, llm_interface=None):
         """
         Initialize Explainable AI Agent.
 
         Args:
             config: Configuration dictionary
+            llm_interface: Optional LLM interface for LLM judge functionality
         """
         self.config = config or {}
+        self.llm = llm_interface
 
         self.enable_feature_importance = self.config.get('enable_feature_importance', True)
         self.enable_counterfactual = self.config.get('enable_counterfactual', True)
@@ -256,3 +265,197 @@ class ExplainableAIAgent:
     def to_dict(self, result: ExplanationResult) -> Dict[str, Any]:
         """Convert result to dictionary"""
         return asdict(result)
+
+    def judge_explanations(
+        self,
+        original_claim: str,
+        explanations: Dict[str, Dict[str, str]]
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Use LLM as a judge to evaluate and rank explanations from different methods.
+
+        Uses the llm_judge_agent prompt from prompts.yaml.
+
+        Args:
+            original_claim: The original claim being verified
+            explanations: Dictionary mapping method names to their explanations
+                         Format: {"CoT": {"label": "...", "explanation": "..."}, ...}
+
+        Returns:
+            Dictionary with rankings and analysis, or None if LLM not available
+        """
+        if not self.llm:
+            logger.warning("LLM not available for judge functionality")
+            return None
+
+        try:
+            prompts_loader = get_prompts_loader()
+
+            # Prepare input for prompt
+            input_data = {
+                "original_claim": original_claim,
+                "explanations": explanations
+            }
+
+            prompt = prompts_loader.get_prompt(
+                'llm_judge_agent',
+                original_claim=original_claim,
+                explanations=json.dumps(explanations, indent=2)
+            )
+
+            if not prompt:
+                return None
+
+            # Add the input data to the prompt
+            full_prompt = f"""{prompt}
+
+### Input
+{json.dumps(input_data, indent=2)}
+
+Please evaluate and rank the explanations."""
+
+            response = self.llm.generate_structured(
+                full_prompt,
+                output_schema={
+                    "ranking": {
+                        "Coverage": {"1": "string", "2": "string", "3": "string", "4": "string"},
+                        "Soundness": {"1": "string", "2": "string", "3": "string", "4": "string"},
+                        "Readability": {"1": "string", "2": "string", "3": "string", "4": "string"}
+                    },
+                    "best_overall": "string",
+                    "analysis": "string"
+                }
+            )
+
+            logger.info(f"LLM Judge selected best method: {response.get('best_overall', 'unknown')}")
+            return response
+
+        except Exception as e:
+            logger.error(f"LLM Judge evaluation failed: {e}")
+            return None
+
+    def compare_methods(
+        self,
+        original_claim: str,
+        method_results: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Compare different fact-checking methods and their explanations.
+
+        Args:
+            original_claim: The original claim
+            method_results: Dictionary of results from different methods
+                           Format: {"CoT": VerdictResult, "MAS": VerdictResult, ...}
+
+        Returns:
+            Comparison results including rankings and best method
+        """
+        # Extract explanations from results
+        explanations = {}
+        for method_name, result in method_results.items():
+            if hasattr(result, 'explanation'):
+                explanations[method_name] = {
+                    'label': getattr(result, 'final_verdict', 'unknown'),
+                    'explanation': result.explanation
+                }
+            elif isinstance(result, dict):
+                explanations[method_name] = {
+                    'label': result.get('final_verdict', 'unknown'),
+                    'explanation': result.get('explanation', '')
+                }
+
+        # Use LLM judge if available
+        if self.llm and len(explanations) >= 2:
+            llm_ranking = self.judge_explanations(original_claim, explanations)
+        else:
+            llm_ranking = None
+
+        # Calculate heuristic scores for each method
+        heuristic_scores = {}
+        for method_name, explanation_data in explanations.items():
+            explanation = explanation_data.get('explanation', '')
+            heuristic_scores[method_name] = {
+                'length': len(explanation),
+                'has_sources': 'source' in explanation.lower() or 'evidence' in explanation.lower(),
+                'has_verdict': any(v in explanation.upper() for v in ['SUPPORTED', 'NOT_SUPPORTED']),
+                'has_confidence': 'confidence' in explanation.lower() or '%' in explanation
+            }
+
+        return {
+            'claim': original_claim,
+            'methods_compared': list(explanations.keys()),
+            'llm_ranking': llm_ranking,
+            'heuristic_scores': heuristic_scores,
+            'best_method': llm_ranking.get('best_overall') if llm_ranking else None
+        }
+
+    def generate_detailed_report(
+        self,
+        verdict_result: Any,
+        evidence_results: List[Any],
+        explanation_result: 'ExplanationResult'
+    ) -> str:
+        """
+        Generate a comprehensive report combining all XAI outputs.
+
+        Args:
+            verdict_result: VerdictResult from Verdict Prediction Agent
+            evidence_results: List of EvidenceResult objects
+            explanation_result: ExplanationResult from this agent
+
+        Returns:
+            Formatted report string
+        """
+        lines = [
+            "=" * 60,
+            "FACT-CHECK EXPLANATION REPORT",
+            "=" * 60,
+            "",
+            f"Claim: {verdict_result.original_claim}",
+            f"Final Verdict: {verdict_result.final_verdict}",
+            f"Confidence: {verdict_result.overall_confidence:.1%}",
+            "",
+            "-" * 40,
+            "FEATURE IMPORTANCE",
+            "-" * 40,
+        ]
+
+        # Top contributing evidence
+        sorted_importance = sorted(
+            explanation_result.feature_importance.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )[:5]
+
+        for ev_id, score in sorted_importance:
+            lines.append(f"  {ev_id}: {score:.3f} contribution")
+
+        lines.extend([
+            "",
+            "-" * 40,
+            "CRITICAL EVIDENCE",
+            "-" * 40,
+        ])
+
+        for critical in explanation_result.critical_evidence:
+            lines.append(f"  - {critical}")
+
+        lines.extend([
+            "",
+            "-" * 40,
+            "COUNTERFACTUAL ANALYSIS",
+            "-" * 40,
+            f"  {explanation_result.counterfactual_analysis}",
+            "",
+            "-" * 40,
+            "EXPLANATION QUALITY METRICS",
+            "-" * 40,
+            f"  Coverage: {explanation_result.explanation_quality['coverage']:.1%}",
+            f"  Soundness: {explanation_result.explanation_quality['soundness']:.1%}",
+            f"  Readability: {explanation_result.explanation_quality['readability']:.1%}",
+            f"  Overall: {explanation_result.explanation_quality['overall']:.1%}",
+            "",
+            "=" * 60,
+        ])
+
+        return "\n".join(lines)

@@ -1,0 +1,215 @@
+# Fact-Checking Model Evaluation Configuration
+# Evaluates fact-checking system using complementary metrics
+
+task:
+  name: Fact-Checking Model Evaluation
+  objective: >
+    Evaluate a fact-checking system using two complementary metrics:
+    (1) Macro F1-score for verdict correctness based on gold-standard labels,
+    and (2) Mean Average Rank (MAR) for explanation quality using an LLM-as-a-judge.
+
+# Model Roles
+model_roles:
+  verdict_prediction_agent:
+    engine: Qwen2.5-72B
+    responsibility: >
+      Given a claim and retrieved evidence, generate a final verdict label:
+      "supported" or "not_supported".
+    fallback_engines:
+      - llama3.1-70b
+      - gpt-4o
+      - claude-3-opus
+
+  explanation_judge:
+    engine: Qwen2.5-72B
+    responsibility: >
+      Act as a qualitative judge to rank explanation quality for each claim.
+    judging_criteria:
+      - factual_correctness
+      - completeness
+      - faithfulness_to_evidence
+      - clarity
+
+# Datasets Configuration
+datasets:
+  hover:
+    name: HOVER
+    description: >
+      Multi-hop fact verification dataset requiring reasoning over
+      multiple Wikipedia articles.
+    path: data/datasets/hover
+    format: jsonl
+    gold_label_field: label
+    claim_field: claim
+    evidence_field: supporting_facts
+
+  feverous:
+    name: FEVEROUS
+    description: >
+      Fact extraction and verification over structured and unstructured
+      information including tables and text.
+    path: data/datasets/feverous
+    format: jsonl
+    gold_label_field: label
+    claim_field: claim
+    evidence_field: evidence
+
+  scifact_open:
+    name: SciFact-Open
+    description: >
+      Scientific claim verification dataset for open-domain retrieval.
+    path: data/datasets/scifact-open
+    format: jsonl
+    gold_label_field: label
+    claim_field: claim
+    evidence_field: abstract
+
+  description: >
+    Each dataset provides human-annotated gold-standard verdict labels
+    used for quantitative evaluation.
+
+# Input Specifications
+inputs:
+  verdict_predictions:
+    description: >
+      Verdicts produced by the Verdict Prediction Agent (Qwen2.5-72B).
+    format:
+      claim_id:
+        type: string
+        description: unique identifier
+      claim_text:
+        type: string
+        description: original claim text
+      predicted_label:
+        type: string
+        enum: ["supported", "not_supported"]
+      gold_label:
+        type: string
+        enum: ["supported", "not_supported"]
+    output_path: data/outputs/predictions
+
+  explanations:
+    description: >
+      Model-generated explanations corresponding to each claim.
+    format:
+      claim_id:
+        type: string
+        description: unique identifier
+      explanation_candidates:
+        type: array
+        items:
+          explanation_id:
+            type: string
+            description: unique identifier
+          explanation_text:
+            type: string
+          model_source:
+            type: string
+            description: which model generated this explanation
+    output_path: data/outputs/explanations
+
+# Evaluation Metrics
+evaluation:
+  metrics:
+    # Metric 1: Macro F1-Score
+    macro_f1_score:
+      type: quantitative
+      description: >
+        Macro F1-score is a standard statistical metric computed from
+        predicted labels and gold-standard labels. It is NOT generated
+        by an LLM.
+      labels:
+        positive: supported
+        negative: not_supported
+      computation_steps:
+        - step: 1
+          action: Compute precision, recall, and F1-score for "supported" class
+        - step: 2
+          action: Compute precision, recall, and F1-score for "not_supported" class
+        - step: 3
+          action: Average the two F1-scores equally (macro-averaging)
+      definitions:
+        precision: >
+          True Positives / (True Positives + False Positives)
+        recall: >
+          True Positives / (True Positives + False Negatives)
+        f1_score: >
+          2 * (precision * recall) / (precision + recall)
+      output:
+        macro_f1:
+          type: float
+          range: [0, 1]
+        per_class_metrics:
+          - class: supported
+            fields: [precision, recall, f1_score]
+          - class: not_supported
+            fields: [precision, recall, f1_score]
+
+    # Metric 2: Mean Average Rank (MAR)
+    mean_average_rank:
+      type: qualitative
+      description: >
+        Mean Average Rank (MAR) evaluates explanation quality using
+        Qwen2.5-72B as an LLM-based human judge.
+      judging_process:
+        input: >
+          Qwen2.5-72B receives the claim, evidence, and explanation candidates.
+        ranking_scale:
+          best: 1
+          worst: 4
+        ranking_criteria:
+          factual_correctness:
+            weight: 0.30
+            description: Does the explanation accurately reflect the evidence?
+          completeness:
+            weight: 0.25
+            description: Does the explanation cover all relevant aspects?
+          faithfulness_to_evidence:
+            weight: 0.25
+            description: Is the explanation grounded in the retrieved evidence?
+          clarity:
+            weight: 0.20
+            description: Is the explanation clear and understandable?
+      computation_steps:
+        - step: 1
+          action: For each claim, LLM judge assigns rank (1-4) to explanation
+        - step: 2
+          action: Record the rank assigned to the best explanation
+        - step: 3
+          action: Average these ranks across all evaluated claims
+      output:
+        mean_average_rank:
+          type: float
+          interpretation: Lower is better (1.0 = perfect)
+        rank_distribution:
+          type: object
+          fields: [rank_1_count, rank_2_count, rank_3_count, rank_4_count]
+
+# Evaluation Pipeline
+pipeline:
+  stages:
+    - name: data_loading
+      description: Load datasets and predictions
+
+    - name: verdict_evaluation
+      description: Compute Macro F1-score
+      metrics: [macro_f1_score]
+
+    - name: explanation_evaluation
+      description: Compute MAR using LLM judge
+      metrics: [mean_average_rank]
+      requires_llm: true
+
+    - name: report_generation
+      description: Generate comprehensive evaluation report
+      output_formats: [json, markdown, csv]
+
+# Output Configuration
+outputs:
+  report_path: data/outputs/reports
+  formats:
+    - json
+    - markdown
+    - csv
+  include_per_dataset_breakdown: true
+  include_error_analysis: true

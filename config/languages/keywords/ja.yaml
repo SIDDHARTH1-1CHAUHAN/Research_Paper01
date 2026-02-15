@@ -1,0 +1,95 @@
+# Japanese Keywords for FOL Parser and Verifiability Detection
+language: ja
+language_name: Japanese
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - 思う
+  - 考える
+  - 感じる
+  - 信じる
+  - べき
+  - はず
+  - より良い
+  - より悪い
+  - 良い
+  - 悪い
+  - 美しい
+  - 醜い
+  - たぶん
+  - おそらく
+  - 恐らく
+  - かもしれない
+  - 見える
+  - 思われる
+  - らしい
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - だろう
+  - でしょう
+  - するだろう
+  - になるだろう
+  - 予測
+  - 予想
+  - 見込み
+  - 将来
+  - 未来
+  - やがて
+  - いずれ
+  - 2030年までに
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - いくつか
+  - 一部
+  - 多く
+  - 少し
+  - いくつかの
+  - 様々な
+  - 多数
+  - よく
+  - 時々
+  - たまに
+  - まれに
+  - 普通
+  - 一般的に
+  - 約
+  - およそ
+  - 大体
+
+# Question patterns for query generation
+question_patterns:
+  question_starters:
+    - "何ですか"
+    - "誰ですか"
+    - "いつ"
+    - "どこ"
+    - "いくつ"
+    - "本当ですか"
+    - "どのように"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - と
+    - そして
+    - また
+    - さらに
+    - 加えて
+  disjunction:
+    - または
+    - あるいは
+    - もしくは
+  negation:
+    - ない
+    - しない
+    - 決して
+    - 全く
+    - 何も
+  conditional:
+    - もし
+    - 場合
+    - なら
+    - ならば
+    - 限り

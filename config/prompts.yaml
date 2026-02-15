@@ -1,0 +1,243 @@
+# Multi-Agent Fact Verification Pipeline - Agent Prompts
+# Contains LLM prompts for each agent in the verification pipeline
+
+system_name: Multi-Agent Fact Verification Pipeline
+description: >
+  A modular fact-checking system that decomposes complex claims into
+  verifiable subclaims, retrieves evidence, predicts veracity,
+  and evaluates explanation quality.
+
+pipeline:
+  flow:
+    - claim_decomposition_agent
+    - subclaim_classification_agent
+    - query_generation_agent
+    - content_retrieval_agent
+    - veracity_prediction_agent
+    - llm_judge_agent
+
+shared_variables:
+  claim: string
+  subclaims: list
+  evidence: object
+
+agents:
+
+  claim_decomposition_agent:
+    name: Claim Decomposition Agent
+    role: Decompose complex claims into atomic, verifiable predicates
+    model: qwen-2.5-3b
+
+    prompt: |
+      You are given a problem description and a claim.
+      Your task is to define all atomic predicates in the claim.
+
+      Each predicate must:
+      - Represent a single factual assertion
+      - Use a clear predicate structure (e.g., Location, Born, Won, Held)
+      - Include a short verification instruction
+
+      ### Example
+      Claim: Howard University Hospital and Providence Hospital are both located in Washington, D.C.
+      Output:
+      {
+        "response": "Predicates:
+        Location(Howard_University_Hospital, Washington_D.C.) ::: Verify Howard University Hospital is located in Washington, D.C.
+        Location(Providence_Hospital, Washington_D.C.) ::: Verify Providence Hospital is located in Washington, D.C."
+      }
+
+      ### Task
+      Decompose the following claim into predicates:
+      Claim: {{ claim }}
+
+    output_schema:
+      response: string
+
+  subclaim_classification_agent:
+    name: Subclaim Classification Agent
+    role: Classify claims as verifiable or non-verifiable
+    model: qwen-2.5-3b
+
+    prompt: |
+      You are an expert in claim verification.
+
+      A verifiable claim:
+      - Makes factual, objective assertions
+      - Can be checked against reliable sources
+
+      A non-verifiable claim:
+      - Expresses opinions or subjective judgments
+      - Is vague or ambiguous
+      - Refers to future or hypothetical events
+      - Makes normative or ethical claims
+
+      ### Examples
+      Verifiable: "The film Parasite won the Academy Award for Best Picture in 2020."
+      Non-verifiable: "Parasite deserved to win the Academy Award for Best Picture."
+
+      ### Task
+      Analyze the following claim and classify it.
+
+      Claim: {{ claim }}
+
+      Return:
+      - VERIFIABLE or NON-VERIFIABLE
+      - A brief explanation
+
+    output_schema:
+      classification: VERIFIABLE | NON-VERIFIABLE
+      explanation: string
+
+  query_generation_agent:
+    name: Query Generation Agent
+    role: Generate Google search questions for evidence retrieval
+    model: claude-3-opus
+
+    prompt: |
+      For each input subclaim, generate k Google search questions
+      that could be used to find evidence.
+
+      Guidelines:
+      1. Use precise keywords related to entities and relationships
+      2. Include synonyms and alternative phrasings
+      3. Vary specificity (exact vs broad)
+      4. Approach the claim from different perspectives
+      5. Keep questions concise and directly relevant
+
+      ### Output Format
+      [
+        {
+          "claim": "<subclaim>",
+          "questions": ["<question1>", "<question2>"]
+        }
+      ]
+
+    input_variables:
+      subclaims: list
+
+    output_schema:
+      - claim: string
+        questions: list
+
+  content_retrieval_agent:
+    name: Content Retrieval Agent
+    role: Extract only evidence relevant to a query
+    model: qwen-2.5-3b
+
+    prompt: |
+      You are a helpful assistant who extracts information from text.
+
+      Given a query and content:
+      - Extract only sentences or phrases directly related to the query
+      - Exclude all irrelevant information
+      - If no relevant information exists, return None
+
+      Query: {{ query }}
+      Content:
+      {{ content }}
+
+      Relevant Information:
+
+    input_variables:
+      query: string
+      content: string
+
+    output_schema:
+      relevant_information: string | None
+
+  veracity_prediction_agent:
+    name: Veracity Prediction Agent
+    role: Determine whether a subclaim is supported by evidence
+    model: qwen-2.5-3b
+
+    prompt: |
+      You are an AI assistant responsible for determining whether
+      a subclaim is supported by retrieved evidence.
+
+      ## Claim
+      {{ claim }}
+
+      ## Subclaims, Questions, and Evidence
+      {{ cell }}
+
+      ## Decision Process
+      1. Analyze evidence credibility and consistency
+      2. Apply voting rules:
+         - Strong supporting evidence -> supported
+         - Contradictory evidence -> not_supported
+         - Insufficient or mixed evidence -> not_supported
+      3. Provide a concise justification
+      4. Do NOT include quotation marks in the explanation
+
+      ## Output Format
+      {
+        "label": "supported | not_supported",
+        "explanation": "concise evidence-based justification"
+      }
+
+    output_schema:
+      label: supported | not_supported
+      explanation: string
+
+  llm_judge_agent:
+    name: LLM Judge
+    role: Evaluate and rank explanation quality across methods
+    model: qwen2.5-72b
+
+    prompt: |
+      You are an expert evaluator for automated fact-check explanations.
+
+      Evaluate explanations produced by four reasoning methods
+      using the following criteria:
+
+      1. Coverage: inclusion of all salient and relevant information
+      2. Soundness: logical consistency with the claim and assigned label
+      3. Readability: clarity, coherence, and ease of understanding
+
+      Rank each method from 1 (best) to 4 (worst) for each criterion.
+
+      ### Input
+      {
+        "original_claim": "",
+        "explanations": {
+          "CoT": { "label": "", "explanation": "" },
+          "Self-Ask": { "label": "", "explanation": "" },
+          "FOLK": { "label": "", "explanation": "" },
+          "MAS": { "label": "", "explanation": "" }
+        }
+      }
+
+      ### Output Format
+      {
+        "ranking": {
+          "Coverage": { "1": "<method>", "2": "<method>", "3": "<method>", "4": "<method>" },
+          "Soundness": { "1": "<method>", "2": "<method>", "3": "<method>", "4": "<method>" },
+          "Readability": { "1": "<method>", "2": "<method>", "3": "<method>", "4": "<method>" }
+        },
+        "best_overall": "<method>",
+        "analysis": "<brief analysis of strengths and weaknesses>"
+      }
+
+    input_variables:
+      original_claim: string
+      explanations: object
+
+    output_schema:
+      ranking:
+        Coverage:
+          "1": string
+          "2": string
+          "3": string
+          "4": string
+        Soundness:
+          "1": string
+          "2": string
+          "3": string
+          "4": string
+        Readability:
+          "1": string
+          "2": string
+          "3": string
+          "4": string
+      best_overall: string
+      analysis: string

@@ -1,0 +1,98 @@
+# Russian Keywords for FOL Parser and Verifiability Detection
+language: ru
+language_name: Russian
+
+# Words indicating opinion/subjective statements (non-verifiable)
+opinion_words:
+  - верить
+  - верю
+  - думать
+  - думаю
+  - считать
+  - считаю
+  - полагать
+  - чувствовать
+  - должен
+  - следует
+  - лучше
+  - хуже
+  - хороший
+  - плохой
+  - красивый
+  - уродливый
+  - вероятно
+  - возможно
+  - может быть
+  - кажется
+  - по-видимому
+  - якобы
+
+# Words indicating future predictions (non-verifiable)
+future_words:
+  - будет
+  - будут
+  - собирается
+  - может
+  - могут
+  - мог бы
+  - предсказать
+  - прогнозировать
+  - ожидать
+  - в будущем
+  - скоро
+  - вскоре
+  - к 2030 году
+
+# Words indicating vague/unquantified claims (non-verifiable)
+vague_words:
+  - некоторые
+  - несколько
+  - многие
+  - мало
+  - различные
+  - разные
+  - многочисленные
+  - часто
+  - иногда
+  - редко
+  - обычно
+  - как правило
+  - почти
+  - приблизительно
+  - около
+  - примерно
+
+# Question patterns for query generation
+question_patterns:
+  question_starters:
+    - "Что такое"
+    - "Кто такой"
+    - "Когда"
+    - "Где"
+    - "Сколько"
+    - "Правда ли, что"
+    - "Как"
+
+# Logical connectors for FOL decomposition
+logical_connectors:
+  conjunction:
+    - и
+    - также
+    - тоже
+    - кроме того
+    - более того
+  disjunction:
+    - или
+    - либо
+    - альтернативно
+  negation:
+    - не
+    - никогда
+    - ни
+    - нет
+    - никакой
+  conditional:
+    - если
+    - когда
+    - если только
+    - при условии

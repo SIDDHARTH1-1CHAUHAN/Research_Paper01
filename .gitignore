@@ -89,3 +89,5 @@ Thumbs.db
 # API keys and secrets
 secrets.yaml
 api_keys.txt
+data/datasets/feverous/feverous_train.jsonl
+data/datasets/hover/hover_train_release_v1.1.json
