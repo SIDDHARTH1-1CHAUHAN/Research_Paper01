@@ -148,7 +148,6 @@ class LLMInterface:
     def generate(
         self,
         prompt: str,
-        system_prompt: Optional[str] = None,
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
         provider: Optional[LLMProvider] = None
@@ -158,7 +157,6 @@ class LLMInterface:
 
         Args:
             prompt: User prompt/query
-            system_prompt: Optional system instruction
             temperature: Sampling temperature (0-1)
             max_tokens: Maximum tokens to generate
             provider: Force specific provider (None = auto)
@@ -185,9 +183,9 @@ class LLMInterface:
         for prov_name in providers:
             try:
                 if prov_name == 'ollama' and self.ollama_client:
-                    return self._generate_ollama(prompt, system_prompt, temperature, max_tokens)
+                    return self._generate_ollama(prompt, max_tokens)
                 elif prov_name == 'openai' and self.openai_client:
-                    return self._generate_openai(prompt, system_prompt, temperature, max_tokens)
+                    return self._generate_openai(prompt, max_tokens)
             except Exception as e:
                 logger.warning(f"{prov_name} generation failed: {e}")
                 last_error = e
@@ -199,17 +197,14 @@ class LLMInterface:
     def _generate_ollama(
         self,
         prompt: str,
-        system_prompt: Optional[str] = None,
         temperature: Optional[float] = None,
-        max_tokens: Optional[int] = None
+        max_tokens: Optional[int] = None,
+        role: str = 'user'
     ) -> str:
         """Generate text using Ollama"""
         ollama_config = self.config['llm']['ollama']
 
-        messages = []
-        if system_prompt:
-            messages.append({'role': 'system', 'content': system_prompt})
-        messages.append({'role': 'user', 'content': prompt})
+        messages = [{'role':role, 'content': prompt}]
 
         options = {
             'temperature': temperature or ollama_config.get('temperature', 0.3),
@@ -221,23 +216,19 @@ class LLMInterface:
             messages=messages,
             options=options
         )
-
-        return response['message']['content']
+        return response.message.content
 
     def _generate_openai(
         self,
         prompt: str,
-        system_prompt: Optional[str] = None,
         temperature: Optional[float] = None,
-        max_tokens: Optional[int] = None
+        max_tokens: Optional[int] = None,
+        role: str = 'user'
     ) -> str:
         """Generate text using OpenAI"""
         openai_config = self.config['llm']['openai']
 
-        messages = []
-        if system_prompt:
-            messages.append({'role': 'system', 'content': system_prompt})
-        messages.append({'role': 'user', 'content': prompt})
+        messages = [{'role': role, 'content': prompt}]
 
         response = self.openai_client.chat.completions.create(
             model=openai_config['model'],
@@ -252,7 +243,6 @@ class LLMInterface:
         self,
         prompt: str,
         output_schema: Dict[str, Any],
-        system_prompt: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Generate structured JSON output matching a schema.
@@ -260,7 +250,6 @@ class LLMInterface:
         Args:
             prompt: User prompt
             output_schema: Expected JSON schema
-            system_prompt: Optional system instruction
 
         Returns:
             Parsed JSON matching schema
@@ -274,7 +263,7 @@ Please respond with ONLY a valid JSON object matching this schema:
 
 Do not include any explanation, just the JSON."""
 
-        response = self.generate(full_prompt, system_prompt)
+        response = self.generate(full_prompt)
 
         # Extract JSON from response
         try:

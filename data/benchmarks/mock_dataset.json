@@ -1,21 +1,12 @@
 [
   {
-    "id": 1,
-    "claim": "The Eiffel Tower was completed in 1889 and is located in Paris, France",
+    "id": 4,
+    "claim": "Water boils at 100 degrees Celsius at sea level",
     "ground_truth": "SUPPORTED",
-    "category": "simple",
+    "category": "scientific",
     "difficulty": "easy",
     "hop_level": 1,
-    "description": "Simple historical fact with two verifiable subclaims"
-  },
-  {
-    "id": 2,
-    "claim": "Albert Einstein was born in Germany in 1879 and won the Nobel Prize in Physics in 1921",
-    "ground_truth": "SUPPORTED",
-    "category": "biographical",
-    "difficulty": "easy",
-    "hop_level": 2,
-    "description": "Biographical facts about Einstein"
+    "description": "Basic scientific fact"
   },
   {
     "id": 3,
@@ -25,15 +16,6 @@
     "difficulty": "medium",
     "hop_level": 2,
     "description": "Mixed truth - second part is true, first part is a myth"
-  },
-  {
-    "id": 4,
-    "claim": "Water boils at 100 degrees Celsius at sea level",
-    "ground_truth": "SUPPORTED",
-    "category": "scientific",
-    "difficulty": "easy",
-    "hop_level": 1,
-    "description": "Basic scientific fact"
   },
   {
     "id": 5,

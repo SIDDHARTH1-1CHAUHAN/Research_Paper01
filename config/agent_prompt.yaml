@@ -1,0 +1,193 @@
+claim_decomposition: |
+  You are given a problem description and a claim. The task is to define all the predicates in
+  the claim and return them in JSON format, as shown in the example below.
+  Below is the example Claim: Howard University Hospital and Providence Hospital are both located
+  in Washington, D.C.
+  {{
+    "subclaims": [
+      {{
+        "predicate": "Location(Howard_University_Hospital, Washington_D.C.)",
+        "description": "Verify Howard University Hospital is located in Washington, D.C."
+      }},
+      {{
+        "predicate": "Location(Providence_Hospital, Washington_D.C.)",
+        "description": "Verify Providence Hospital is located in Washington, D.C."
+      }}
+    ]
+  }}
+  Below is the Claim: In 1959, former Chilean boxer Alfredo Cornejo Cuevas (born June 6, 1933)
+  won the gold medal in the welterweight division at the Pan American Games (held in Chicago,
+  United States, from August 27 to September 7) in Chicago, United States, and the world
+  amateur welterweight title in Mexico City.
+  {{
+    "subclaims": [
+      {{
+        "predicate": "Born(Alfredo_Cornejo_Cuevas, June 6 1933)",
+        "description": "Verify that Alfredo Cornejo Cuevas was born June 6, 1933."
+      }},
+      {{
+        "predicate": "Won(Alfredo_Cornejo_Cuevas, the gold medal in the welterweight division at the Pan American Games in 1959)",
+        "description": "Verify that Alfredo Cornejo Cuevas won the gold medal in the welterweight division at the Pan American Games in 1959."
+      }},
+      {{
+        "predicate": "Held(The Pan American Games in 1959, Chicago United States)",
+        "description": "Verify that the Pan American Games in 1959 were held in Chicago, United States."
+      }},
+      {{
+        "predicate": "Won(Alfredo_Cornejo_Cuevas, the world amateur welterweight title in Mexico City)",
+        "description": "Verify that Alfredo Cornejo Cuevas won the world amateur welterweight title in Mexico City."
+      }}
+    ]
+  }}
+
+  Below is the Claim: {claim}
+
+  IMPORTANT: Your response must be valid JSON only, with no additional text, markdown, or explanation outside the JSON object.
+  It will be parsed using `json.loads()` in Python. Output strictly in this schema:
+  {{
+    "subclaims": [
+      {{
+        "predicate": "<predicate string>",
+        "description": "<description string>"
+      }}
+    ]
+  }}
+subclaim_classification: |
+  You are an expert in claim verification. Your task is to determine whether a given claim is
+  VERIFIABLE or NON-VERIFIABLE.
+
+  Definitions:
+  - A verifiable claim is a factual statement that can be checked against objective evidence
+    from reliable sources. It makes specific assertions about the world that can be proven
+    true or false through investigation.
+  - A non-verifiable claim cannot be objectively verified because it may:
+    - express a subjective opinion, preference, or personal experience
+    - make vague or ambiguous statements without specific details
+    - refer to future events that haven't occurred yet
+    - make normative or ethical judgments about what "should" be
+    - contain hypothetical scenarios or counterfactuals
+
+  Examples:
+  - Verifiable: "The average global temperature increased by 0.8°C between 1880 and 2012."
+  - Non-verifiable: "Climate change is the most important issue facing humanity today."
+  - Verifiable: "The film 'Parasite' won the Academy Award for Best Picture in 2020."
+  - Non-verifiable: "Parasite deserved to win the Academy Award for Best Picture."
+
+  Instruction:
+  Please analyze the following claim and classify it as either VERIFIABLE or NON-VERIFIABLE.
+
+  Claim: {claim}
+
+  IMPORTANT: Your response must be valid JSON only, with no additional text, markdown, or explanation outside the JSON object.
+  It will be parsed using `json.loads()` in Python. Output strictly in this schema:
+  {{
+    "classification": "<A brief explanation justifying the decision>",
+    "verifiability": "<VERIFIABLE or NON-VERIFIABLE>"
+  }}
+
+query_generation: |
+  For each input subclaim, generate {k} Google search question(s) that could be used to find
+  evidence to verify the subclaim.
+  The questions should be diverse, exploring different aspects or perspectives related to the
+  subclaim, while remaining clear and concise. Follow these guidelines:
+  1. Use Specific Keywords: Include precise terms related to entities and relationships in the
+  claim.
+  2. Incorporate Synonyms and Related Terms: Use alternative phrasings to overcome vocabulary
+  mismatches.
+  3. Vary Specificity: Generate both specific queries targeting exact details and broader queries
+  that may capture contextual information.
+  4. Consider Different Angles: Approach the claim from multiple perspectives to ensure
+  comprehensive evidence gathering.
+  5. Maintain Simplicity: Keep questions straightforward and directly relevant to the claim.
+  Return the output in JSON format like this:
+  [{{
+  "claim": "Location(Howard Hospital, Washington D.C.) ::: Verify Howard University Hospital
+  is located in Washington, D.C.",
+  "questions": ["Where is Howard Hospital located?"]
+  }}]
+
+  Subclaim: {subclaim}
+
+  IMPORTANT: Your response must be valid JSON only, with no additional text, markdown, or explanation outside the JSON array.
+  It will be parsed using `json.loads()` in Python. Output strictly in this schema:
+  [{{
+    "claim": "<subclaim text>",
+    "questions": ["<question 1>", "<question 2>", ...]
+  }}]
+
+evidence_seeking: |
+  You are a helpful assistant who extracts information from text.
+  Given the following query and text content, extract only the sentences or phrases that directly
+  relate to the query. Do not include any information that is not relevant.
+  If the content contains no relevant information, return None as the value of "relevant_information".
+  Query: {query}
+  Content:
+  {content}
+
+  IMPORTANT: Your response must be valid JSON only, with no additional text, markdown, or explanation outside the JSON object.
+  It will be parsed using `json.loads()` in Python. Output strictly in this schema:
+  {{
+    "relevant_information": "<extracted relevant sentences or phrases, or null if none>"
+  }}
+
+verdict_prediction: |
+  You are an AI assistant responsible for determining whether a subclaim is supported by
+  retrieved evidence.
+  ## Provided Information:
+  This is a claim to do fact-checking:
+  \n {claim}
+  Here is the given subclaims, its subquestions, and retrieved evidence for each subquestion:
+  \n {cell}
+  ## Decision-Making Process:
+  1. Analyze the Retrieved Evidence
+  - Review all provided evidence relevant to the subclaim.
+  - Assess the credibility, consistency, and reliability of each piece of evidence.
+  2. Apply a Voting System for Classification
+  - If multiple sources strongly support the subclaim, classify it as "supported".
+  - If multiple sources contradict the subclaim, classify it as "not_supported".
+  - If the evidence is mixed, insufficient, or inconclusive, classify it as "not_supported".
+  3. Provide a Justification
+  - Clearly explain why the subclaim is classified as "supported" or "not_supported".
+  - Reference key pieces of evidence that influenced your decision.
+  - If the evidence is inconclusive, explain the limitations or uncertainties.
+  - Do not include double quotes inside the explanation string to avoid parse errors.
+
+  IMPORTANT: Your response must be valid JSON only, with no additional text, markdown, or explanation outside the JSON object.
+  It will be parsed using `json.loads()` in Python. Output strictly in this schema:
+  {{
+    "label": "<supported or not_supported>",
+    "explanation": "<A concise, evidence-based summary supporting your decision>"
+  }}
+
+explainable_ai: |
+  You are an expert evaluator for automated fact-check explanations. Your task is to:
+  - Review the original claim, its label, and the explanations produced by 4 methods. Each method
+  may produce a different label; consider this when evaluating Soundness.
+  - Evaluate each explanation according to 3 criteria:
+  1. Coverage: To what extent the explanation includes all the salient and relevant information
+  necessary to verify the claim.
+  2. Soundness: The logical consistency of the explanation; whether it supports or contradicts
+  its own label and the original claim.
+  3. Readability: The clarity and coherence of the explanation; how easily a human can follow
+  and understand it.
+  - Provide a **ranking (1 for best, 4 for worst)** for each criterion.
+  Here is the input:
+  {{
+    "original_claim": "{original_claim}",
+    "explanations": {{
+      "CoT": {{ "label": "{cot_label}", "explanation": "{cot_explanation}" }},
+      "Self-Ask": {{ "label": "{self_ask_label}", "explanation": "{self_ask_explanation}" }},
+      "FOLK": {{ "label": "{folk_label}", "explanation": "{folk_explanation}" }},
+      "MAS": {{ "label": "{mas_label}", "explanation": "{mas_explanation}" }}
+    }}
+  }}
+
+  IMPORTANT: Your response must be valid JSON only, with no additional text, markdown, or explanation outside the JSON object.
+  It will be parsed using `json.loads()` in Python. Output strictly in this schema:
+  {{
+    "ranking": {{
+      "Coverage": {{ "1": "<method>", "2": "<method>", "3": "<method>", "4": "<method>" }},
+      "Soundness": {{ "1": "<method>", "2": "<method>", "3": "<method>", "4": "<method>" }},
+      "Readability": {{ "1": "<method>", "2": "<method>", "3": "<method>", "4": "<method>" }}
+    }}
+  }}

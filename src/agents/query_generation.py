@@ -6,6 +6,11 @@ from typing import List, Dict, Any
 from dataclasses import dataclass
 from loguru import logger
 import re
+import json
+import sys
+sys.path.append('..')
+import yaml
+from pathlib import Path
 
 
 @dataclass
@@ -39,9 +44,25 @@ class QueryGenerationAgent:
         self.llm = llm_interface
 
         # Configuration (k=3-4 is optimal per research)
-        self.queries_per_subclaim = self.config.get('queries_per_subclaim', 3)
+        self.queries_per_subclaim = self.config.get('queries_per_subclaim', 1)
+
+        self.prompts = self._load_prompts()
 
         logger.info(f"Query Generation Agent initialized (k={self.queries_per_subclaim})")
+
+    def _load_prompts(self) -> Dict[str, Any]:
+        """Load prompts from YAML"""
+        possible_paths = [
+            Path("config/agent_prompt.yaml"),
+            Path("../config/agent_prompt.yaml"),
+            Path("../../config/agent_prompt.yaml"),
+        ]
+
+        for path in possible_paths:
+            if path.exists():
+                with open(path, 'r') as f:
+                    return yaml.safe_load(f)
+        return {}
 
     def process(self, subclaims: List[Dict[str, Any]]) -> List[QueryResult]:
         """
@@ -53,88 +74,91 @@ class QueryGenerationAgent:
         Returns:
             List of QueryResults with generated queries
         """
-        logger.info(f"Generating queries for {len(subclaims)} subclaims")
 
         results = []
         for subclaim in subclaims:
+            logger.debug(f"Processing subclaim: {subclaim}")
             queries = self._generate_queries(
-                subclaim['text'],
-                subclaim.get('entities', []),
+                subclaim.get('text', ''),
+                subclaim.get('predicate', ''),
                 k=self.queries_per_subclaim
             )
 
             results.append(QueryResult(
-                subclaim_id=subclaim['id'],
-                subclaim_text=subclaim['text'],
+                subclaim_id=subclaim.get('predicate', ''),
+                subclaim_text=subclaim.get('description'),  
                 queries=queries
             ))
 
         logger.info(f"Generated {sum(len(r.queries) for r in results)} total queries")
         return results
 
-    def _generate_queries(self, text: str, entities: List[str], k: int) -> List[str]:
+    def _generate_queries(self, text: str, subclaim: str, k: int) -> List[str]:
         """
-        Generate k diverse queries for a subclaim.
+        Generate k diverse queries for a subclaim using LLM.
 
         Args:
             text: Subclaim text
-            entities: Extracted entities
+            subclaim: Subclaim predicate
             k: Number of queries to generate
 
         Returns:
             List of query strings
         """
-        queries = []
+        prompt_template = self.prompts.get('query_generation', '')
+        system_prompt = prompt_template.format(k=k, subclaim=subclaim)
+        response = self.llm._generate_ollama(
+            role="user",
+            prompt=system_prompt,
+        )
+        logger.info(f"LLM response for query generation: {response}")
 
-        # Query 1: Direct quote search
-        if entities:
-            queries.append(f"{' '.join(entities)} {text}")
+        # Robust JSON extraction with fallback
+        parsed = None
+        if response and response.strip():
+            # 1. Try direct parsing
+            try:
+                parsed = json.loads(response)
+            except json.JSONDecodeError:
+                pass
+
+            # 2. Try extracting JSON from markdown code blocks
+            if parsed is None:
+                json_match = re.search(r'```(?:json)?\s*(.*?)\s*```', response, re.DOTALL)
+                if json_match:
+                    try:
+                        parsed = json.loads(json_match.group(1))
+                    except json.JSONDecodeError:
+                        pass
+
+            # 3. Try extracting a JSON array
+            if parsed is None:
+                json_match = re.search(r'\[.*\]', response, re.DOTALL)
+                if json_match:
+                    try:
+                        parsed = json.loads(json_match.group(0))
+                    except json.JSONDecodeError:
+                        pass
+
+            # 4. Try extracting a JSON object
+            if parsed is None:
+                json_match = re.search(r'\{.*\}', response, re.DOTALL)
+                if json_match:
+                    try:
+                        parsed = json.loads(json_match.group(0))
+                    except json.JSONDecodeError:
+                        pass
+
+        if parsed is None:
+            logger.warning(f"Could not parse JSON from LLM response: {response}")
+            return []
+
+        if isinstance(parsed, list) and len(parsed) > 0:
+            queries = parsed[0].get('questions', [])
+        elif isinstance(parsed, dict):
+            queries = parsed.get('questions', [])
         else:
-            queries.append(text)
-
-        # Query 2: Question form
-        question = self._convert_to_question(text)
-        queries.append(question)
-
-        # Query 3: Keyword extraction
-        keywords = self._extract_keywords(text, entities)
-        queries.append(' '.join(keywords))
-
-        # Query 4: Add temporal context if present
-        if k > 3:
-            temporal = self._add_temporal_context(text)
-            if temporal != text:
-                queries.append(temporal)
-
-        # Return exactly k queries
+            queries = []
+        logger.debug(f"Generated queries: {queries}: subclaim")
         return queries[:k]
 
-    def _convert_to_question(self, text: str) -> str:
-        """Convert statement to question form"""
-        # Simple heuristics
-        if 'is' in text.lower():
-            return text.replace('.', '?')
-        elif 'was' in text.lower():
-            return f"When {text.lower().replace('.', '?')}"
-        else:
-            return f"What about {text.lower().replace('.', '?')}"
-
-    def _extract_keywords(self, text: str, entities: List[str]) -> List[str]:
-        """Extract important keywords"""
-        # Remove common words
-        stopwords = {'the', 'is', 'in', 'at', 'on', 'and', 'or', 'a', 'an'}
-        words = text.lower().split()
-        keywords = [w for w in words if w not in stopwords and len(w) > 3]
-
-        # Add entities
-        keywords.extend(entities)
-
-        return list(set(keywords))[:8]  # Top 8 keywords
-
-    def _add_temporal_context(self, text: str) -> str:
-        """Add temporal keywords if dates found"""
-        # Find years (4 digits)
-        years = re.findall(r'\b\d{4}\b', text)
-        if years:
-            return f"{text} history timeline {years[0]}"
-        return text

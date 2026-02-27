@@ -5,28 +5,28 @@ Verdict Prediction Agent - Evidence aggregation and verdict synthesis
 from typing import List, Dict, Any
 from dataclasses import dataclass, asdict
 from loguru import logger
-import time
+import yaml
+import os
+import json
+import sys
+sys.path.append('..')
+from src.utils.llm_interface import LLMInterface
 
 
 @dataclass
 class SubclaimVerdict:
     """Verdict for a single subclaim"""
-    subclaim_id: str
-    verdict: str  # "SUPPORTED" | "NOT_SUPPORTED"
-    confidence: float
-    evidence_count: int
-    high_credibility_count: int
+    supports:str
+    claim:str
+
 
 
 @dataclass
 class VerdictResult:
     """Final verdict result"""
-    original_claim: str
     subclaim_verdicts: List[SubclaimVerdict]
     final_verdict: str
-    overall_confidence: float
     explanation: str
-    metadata: Dict[str, Any]
 
 
 class VerdictPredictionAgent:
@@ -53,24 +53,23 @@ class VerdictPredictionAgent:
         """
         self.config = config or {}
         self.llm = llm_interface
+        self.prompt_template = None
 
-        # Credibility weights
-        self.weights = self.config.get('weights', {
-            'high_credibility': 1.0,
-            'medium_credibility': 0.6,
-            'low_credibility': 0.3
-        })
+        if self.llm and isinstance(self.llm, LLMInterface):
+            try:
+                prompt_path = os.path.join(os.path.dirname(__file__), '../../config/agent_prompt.yaml')
+                with open(prompt_path, 'r') as f:
+                    prompts = yaml.safe_load(f)
+                    self.prompt_template = prompts.get('verdict_prediction', {})
+            except Exception as e:
+                logger.warning(f"Could not load agent_prompt.yaml for verdict prediction: {e}")
 
-        # Decision thresholds
-        self.support_threshold = self.config.get('support_threshold', 0.7)
-        self.refute_threshold = self.config.get('refute_threshold', 0.3)
 
         logger.info("Verdict Prediction Agent initialized")
 
     def process(
         self,
-        original_claim: str,
-        evidence_results: List[Any]
+        evideneces: List[Any]
     ) -> VerdictResult:
         """
         Predict verdict based on evidence.
@@ -82,161 +81,70 @@ class VerdictPredictionAgent:
         Returns:
             VerdictResult with final verdict and explanation
         """
-        start_time = time.time()
-        logger.info(f"Predicting verdict for: {original_claim}")
 
         # Process each subclaim
         subclaim_verdicts = []
-        for er in evidence_results:
-            verdict = self._predict_subclaim_verdict(er)
+        for evidence_result in evideneces:
+            logger.debug(f"Evidence result: {evidence_result}")
+            verdict = self._predict_subclaim_verdict(evidence_result.subclaim_text, evidence_result.evidence)
             subclaim_verdicts.append(verdict)
 
         # Aggregate to final verdict
-        final_verdict, overall_confidence = self._aggregate_verdicts(subclaim_verdicts)
-
+        final_verdict_bool = self._aggregate_verdicts(subclaim_verdicts)
+        final_verdict = "SUPPORTED" if final_verdict_bool else "NOT_SUPPORTED"
+        logger.debug(f"subclaim verdicts: {subclaim_verdicts}")
+        logger.debug(f"Final verdict: {final_verdict}")
         # Generate explanation
-        explanation = self._generate_explanation(
-            original_claim,
-            subclaim_verdicts,
-            evidence_results,
-            final_verdict
-        )
-
-        processing_time = time.time() - start_time
-
-        # Calculate metadata
-        total_sources = sum(sv.evidence_count for sv in subclaim_verdicts)
-        high_cred_sources = sum(sv.high_credibility_count for sv in subclaim_verdicts)
+        explanation = "Explanation generation not implemented yet."
 
         result = VerdictResult(
-            original_claim=original_claim,
             subclaim_verdicts=subclaim_verdicts,
             final_verdict=final_verdict,
-            overall_confidence=overall_confidence,
             explanation=explanation,
-            metadata={
-                'total_sources': total_sources,
-                'high_credibility_sources': high_cred_sources,
-                'processing_time': processing_time,
-                'subclaims_evaluated': len(subclaim_verdicts)
-            }
         )
 
-        logger.info(f"Final verdict: {final_verdict} (confidence: {overall_confidence:.2f})")
+        logger.info(f"Final result is : {result}")
         return result
 
-    def _predict_subclaim_verdict(self, evidence_result: Any) -> SubclaimVerdict:
-        """Predict verdict for a single subclaim"""
-        if not evidence_result.evidence:
-            return SubclaimVerdict(
-                subclaim_id=evidence_result.subclaim_id,
-                verdict="NOT_SUPPORTED",
-                confidence=0.0,
-                evidence_count=0,
-                high_credibility_count=0
-            )
+    def _predict_subclaim_verdict(self, original_claim: str, evidence_result: List[any]) -> SubclaimVerdict:
+        """Predict verdict for a single subclaim using LLM"""
 
-        # Weighted voting
-        total_weight = 0
-        support_weight = 0
+        # Format evidence for the prompt
+        cell_parts = []
+        # cell_parts.append(f"Subclaim: {evidence_result.subclaim_text}")
+        # cell_parts.append(f"Queries: {evidence_result.queries}")
+        # cell_parts.append("Evidence:")
+        
+        for ev in evidence_result:
+            cell_parts.append(f"- Source: {ev.source_name}")
+            cell_parts.append(f"  Passage: {ev.passage}")
+        
+        cell = "\n".join(cell_parts)
 
-        for evidence in evidence_result.evidence:
-            # Get weight based on credibility
-            weight = self.weights.get(f'{evidence.credibility_level}_credibility', 0.3)
+        # Generate verdict
+        prompt = self.prompt_template.format(claim=original_claim, cell=cell)
+        response = self.llm._generate_ollama(prompt)
+        logger.debug(f"verdiction agent prompt is this : {response}")
 
-            # Simple keyword matching for support (in real system, use LLM)
-            is_supporting = len(evidence.passage) > 50  # Mock: assume longer passages are supporting
-
-            if is_supporting:
-                support_weight += weight
-
-            total_weight += weight
-
-        # Calculate score
-        score = support_weight / total_weight if total_weight > 0 else 0
-
-        # Determine verdict
-        if score >= self.support_threshold:
-            verdict = "SUPPORTED"
-        elif score <= self.refute_threshold:
-            verdict = "NOT_SUPPORTED"
-        else:
-            verdict = "INSUFFICIENT_EVIDENCE"
-
+            # Parse JSON
+        if "```json" in response:
+            response = response.split("```json")[1].split("```")[0]
+        elif "```" in response:
+            response = response.split("```")[1]
+            
+        data = json.loads(response.strip())
         return SubclaimVerdict(
-            subclaim_id=evidence_result.subclaim_id,
-            verdict=verdict,
-            confidence=score,
-            evidence_count=len(evidence_result.evidence),
-            high_credibility_count=evidence_result.high_credibility_count
+            supports=data['label'],
+            claim=data['explanation'],
         )
 
     def _aggregate_verdicts(
         self,
         subclaim_verdicts: List[SubclaimVerdict]
-    ) -> tuple[str, float]:
-        """Aggregate subclaim verdicts to final verdict"""
-        if not subclaim_verdicts:
-            return "NOT_SUPPORTED", 0.0
-
-        # All subclaims must be SUPPORTED for final SUPPORTED
-        all_supported = all(sv.verdict == "SUPPORTED" for sv in subclaim_verdicts)
-
-        if all_supported:
-            avg_confidence = sum(sv.confidence for sv in subclaim_verdicts) / len(subclaim_verdicts)
-            return "SUPPORTED", avg_confidence
-        else:
-            # If any subclaim is NOT_SUPPORTED, final is NOT_SUPPORTED
-            return "NOT_SUPPORTED", 0.3
-
-    def _generate_explanation(
-        self,
-        claim: str,
-        verdicts: List[SubclaimVerdict],
-        evidence_results: List[Any],
-        final_verdict: str
-    ) -> str:
-        """Generate human-readable explanation"""
-        lines = []
-        lines.append(f"Claim: {claim}")
-        lines.append(f"\nFinal Verdict: {final_verdict}\n")
-
-        # Explain each subclaim
-        for verdict, evidence_result in zip(verdicts, evidence_results):
-            lines.append(f"Subclaim {verdict.subclaim_id}: {verdict.verdict}")
-            lines.append(f"  Confidence: {verdict.confidence:.2f}")
-            lines.append(f"  Evidence: {verdict.evidence_count} sources ({verdict.high_credibility_count} high credibility)")
-
-            # Show top evidence
-            if evidence_result.evidence:
-                lines.append("  Top evidence:")
-                for ev in evidence_result.evidence[:2]:
-                    lines.append(f"    - {ev.source_name} ({ev.credibility_level})")
-                    lines.append(f"      \"{ev.passage[:100]}...\"")
-
-        # Overall summary
-        total_sources = sum(v.evidence_count for v in verdicts)
-        high_cred = sum(v.high_credibility_count for v in verdicts)
-
-        lines.append(f"\nSummary:")
-        lines.append(f"  Total sources analyzed: {total_sources}")
-        lines.append(f"  High credibility sources: {high_cred}")
-        lines.append(f"  Subclaims evaluated: {len(verdicts)}")
-
-        if final_verdict == "SUPPORTED":
-            lines.append(f"\nAll subclaims are supported by credible sources.")
-        else:
-            lines.append(f"\nOne or more subclaims could not be verified.")
-
-        return "\n".join(lines)
-
-    def to_dict(self, result: VerdictResult) -> Dict[str, Any]:
-        """Convert result to dictionary"""
-        return {
-            'original_claim': result.original_claim,
-            'subclaim_verdicts': [asdict(sv) for sv in result.subclaim_verdicts],
-            'final_verdict': result.final_verdict,
-            'overall_confidence': result.overall_confidence,
-            'explanation': result.explanation,
-            'metadata': result.metadata
-        }
+    ) -> bool:
+        """Aggregate verdicts to final verdict"""
+        for claim in subclaim_verdicts:
+            if (claim.supports=="not_supported"):
+                return False
+        return True
+    
