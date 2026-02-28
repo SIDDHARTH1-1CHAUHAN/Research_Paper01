@@ -72,19 +72,26 @@ class MetricsCalculator:
             raise ValueError("Predictions and ground truths must have same length")
 
         tp = tn = fp = fn = 0
+        correct = 0
 
         for pred, truth in zip(predictions, ground_truths):
-            if pred == "SUPPORTED" and truth == "SUPPORTED":
+            if pred == truth:
+                correct += 1
+                
+            p_is_pos = (pred == "SUPPORTED")
+            t_is_pos = (truth == "SUPPORTED")
+
+            if p_is_pos and t_is_pos:
                 tp += 1
-            elif pred == "NOT_SUPPORTED" and truth == "NOT_SUPPORTED":
+            elif not p_is_pos and not t_is_pos:
                 tn += 1
-            elif pred == "SUPPORTED" and truth == "NOT_SUPPORTED":
+            elif p_is_pos and not t_is_pos:
                 fp += 1
-            elif pred == "NOT_SUPPORTED" and truth == "SUPPORTED":
+            elif not p_is_pos and t_is_pos:
                 fn += 1
 
         total = len(predictions)
-        accuracy = (tp + tn) / total if total > 0 else 0
+        accuracy = correct / total if total > 0 else 0
 
         precision = tp / (tp + fp) if (tp + fp) > 0 else 0
         recall = tp / (tp + fn) if (tp + fn) > 0 else 0

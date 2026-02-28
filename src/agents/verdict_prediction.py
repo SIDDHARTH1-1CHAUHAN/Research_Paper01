@@ -147,4 +147,8 @@ class VerdictPredictionAgent:
             if (claim.supports=="not_supported"):
                 return False
         return True
+
+    def to_dict(self, result: VerdictResult) -> Dict[str, Any]:
+        """Convert result to dictionary"""
+        return asdict(result)
     

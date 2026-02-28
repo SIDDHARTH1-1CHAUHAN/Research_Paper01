@@ -280,9 +280,7 @@ class FactCheckingOrchestrator:
 
         return results
 
-def to_dict(self, result: RLResult) -> Dict[str, Any]:
-        """Convert result to dictionary"""
-        return asdict(result)
+
 # Convenience function
 def verify_claim(claim: str, ground_truth: Optional[str] = None) -> Dict[str, Any]:
     """
