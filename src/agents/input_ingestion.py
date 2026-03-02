@@ -7,7 +7,7 @@ from dataclasses import dataclass, asdict
 from loguru import logger
 import sys
 sys.path.append('..')
-from src.utils.fol_parser import FOLParser, SubClaim, VerifiabilityType
+from src.utils.fol_parser import FOLParser
 
 
 @dataclass
@@ -15,8 +15,7 @@ class IngestionResult:
     """Result from Input Ingestion Agent"""
     original_claim: str
     verifiable_subclaims: List[Dict[str, Any]]
-    filtered_subclaims: List[Dict[str, Any]]
-    filtered_count: int
+
 
 
 class InputIngestionAgent:
@@ -30,7 +29,6 @@ class InputIngestionAgent:
     def __init__(self, config: Dict[str, Any] = None, llm_interface=None):
         """
         Initialize Input Ingestion Agent.
-
         Args:
             config: Configuration dictionary
             llm_interface: Optional LLM interface for intelligent decomposition
@@ -40,7 +38,6 @@ class InputIngestionAgent:
         self.parser = FOLParser(llm_interface=llm_interface)
 
         # Configuration
-        self.max_subclaims = self.config.get('max_subclaims', 10)
         self.filter_non_verifiable = self.config.get('filter_non_verifiable', True)
 
         logger.info("Input Ingestion Agent initialized")
@@ -58,35 +55,34 @@ class InputIngestionAgent:
         logger.info(f"Processing claim: {claim}")
 
         # Step 1: Decompose claim into subclaims
-        subclaims = self.parser.decompose(claim, max_subclaims=self.max_subclaims)
+        subclaims = self.parser._decompose_with_llm(claim)
 
-        # Step 2: Separate verifiable from non-verifiable
-        verifiable = []
-        filtered = []
+        verifiable_subclaims = []
+        filtered_subclaims = []
 
-        for sc in subclaims:
-            sc_dict = {
-                'id': sc.id,
-                'text': sc.text,
-                'logical_form': sc.logical_form,
-                'verifiability': sc.verifiability.value,
-                'entities': sc.entities,
-                'properties': sc.properties
+        for idx, sc in enumerate(subclaims):
+            subclaim_text = sc.get('description', sc.get('predicate', ''))
+            classification = self.parser.facts(subclaim_text)
+            verifiability = classification.get('verifiability', 'VERIFIABLE')
+
+            normalized = {
+                'text': subclaim_text,
+                'predicate': sc.get('predicate', ''),
+                'verifiability': verifiability,
+                'description': sc.get('description', []),
             }
 
-            if sc.verifiability == VerifiabilityType.VERIFIABLE:
-                verifiable.append(sc_dict)
+            if normalized['verifiability'] == "VERIFIABLE":
+                verifiable_subclaims.append(normalized)
             else:
-                filtered.append(sc_dict)
+                filtered_subclaims.append(normalized)
 
         result = IngestionResult(
             original_claim=claim,
-            verifiable_subclaims=verifiable,
-            filtered_subclaims=filtered,
-            filtered_count=len(filtered)
+            verifiable_subclaims=verifiable_subclaims,
         )
 
-        logger.info(f"Decomposed into {len(verifiable)} verifiable subclaims, filtered {len(filtered)}")
+        logger.info(f"Decomposed into {len(verifiable_subclaims)} verifiable subclaims, filtered {len(filtered_subclaims)}")
 
         return result
 

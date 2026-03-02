@@ -86,8 +86,6 @@ def run_demo(num_claims: int = 10):
         result = orchestrator.verify_claim(
             claim,
             ground_truth=ground_truth,
-            enable_xai=True,
-            enable_rl=True
         )
 
         results.append(result)
@@ -95,10 +93,8 @@ def run_demo(num_claims: int = 10):
         # Show verdict
         verdict = result.get('verdict', {})
         final_verdict = verdict.get('final_verdict', 'UNKNOWN')
-        confidence = verdict.get('overall_confidence', 0)
 
         logger.info(f"\n🏁 VERDICT: {final_verdict}")
-        logger.info(f"   Confidence: {confidence:.2%}")
         logger.info(f"   Correct: {'✓' if final_verdict == ground_truth else '✗'}")
 
     # Calculate comprehensive metrics
@@ -179,7 +175,6 @@ def save_observations(results, dataset, metrics, rl_analysis):
 
             verdict = result.get('verdict', {})
             f.write(f"- **Predicted Verdict:** {verdict.get('final_verdict', 'UNKNOWN')}\n")
-            f.write(f"- **Confidence:** {verdict.get('overall_confidence', 0):.2%}\n")
 
             # Correct or not
             is_correct = verdict.get('final_verdict') == entry['ground_truth']
@@ -197,7 +192,7 @@ def save_observations(results, dataset, metrics, rl_analysis):
             f.write(f"- **Subclaims:** {len(subclaims)}\n")
 
             for sc in subclaims:
-                f.write(f"  - {sc['id']}: \"{sc['text']}\"\n")
+                f.write(f"  - {sc.get('predicate', 'N/A')}: \"{sc.get('text', sc.get('description', ''))}\"\n")
 
             f.write("\n")
 

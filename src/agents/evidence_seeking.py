@@ -9,34 +9,30 @@ from typing import List, Dict, Any
 from dataclasses import dataclass
 from loguru import logger
 from datetime import datetime
+import yaml
+import os
 import sys
+import requests
 sys.path.append('..')
 from src.utils.web_scraper import WebScraper
 from src.utils.credibility_checker import CredibilityChecker
 
-
 @dataclass
 class Evidence:
     """Single piece of evidence"""
-    id: str
-    subclaim_id: str
     source_url: str
     source_name: str
     passage: str
-    credibility_score: float
-    credibility_level: str
     retrieved_at: str
-    metadata: Dict[str, Any]
 
 
 @dataclass
 class EvidenceResult:
     """Result from Evidence Seeking Agent"""
-    subclaim_id: str
+    subclaim_text: str
+    queries: List[str]
     evidence: List[Evidence]
     total_sources: int
-    high_credibility_count: int
-
 
 class EvidenceSeekingAgent:
     """
@@ -48,7 +44,7 @@ class EvidenceSeekingAgent:
     3. Content Extraction (BeautifulSoup)
     """
 
-    def __init__(self, config: Dict[str, Any] = None):
+    def __init__(self, config: Dict[str, Any] = None,llm_interface=None):
         """
         Initialize Evidence Seeking Agent.
 
@@ -65,8 +61,17 @@ class EvidenceSeekingAgent:
         self.max_results = self.config.get('max_search_results', 10)
         self.credibility_threshold = self.config.get('credibility_threshold', 'medium')
         self.max_passages = self.config.get('max_passages_per_source', 3)
-
+        self.llm = llm_interface
         logger.info("Evidence Seeking Agent initialized")
+        
+        # Load prompts
+        self.prompt_template = None
+        try:
+            prompt_path = os.path.join(os.path.dirname(__file__), '../../config/agent_prompt.yaml')
+            with open(prompt_path, 'r') as f:
+                self.prompt_template = yaml.safe_load(f).get('evidence_seeking', '')
+        except Exception as e:
+            logger.warning(f"Could not load agent_prompt.yaml: {e}")
 
     def process(self, query_results: List[Any]) -> List[EvidenceResult]:
         """
@@ -81,70 +86,57 @@ class EvidenceSeekingAgent:
         logger.info(f"Seeking evidence for {len(query_results)} subclaims")
 
         results = []
+        evidence_id_counter = 0
         for qr in query_results:
             evidence_list = []
-            evidence_id = 1
-
             for query in qr.queries:
                 # Stage 1: Search
-                search_results = self._search_web(query)
+                search_results = self._search_web(query, "HoVER")
 
                 # Stage 2 & 3: Check credibility and extract content
                 for url in search_results[:self.max_results]:
                     try:
-                        # Credibility check
-                        cred_score = self.credibility.check(url)
-
-                        if not self.credibility.meets_threshold(cred_score, self.credibility_threshold):
-                            logger.debug(f"Filtered low credibility source: {url}")
-                            continue
 
                         # Content extraction
                         content = self.scraper.scrape(url)
+                        passages = []
+                        # Use LLM for extraction if available
+                        content_text = getattr(content, 'text', str(content))[:5000]
 
-                        if not content.success:
-                            continue
-
-                        # Extract relevant passages
-                        passages = self.scraper.extract_passages(
-                            content,
-                            qr.subclaim_text,
-                            max_passages=self.max_passages
+                        prompt = self.prompt_template.format(
+                            query=query,
+                            content=content_text
                         )
+                        extracted = self.llm._generate_ollama(prompt)
+
+                        if extracted and "None" not in extracted:
+                            passages = [extracted]
 
                         for passage in passages:
                             evidence = Evidence(
-                                id=f"EV{evidence_id}",
-                                subclaim_id=qr.subclaim_id,
                                 source_url=url,
                                 source_name=content.title or url,
                                 passage=passage,
-                                credibility_score=cred_score.score,
-                                credibility_level=cred_score.level.value,
                                 retrieved_at=datetime.utcnow().isoformat(),
-                                metadata=cred_score.details
                             )
                             evidence_list.append(evidence)
-                            evidence_id += 1
+                            evidence_id_counter += 1
 
                     except Exception as e:
                         logger.error(f"Error processing {url}: {e}")
                         continue
 
-            high_cred_count = len([e for e in evidence_list if e.credibility_level == 'high'])
-
             results.append(EvidenceResult(
-                subclaim_id=qr.subclaim_id,
+                subclaim_text=qr.subclaim_text,
+                queries=qr.queries,
                 evidence=evidence_list,
                 total_sources=len(evidence_list),
-                high_credibility_count=high_cred_count
             ))
 
-            logger.info(f"Found {len(evidence_list)} evidence items for {qr.subclaim_id} ({high_cred_count} high credibility)")
 
         return results
 
-    def _search_web(self, query: str) -> List[str]:
+    def _search_web(self, query: str,dataset:str) -> List[str]:
         """
         Search the web for a query.
 
@@ -154,15 +146,54 @@ class EvidenceSeekingAgent:
         Returns:
             List of URLs
         """
-        # For demo, return mock URLs based on query keywords
-        # In production, use DuckDuckGo or SerperAPI
-        logger.info(f"Searching for: {query}")
+        if dataset in ["HoVER", "FEVEROUS",""]:
+            # Use Wikipedia API to search specifically on Wikipedia
+            results = self._search_wikipedia(query)
+            logger.debug(f"wikipedia search results: {results}")
+            return results
+        
+        elif dataset == "SciFact-Open":
+            # Use Serper for Google Scholar and PubMed as requested
+            results = []
+            results.extend(self._search_serper(query, search_type="scholar"))
+            # For PubMed, we can use general search with site:pubmed.ncbi.nlm.nih.gov
+            results.extend(self._search_serper(f"{query} site:pubmed.ncbi.nlm.nih.gov"))
+            return results
+        
+        else:
+            # General search using Wikipedia
+            return self._search_wikipedia(query)
 
-        # Mock search results
-        mock_results = [
-            "https://en.wikipedia.org/wiki/" + query.replace(' ', '_'),
-            "https://www.britannica.com/topic/" + query.replace(' ', '-'),
-            "https://www.example.edu/research/" + query.replace(' ', '-'),
-        ]
+    def _search_wikipedia(self, query: str) -> List[str]:
+        """Search using Wikipedia Free API"""
+        try:
+            # Clean up the query if it contains site:wikipedia.org from earlier versions
+            clean_query = query.replace(" site:wikipedia.org", "").strip()
+            
+            url = "https://en.wikipedia.org/w/api.php"
+            params = {
+                "action": "query",
+                "list": "search",
+                "srsearch": clean_query,
+                "format": "json",
+                "srlimit": 1
+            }
+            headers = {
+                'User-Agent': 'ResearchTool/1.0'
+            }
+            response = requests.get(url, params=params, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            
+            results = []
+            if "query" in data and "search" in data["query"]:
+                for item in data["query"]["search"]:
+                    title = item["title"].replace(" ", "_")
+                    results.append(f"https://en.wikipedia.org/wiki/{title}")
+                    
+            return results
+        except Exception as e:
+            logger.error(f"Wikipedia search error: {e}")
+            return []
 
-        return mock_results
+    
